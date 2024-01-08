@@ -3,6 +3,24 @@ import { FiAlignLeft, FiAlignRight } from "react-icons/fi";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
+  const route = [
+    {
+      name: "Home",
+      link: "",
+    },
+    {
+      name: "Products",
+      link: "",
+    },
+    {
+      name: "About",
+      link: "",
+    },
+    {
+      name: "Success",
+      link: "",
+    },
+  ];
   return (
     <nav className=" flex flex-col w-[100%] shrink-0 fixed z-[1100] top-0 left-auto right-0 bg-transparent backdrop-blur-[9px] text-white shadow-sm">
       {/* conatiner */}
@@ -18,21 +36,13 @@ const Navbar = () => {
           {/* ------logo */}
           {/* navbar item */}
           <div className=" md:flex items-center hidden">
-            <a href="" className=" px-6 capitalize no-underline">
-              Home
-            </a>
-            <a href="" className=" px-6 capitalize no-underline">
-              {" "}
-              Products{" "}
-            </a>
-            <a href="" className=" px-6 capitalize no-underline">
-              {" "}
-              About{" "}
-            </a>
-            <a href="" className=" px-6 capitalize no-underline">
-              {" "}
-              Success{" "}
-            </a>
+            {route.map((item, index) => {
+              return (
+                <div className=" px-6 capitalize no-underline" key={index}>
+                  {item.name}
+                </div>
+              );
+            })}
           </div>
           {/*----mobile menu----*/}
           <div className=" md:hidden block ml-[-12px] mr-[18px] z-[100]">
@@ -52,30 +62,20 @@ const Navbar = () => {
             <div className=" md:hidden block w-[100%] h-[100vh] top-[0px] left-0 right-0 bottom-0 fixed z-[10]  bg-black bg-opacity-50">
               <div className="w-[calc(100%-40px)] top-[80px] mr-[20px] fixed backdrop-blur-[12.5px] rounded-[14px] pb-[24px] bg-[#070723bf] mx-[16px] my-0 py-[8px]">
                 <div className=" flex flex-col mx-[16px] my-0 py-[8px] px-6">
-                  <div className=" pb-[8px]">
-                    <a href="" className="  capitalize no-underline">
-                      Home
-                    </a>
-                    <div className=" h-[.5px] w-[100%] bg-gray-600" />
-                  </div>
-                  <div className=" pb-[8px]">
-                    <a href="" className="  capitalize no-underline">
-                      {" "}
-                      Products{" "}
-                    </a>
-                    <div className=" h-[.5px] w-[100%] bg-gray-600" />
-                  </div>
-                  <div className=" pb-[8px]">
-                    <a href="" className="  capitalize no-underline">
-                      {" "}
-                      About{" "}
-                    </a>
-                    <div className=" h-[.5px] w-[100%] bg-gray-600" />
-                  </div>
-                  <a href="" className="  capitalize no-underline">
-                    {" "}
-                    Success{" "}
-                  </a>
+                  {route.map((item, index) => {
+                    return (
+                      <div className=" pb-[8px]" key={index}>
+                        <a href="" className="  capitalize no-underline">
+                          {item.name}
+                        </a>
+                        {item.name === "Success" ? (
+                          ""
+                        ) : (
+                          <div className=" h-[.5px] w-[100%] bg-gray-600" />
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

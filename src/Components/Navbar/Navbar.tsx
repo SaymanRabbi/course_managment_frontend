@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { FiAlignLeft, FiAlignRight } from "react-icons/fi";
-
+interface Route {
+  name: string;
+  link: string;
+}
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
-  const route = [
+  const route: Route[] = [
     {
       name: "Home",
       link: "",

@@ -12,10 +12,9 @@ interface FormData {
 const Register: React.FC = () => {
   //  ------store user data
   const { createUser, clearMessages } = useUserStore((state) => state);
-  const { isLoading, success, messages, serverError } = useUserStore(
+  const { isLoading, success, messages, serverError, user } = useUserStore(
     (state) => state
   );
-  // console.log(success,user);
   //  ------store user data
   const {
     register,
@@ -43,7 +42,7 @@ const Register: React.FC = () => {
     setTimeout(() => {
       clearMessages();
     }, 1000);
-  }, [success, messages]);
+  }, [success, messages, user]);
 
   // ------handel submit function-------
   return (

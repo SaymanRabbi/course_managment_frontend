@@ -21,7 +21,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   serverError: null,
   success: null,
   messages: "",
-  createUser: async (user) => {
+  createUser: async (userData) => {
     try {
       set({ isLoading: true });
       const url = `http://localhost:5000/api/v1/user/register`;
@@ -30,7 +30,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify(userData),
       });
       const data = await resp.json();
       if (data) {
@@ -83,18 +83,29 @@ export const useUserStore = create<UserStoreState>((set) => ({
         },
       });
       const data = await resp.json();
-      if (data) {
+      if (data?.status && data.message === "User verified successfully") {
         set((user: any) => {
           return {
             user: {
-              ...user?.user,
-              isVerified: data?.isVerified,
+              ...user,
+              user: {
+                ...data.data.user,
+                isVerified: true,
+              },
             },
             isLoading: false,
             success: data?.status,
             messages: data.message,
             serverError: null,
           };
+        });
+      }
+      if (!data?.status && data.message === "User already verified") {
+        set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
         });
       }
     } catch (error: any) {

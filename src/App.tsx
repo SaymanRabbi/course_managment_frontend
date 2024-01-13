@@ -2,6 +2,7 @@ import Register from "./Page/Register";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import VerifyToken from "./Page/VerifyToken";
+import Login from "./Page/Login";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           element={<h2 className=" text-red-500 pt-[100px]">Home</h2>}
         />
         <Route path="/regsiter" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/verify-email/:token" element={<VerifyToken />} />
       </Routes>
     </>

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useUserStore } from "../Store/UserStore";
 import Toast from "../Components/Toast";
+import { Link } from "react-router-dom";
 interface FormData {
   username: string;
   password: string;
@@ -10,8 +11,8 @@ interface FormData {
 }
 const Register: React.FC = () => {
   //  ------store user data
-  const { createUser } = useUserStore((state) => state);
-  const { isLoading, success, messages, user, serverError } = useUserStore(
+  const { createUser, clearMessages } = useUserStore((state) => state);
+  const { isLoading, success, messages, serverError } = useUserStore(
     (state) => state
   );
   // console.log(success,user);
@@ -39,7 +40,11 @@ const Register: React.FC = () => {
     if (success) {
       reset();
     }
-  }, [success]);
+    setTimeout(() => {
+      clearMessages();
+    }, 1000);
+  }, [success, messages]);
+
   // ------handel submit function-------
   return (
     <div
@@ -117,6 +122,17 @@ const Register: React.FC = () => {
                 >
                   {isLoading ? "Loading..." : "Register"}
                 </button>
+                <div className=" flex justify-center">
+                  <small className=" text-[#eee0ff] font-[400]">
+                    Already have an account?
+                  </small>
+                  <Link
+                    to="/login"
+                    className=" capitalize ml-[8px] cursor-pointer text-[14px] text-[#1976d2]"
+                  >
+                    Login here
+                  </Link>
+                </div>
               </form>
             </div>
           </div>

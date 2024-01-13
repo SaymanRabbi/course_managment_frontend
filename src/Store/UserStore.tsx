@@ -10,6 +10,8 @@ interface UserStoreState {
   logout: () => void;
   success: null;
   messages: string;
+  verifyToken: (token: string) => Promise<void>;
+  clearMessages: () => void;
 }
 
 export const useUserStore = create<UserStoreState>((set) => ({
@@ -70,4 +72,34 @@ export const useUserStore = create<UserStoreState>((set) => ({
     }
   },
   logout: () => set({ user: null }),
+  verifyToken: async (token: string) => {
+    try {
+      set({ isLoading: true });
+      const url = `http://localhost:5000/api/v1/user/verify-email/${token}`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await resp.json();
+      if (data) {
+        set((user: any) => {
+          return {
+            user: {
+              ...user?.user,
+              isVerified: data?.isVerified,
+            },
+            isLoading: false,
+            success: data?.status,
+            messages: data.message,
+            serverError: null,
+          };
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  clearMessages: () => set({ messages: "", serverError: null, success: null }),
 }));

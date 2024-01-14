@@ -1,20 +1,28 @@
-// YourForm.tsx
 import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useUserStore } from "../Store/UserStore";
 import Toast from "../Components/Toast";
 import Button from "../Components/Button/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 interface FormData {
-  email: string;
+  code: string;
+  _id: string;
+  password: string;
 }
-const ForgotPass: React.FC = () => {
+
+const ForgotPassCode: React.FC = () => {
+  const { id } = useParams();
   const redirect = useNavigate();
   //  ------store user data
-  const { passwordReset, clearMessages } = useUserStore((state) => state);
-  const { isLoading, success, messages, serverError, user } = useUserStore(
-    (state) => state
-  );
+  const {
+    isLoading,
+    success,
+    messages,
+    serverError,
+    user,
+    confirmPasswordReset,
+    clearMessages,
+  } = useUserStore((state) => state);
   //  ------store user data
   const {
     register,
@@ -25,8 +33,13 @@ const ForgotPass: React.FC = () => {
   // ------handel submit function-------
   const onSubmit: SubmitHandler<FormData> = (data) => {
     try {
-      const email = data.email;
-      passwordReset(email);
+      const formData = {
+        code: data.code,
+        _id: id,
+        password: data.password,
+      };
+      confirmPasswordReset(formData);
+      //   passwordReset(email);
     } catch (error) {
       console.log(error);
     }
@@ -36,9 +49,9 @@ const ForgotPass: React.FC = () => {
       reset();
     }
     setTimeout(() => {
-      if (success && messages === "Code sent successfully") {
+      if (success && messages === "Password updated successfully") {
         clearMessages();
-        redirect(`/forgotpasscode/${user?._id}`);
+        redirect(`/login`);
       }
     }, 3000);
   }, [success, messages, user]);
@@ -59,23 +72,40 @@ const ForgotPass: React.FC = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 className=" bg-[#0a0a2bbf] md:px-[50px] py-[40px] rounded-[20px] px-[20px]"
               >
-                {/* ----email input----- */}
+                {/* ----Code input----- */}
                 <input
-                  type="email"
-                  placeholder="Email"
+                  type="text"
+                  placeholder="Code"
                   className="primary_input"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /\S+@\S+\.\S+/,
-                      message: "Entered value does not match email format",
+                  {...register("code", {
+                    required: "Code is required",
+                    minLength: {
+                      value: 6,
+                      message: "Code must have at least 6 characters",
                     },
                   })}
                 />
-                {errors.email && (
-                  <p className="text-red-500 text-sm">{errors.email.message}</p>
+                {errors.code && (
+                  <p className="text-red-500 text-sm">{errors.code.message}</p>
                 )}
                 {/* ----password input----- */}
+                <input
+                  type="password"
+                  placeholder="New password"
+                  className="primary_input"
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must have at least 6 characters",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <p className="text-red-500 text-sm">
+                    {errors.password.message}
+                  </p>
+                )}
                 {success && <Toast message={messages} type={true} />}
                 {success === false && <Toast message={messages} type={false} />}
                 {serverError && <Toast message={serverError} type={false} />}
@@ -94,4 +124,5 @@ const ForgotPass: React.FC = () => {
     </div>
   );
 };
-export default ForgotPass;
+
+export default ForgotPassCode;

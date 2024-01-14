@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import VerifyToken from "./Page/VerifyToken";
 import Login from "./Page/Login";
 import ForgotPass from "./Page/ForgotPass";
-
+import ForgotPassCode from "./Page/ForgotPassCode";
 function App() {
   return (
     <>
@@ -17,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email/:token" element={<VerifyToken />} />
         <Route path="/forgot_pass" element={<ForgotPass />} />
+        <Route path="/forgotpasscode/:id" element={<ForgotPassCode />} />
       </Routes>
     </>
   );

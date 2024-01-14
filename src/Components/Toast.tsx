@@ -7,7 +7,7 @@ const Toast = ({ message, type }: Toast) => {
     <>
       {type ? (
         <p className="text-white py-1 px-2 rounded-sm shadow-xl ml-[10px] text-[12px] bg-[#060726] inline-block font-bold mb-[6px] capitalize">
-          {message} please check your email to verify you account{" "}
+          {message}
           <span className=" text-red-600">❤</span>
         </p>
       ) : (

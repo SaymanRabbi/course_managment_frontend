@@ -13,6 +13,7 @@ interface UserStoreState {
   clearMessages: () => void;
   passwordReset: (email: string) => Promise<void>;
   code: string;
+  confirmPasswordReset: (formData: any) => Promise<void>;
 }
 
 export const useUserStore = create<UserStoreState>((set) => ({
@@ -36,7 +37,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
       const data = await resp.json();
       if (data) {
         set({
-          user: data,
+          user: data.data,
           isLoading: false,
           success: data?.status,
           messages: data.message,
@@ -61,7 +62,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
       const data = await resp.json();
       if (data) {
         set({
-          user: data,
+          user: data.data,
           isLoading: false,
           success: data?.status,
           messages: data.message,
@@ -141,6 +142,30 @@ export const useUserStore = create<UserStoreState>((set) => ({
           messages: data.message,
           serverError: null,
           code: data.code,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  confirmPasswordReset: async (formData: any) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/changes-password`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
         });
       }
     } catch (error: any) {

@@ -7,10 +7,9 @@ import Button from "../Components/Button/Button";
 interface FormData {
   email: string;
 }
-
 const ForgotPass: React.FC = () => {
   //  ------store user data
-  const { createUser, clearMessages } = useUserStore((state) => state);
+  const { passwordReset, clearMessages } = useUserStore((state) => state);
   const { isLoading, success, messages, serverError, user } = useUserStore(
     (state) => state
   );
@@ -24,10 +23,8 @@ const ForgotPass: React.FC = () => {
   // ------handel submit function-------
   const onSubmit: SubmitHandler<FormData> = (data) => {
     try {
-      const userData = {
-        email: data.email,
-      };
-      createUser(userData);
+      const email = data.email;
+      passwordReset(email);
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +37,6 @@ const ForgotPass: React.FC = () => {
       clearMessages();
     }, 3000);
   }, [success, messages, user]);
-
   // ------handel submit function-------
   return (
     <div
@@ -75,7 +71,6 @@ const ForgotPass: React.FC = () => {
                   <p className="text-red-500 text-sm">{errors.email.message}</p>
                 )}
                 {/* ----password input----- */}
-
                 {success && <Toast message={messages} type={true} />}
                 {success === false && <Toast message={messages} type={false} />}
                 {serverError && <Toast message={serverError} type={false} />}

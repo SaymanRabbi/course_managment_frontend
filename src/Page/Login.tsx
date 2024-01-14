@@ -5,15 +5,14 @@ import { useUserStore } from "../Store/UserStore";
 import Toast from "../Components/Toast";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/Button/Button";
-import platform from "platform";
+import UAParser from "ua-parser-js";
 interface FormData {
   password: string;
   email: string;
   deviceIdentifier: string;
 }
 const Login: React.FC = () => {
-  const os = platform.os || {};
-  const browser = platform.name || "";
+  const parser = new UAParser().getResult();
   const redirect = useNavigate();
   //  ------store user data
   const { clearMessages, getUser } = useUserStore((state) => state);
@@ -32,7 +31,11 @@ const Login: React.FC = () => {
       const userData = {
         email: data.email,
         password: data.password,
-        deviceIdentifier: os.family || browser,
+        deviceIdentifier:
+          parser?.browser?.name ||
+          parser?.os?.name ||
+          parser?.device?.model ||
+          "unknown",
       };
       getUser(userData);
     } catch (error) {

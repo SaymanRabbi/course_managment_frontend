@@ -11,6 +11,8 @@ interface UserStoreState {
   messages: string;
   verifyToken: (token: string) => Promise<void>;
   clearMessages: () => void;
+  passwordReset: (email: string) => Promise<void>;
+  code: string;
 }
 
 export const useUserStore = create<UserStoreState>((set) => ({
@@ -19,9 +21,10 @@ export const useUserStore = create<UserStoreState>((set) => ({
   serverError: null,
   success: null,
   messages: "",
+  code: "",
   createUser: async (userData) => {
     try {
-      set({ isLoading: true });
+      set({ isLoading: true, success: null, messages: "", serverError: null });
       const url = `http://localhost:5000/api/v1/user/register`;
       const resp = await fetch(url, {
         method: "POST",
@@ -46,7 +49,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   },
   getUser: async (user: User) => {
     try {
-      set({ isLoading: true });
+      set({ isLoading: true, success: null, messages: "", serverError: null });
       const url = `http://localhost:5000/api/v1/user/login`;
       const resp = await fetch(url, {
         method: "POST",
@@ -72,7 +75,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   logout: () => set({ user: null }),
   verifyToken: async (token: string) => {
     try {
-      set({ isLoading: true });
+      set({ isLoading: true, success: null, messages: "", serverError: null });
       const url = `http://localhost:5000/api/v1/user/verify-email/${token}`;
       const resp = await fetch(url, {
         method: "PUT",
@@ -118,5 +121,30 @@ export const useUserStore = create<UserStoreState>((set) => ({
       set({ serverError: error?.message, isLoading: false });
     }
   },
-  clearMessages: () => set({ messages: "", serverError: null, success: null }),
+  clearMessages: () =>
+    set({ messages: "", serverError: null, success: null, isLoading: false }),
+  passwordReset: async (email: string) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/forgot-password/${email}`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+          code: data.code,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
 }));

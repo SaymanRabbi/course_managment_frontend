@@ -5,18 +5,21 @@ import { useUserStore } from "../Store/UserStore";
 import Toast from "../Components/Toast";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/Button/Button";
+import platform from "platform";
 interface FormData {
   password: string;
   email: string;
+  deviceIdentifier: string;
 }
 const Login: React.FC = () => {
+  const os = platform.os || {};
+  const browser = platform.name || "";
   const redirect = useNavigate();
   //  ------store user data
   const { clearMessages, getUser } = useUserStore((state) => state);
   const { isLoading, success, messages, serverError, user } = useUserStore(
     (state) => state
   );
-  console.log(user);
   //  ------store user data
   const {
     register,
@@ -29,6 +32,7 @@ const Login: React.FC = () => {
       const userData = {
         email: data.email,
         password: data.password,
+        deviceIdentifier: os.family || browser,
       };
       getUser(userData);
     } catch (error) {

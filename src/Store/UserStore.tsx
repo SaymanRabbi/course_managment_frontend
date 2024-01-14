@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { User } from "../Types";
 interface UserStoreState {
   user: User | null;
-  loginuser: User | null;
   isLoading: boolean;
   serverError: any;
   createUser: (user: User) => Promise<void>;
@@ -16,7 +15,6 @@ interface UserStoreState {
 
 export const useUserStore = create<UserStoreState>((set) => ({
   user: null,
-  loginuser: null,
   isLoading: false,
   serverError: null,
   success: null,
@@ -49,7 +47,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getUser: async (user: User) => {
     try {
       set({ isLoading: true });
-      const url = ``;
+      const url = `http://localhost:5000/api/v1/user/login`;
       const resp = await fetch(url, {
         method: "POST",
         headers: {
@@ -60,7 +58,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
       const data = await resp.json();
       if (data) {
         set({
-          loginuser: data,
+          user: data,
           isLoading: false,
           success: data?.status,
           messages: data.message,

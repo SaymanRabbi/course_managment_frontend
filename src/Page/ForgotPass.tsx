@@ -3,17 +3,14 @@ import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useUserStore } from "../Store/UserStore";
 import Toast from "../Components/Toast";
-import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/Button/Button";
 interface FormData {
-  username: string;
-  password: string;
   email: string;
 }
-const Register: React.FC = () => {
+
+const ForgotPass: React.FC = () => {
   //  ------store user data
   const { createUser, clearMessages } = useUserStore((state) => state);
-  const redirect = useNavigate();
   const { isLoading, success, messages, serverError, user } = useUserStore(
     (state) => state
   );
@@ -28,9 +25,7 @@ const Register: React.FC = () => {
   const onSubmit: SubmitHandler<FormData> = (data) => {
     try {
       const userData = {
-        name: data.username,
         email: data.email,
-        password: data.password,
       };
       createUser(userData);
     } catch (error) {
@@ -40,11 +35,10 @@ const Register: React.FC = () => {
   useEffect(() => {
     if (success) {
       reset();
-      setTimeout(() => {
-        clearMessages();
-        redirect("/login");
-      }, 3000);
     }
+    setTimeout(() => {
+      clearMessages();
+    }, 3000);
   }, [success, messages, user]);
 
   // ------handel submit function-------
@@ -58,28 +52,12 @@ const Register: React.FC = () => {
           <div className=" grid grid-cols-12 w-[100%] pt-[40px]">
             <div className=" md:col-span-8 col-span-12 lg:col-span-6">
               <h2 className=" pb-[20px] font-[700] text-[64px] leading-[82px] capitalize text-[#b5acff]">
-                SignUp
+                Forgot Password
               </h2>
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className=" bg-[#0a0a2bbf] md:px-[50px] py-[40px] rounded-[20px] px-[20px]"
               >
-                {/* ---name input----- */}
-                <input
-                  type="text"
-                  placeholder="Username"
-                  className="primary_input"
-                  {...register("username", {
-                    required: "User Name is required",
-                    maxLength: 20,
-                    minLength: 3,
-                  })}
-                />
-                {errors.username && (
-                  <p className="text-red-500 text-sm">
-                    {errors.username.message}
-                  </p>
-                )}
                 {/* ----email input----- */}
                 <input
                   type="email"
@@ -97,23 +75,7 @@ const Register: React.FC = () => {
                   <p className="text-red-500 text-sm">{errors.email.message}</p>
                 )}
                 {/* ----password input----- */}
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="primary_input"
-                  {...register("password", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 6,
-                      message: "Password must have at least 6 characters",
-                    },
-                  })}
-                />
-                {errors.password && (
-                  <p className="text-red-500 text-sm">
-                    {errors.password.message}
-                  </p>
-                )}
+
                 {success && <Toast message={messages} type={true} />}
                 {success === false && <Toast message={messages} type={false} />}
                 {serverError && <Toast message={serverError} type={false} />}
@@ -122,19 +84,8 @@ const Register: React.FC = () => {
                   type="submit"
                   className="bg-gradient-to-r from-[#384fde] to-[#985cf0] mb-[15px]"
                 >
-                  {isLoading ? "Loading..." : "Register"}
+                  {isLoading ? "Loading..." : "Next"}
                 </Button>
-                <div className=" flex justify-center">
-                  <small className=" text-[#eee0ff] font-[400]">
-                    Already have an account?
-                  </small>
-                  <Link
-                    to="/login"
-                    className=" capitalize ml-[8px] cursor-pointer text-[14px] text-[#1976d2]"
-                  >
-                    Login here
-                  </Link>
-                </div>
               </form>
             </div>
           </div>
@@ -143,5 +94,4 @@ const Register: React.FC = () => {
     </div>
   );
 };
-
-export default Register;
+export default ForgotPass;

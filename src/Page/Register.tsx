@@ -41,7 +41,7 @@ const Register: React.FC = () => {
     }
     setTimeout(() => {
       clearMessages();
-    }, 1000);
+    }, 3000);
   }, [success, messages, user]);
 
   // ------handel submit function-------

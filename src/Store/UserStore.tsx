@@ -108,6 +108,14 @@ export const useUserStore = create<UserStoreState>((set) => ({
           serverError: null,
         });
       }
+      if (!data?.status && data.message === "Invalid token") {
+        set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });
     }

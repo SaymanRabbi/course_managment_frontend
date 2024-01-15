@@ -53,12 +53,18 @@ const ForgotPassCode: React.FC = () => {
         clearMessages();
         redirect(`/login`);
       }
+      if (!success && messages !== undefined) {
+        clearMessages();
+      }
+      if (!success && serverError) {
+        clearMessages();
+      }
     }, 3000);
   }, [success, messages, user]);
   // ------handel submit function-------
   return (
     <div
-      className=" h-[100%] min-h-[87vh] bg-[url(../../../public/images/register/background.svg)] bg-no-repeat bg-[#010313]"
+      className=" h-[100%] min-h-[87vh] bg-[url(../../../public/images/register/background.svg)] bg-no-repeat"
       style={{ backgroundPosition: "100% 15%" }}
     >
       <div className=" container pt-[200px] max-w-[1320px] mx-auto h-[100%]">
@@ -70,7 +76,7 @@ const ForgotPassCode: React.FC = () => {
               </h2>
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className=" bg-[#0a0a2bbf] md:px-[50px] py-[40px] rounded-[20px] px-[20px]"
+                className=" bg-bgPrimary md:px-[50px] py-[40px] rounded-[20px] px-[20px]"
               >
                 {/* ----Code input----- */}
                 <input
@@ -86,7 +92,7 @@ const ForgotPassCode: React.FC = () => {
                   })}
                 />
                 {errors.code && (
-                  <p className="text-red-500 text-sm">{errors.code.message}</p>
+                  <p className="text-error text-base">{errors.code.message}</p>
                 )}
                 {/* ----password input----- */}
                 <input
@@ -102,7 +108,7 @@ const ForgotPassCode: React.FC = () => {
                   })}
                 />
                 {errors.password && (
-                  <p className="text-red-500 text-sm">
+                  <p className=" text-error text-base">
                     {errors.password.message}
                   </p>
                 )}

@@ -4,7 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        // primary: "#1E40AF", TODO: change primary color
+        error: "#DC2626",
+        success: "#059669",
+        bgPrimary: "#322A58",
+        bgSecondary: "#170F38",
+        link: "#1976d2",
+        textPrimary: "#FFFFFF",
+        textSecondary: "#eee0ff",
       },
     },
   },

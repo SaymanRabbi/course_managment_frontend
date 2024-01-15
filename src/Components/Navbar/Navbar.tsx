@@ -41,7 +41,10 @@ const Navbar = () => {
           <div className=" md:flex items-center hidden">
             {route.map((item, index) => {
               return (
-                <div className=" px-6 capitalize no-underline" key={index}>
+                <div
+                  className=" px-6 capitalize no-underline text-textSecondary"
+                  key={index}
+                >
                   {item.name}
                 </div>
               );
@@ -68,7 +71,10 @@ const Navbar = () => {
                   {route.map((item, index) => {
                     return (
                       <div className=" pb-[8px]" key={index}>
-                        <a href="" className="  capitalize no-underline">
+                        <a
+                          href=""
+                          className="  capitalize no-underline text-textSecondary"
+                        >
                           {item.name}
                         </a>
                         {item.name === "Success" ? (

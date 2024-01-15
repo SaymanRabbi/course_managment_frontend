@@ -43,17 +43,23 @@ const Login: React.FC = () => {
     }
   };
   useEffect(() => {
-    if (success) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (success) {
         clearMessages();
         redirect("/");
-      }, 3000);
-    }
+      }
+      if (!success && messages !== undefined) {
+        clearMessages();
+      }
+      if (!success && serverError) {
+        clearMessages();
+      }
+    }, 3000);
   }, [success, messages, user]);
   // ------handel submit function-------
   return (
     <div
-      className=" h-[100%] min-h-[87vh] bg-[url(../../../public/images/register/background.svg)] bg-no-repeat bg-[#010313]"
+      className=" h-[100%] min-h-[87vh] bg-[url(../../../public/images/register/background.svg)] bg-no-repeat "
       style={{ backgroundPosition: "100% 15%" }}
     >
       <div className=" container pt-[200px] max-w-[1320px] mx-auto h-[100%]">
@@ -65,7 +71,7 @@ const Login: React.FC = () => {
               </h2>
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className=" bg-[#0a0a2bbf] md:px-[50px] py-[40px] rounded-[20px] px-[20px]"
+                className=" bg-bgPrimary md:px-[50px] py-[40px] rounded-[20px] px-[20px]"
               >
                 {/* ----email input----- */}
                 <input
@@ -81,7 +87,9 @@ const Login: React.FC = () => {
                   })}
                 />
                 {errors.email && (
-                  <p className="text-red-500 text-sm">{errors.email.message}</p>
+                  <p className="text-error  text-base">
+                    {errors.email.message}
+                  </p>
                 )}
                 {/* ----password input----- */}
                 <input
@@ -97,11 +105,11 @@ const Login: React.FC = () => {
                   })}
                 />
                 {errors.password && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-error text-base">
                     {errors.password.message}
                   </p>
                 )}
-                <p className=" flex justify-end mb-[10px] text-[#1976d2]">
+                <p className=" flex justify-end mb-[10px] text-link">
                   <Link to="/forgot_pass">Forgot Password?</Link>
                 </p>
 
@@ -116,12 +124,12 @@ const Login: React.FC = () => {
                   {isLoading ? "Loading..." : "Login"}
                 </Button>
                 <div className=" flex justify-center">
-                  <small className=" text-[#eee0ff] font-[400]">
+                  <small className=" text-textSecondary font-[400]">
                     Don't Have a Account?
                   </small>
                   <Link
                     to="/register"
-                    className=" capitalize ml-[8px] cursor-pointer text-[14px] text-[#1976d2]"
+                    className=" capitalize ml-[8px] cursor-pointer text-[14px] text-link"
                   >
                     Register here
                   </Link>

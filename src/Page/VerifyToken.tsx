@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useUserStore } from "../Store/UserStore";
 import { useNavigate, useParams } from "react-router-dom";
 const VerifyToken: React.FC = () => {
-  const { verifyToken, messages, success } = useUserStore((state) => state);
+  const { verifyToken, messages, success, clearMessages, serverError } =
+    useUserStore((state) => state);
   const redirect = useNavigate();
   const { token } = useParams();
   useEffect(() => {
@@ -13,25 +14,38 @@ const VerifyToken: React.FC = () => {
       user();
     }, 2000);
   }, []);
-  if (
-    (messages === "User verified successfully" && success) ||
-    (messages === "User already verified" && !success)
-  ) {
-    setTimeout(() => {
+
+  setTimeout(() => {
+    if (
+      (messages === "User verified successfully" && success) ||
+      (messages === "User already verified" && !success)
+    ) {
+      clearMessages();
       redirect("/login");
-    }, 5000);
-  }
+    }
+    if (messages === "Invalid token" && !success) {
+      clearMessages();
+      redirect("/register");
+    }
+    if (!success && messages !== undefined) {
+      clearMessages();
+    }
+    if (serverError && !success) {
+      clearMessages();
+      redirect("/register");
+    }
+  }, 5000);
   return (
-    <div className=" fixed top-0 bottom-0 left-0 right-0 wi-[100%] min-h-[10vh] h-[100%] bg-gray-200 bg-opacity-10 z-[2000] flex justify-center items-center">
+    <div className=" fixed top-0 bottom-0 left-0 right-0 wi-[100%] min-h-[10vh] h-[100%] !bg-gray-200 bg-opacity-10 z-[2000] flex justify-center items-center">
       <p
         className={`
          font-bold text-[25px] ${
            messages === "User verified successfully"
-             ? "text-green-500"
+             ? "text-success"
              : messages === "User already verified"
-             ? "text-red-500"
+             ? "text-error"
              : messages === "Invalid token"
-             ? "text-red-500"
+             ? "text-error"
              : ""
          }
          `}

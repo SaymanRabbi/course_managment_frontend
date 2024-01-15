@@ -1,5 +1,6 @@
 // import Button from "../Button/Button";
 import Button from "../Button/Button";
+import Container from "../Container/Container";
 import DynamicHedding from "../DynamicHedding/DynamicHedding";
 interface Route {
   title: string;
@@ -51,7 +52,7 @@ const Footer = () => {
   return (
     <>
       <div className="py-6 mt-32">
-        <div className="container px-[30px] sm:px-[24px] mx-auto text-textPrimary">
+        <Container className=" text-textPrimary">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <h2 className="text-3xl font-bold">
@@ -130,7 +131,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </div>
     </>
   );

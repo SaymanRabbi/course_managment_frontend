@@ -6,6 +6,7 @@ import Toast from "../Components/Toast";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/Button/Button";
 import UAParser from "ua-parser-js";
+import Container from "../Components/Container/Container";
 interface FormData {
   password: string;
   email: string;
@@ -62,8 +63,9 @@ const Login: React.FC = () => {
       className=" h-[100%] min-h-[87vh] bg-[url(../../../public/images/register/background.svg)] bg-no-repeat "
       style={{ backgroundPosition: "100% 15%" }}
     >
-      <div className=" container pt-[200px] max-w-[1320px] mx-auto h-[100%]">
-        <div className=" flex flex-wrap mx-[15px]">
+      <Container className=" pt-[200px] h-[100%]">
+        {" "}
+        <div className=" flex flex-wrap mx-[15px] px-14">
           <div className=" grid grid-cols-12 w-[100%] pt-[40px]">
             <div className=" md:col-span-8 col-span-12 lg:col-span-6">
               <h2 className=" pb-[20px] font-[700] text-[64px] leading-[82px] capitalize text-[#b5acff]">
@@ -138,7 +140,7 @@ const Login: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };

@@ -5,14 +5,12 @@ import VerifyToken from "./Page/VerifyToken";
 import Login from "./Page/Login";
 import ForgotPass from "./Page/ForgotPass";
 import ForgotPassCode from "./Page/ForgotPassCode";
+import Home from "./Page/Home";
 function App() {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={<h2 className=" text-red-500 pt-[100px]">Home</h2>}
-        />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email/:token" element={<VerifyToken />} />

@@ -29,7 +29,7 @@ const Navbar = () => {
     <nav className=" flex flex-col w-[100%] shrink-0 fixed z-[1100] top-0 left-auto right-0 bg-transparent backdrop-blur-[9px] text-white shadow-sm">
       {/* conatiner */}
       <Container className="pt-4 pb-2 relative">
-        <div className=" xl:mx-[40px] min-h-[48px] sm:min-h-[64px] relative pt-[8px] pb-[12px] flex items-center justify-between ">
+        <div className=" xl:mx-[40px] min-h-[48px] sm:min-h-[64px] relative pt-[8px] pb-[12px] flex items-center justify-between">
           {/* ------logo */}
           <a
             href=""
@@ -43,7 +43,7 @@ const Navbar = () => {
             {route.map((item, index) => {
               return (
                 <div
-                  className=" px-6 capitalize no-underline text-textSecondary"
+                  className=" px-6 capitalize no-underline text-textSecondary cursor-pointer"
                   key={index}
                 >
                   {item.name}
@@ -74,7 +74,7 @@ const Navbar = () => {
                       <div className=" pb-[8px]" key={index}>
                         <a
                           href=""
-                          className="  capitalize no-underline text-textSecondary"
+                          className="  capitalize no-underline text-textSecondary cursor-pointer"
                         >
                           {item.name}
                         </a>

@@ -99,7 +99,7 @@ const Footer = () => {
               <div>
                 {routeLinks.map((item, index) => {
                   return (
-                    <p className="mb-2" key={index}>
+                    <p className="mb-2 cursor-pointer" key={index}>
                       {item.title}
                     </p>
                   );
@@ -111,7 +111,7 @@ const Footer = () => {
               <div>
                 {routeSocialLinks.map((item, index) => {
                   return (
-                    <p className="mb-2" key={index}>
+                    <p className="mb-2 cursor-pointer" key={index}>
                       {item.title}
                     </p>
                   );
@@ -123,7 +123,7 @@ const Footer = () => {
               <div>
                 {routeCourse.map((item, index) => {
                   return (
-                    <p className="mb-2" key={index}>
+                    <p className="mb-2 cursor-pointer" key={index}>
                       {item.title}
                     </p>
                   );

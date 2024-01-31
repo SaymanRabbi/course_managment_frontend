@@ -5,8 +5,8 @@ import { useUserStore } from "../Store/UserStore";
 import Toast from "../Components/Toast";
 import Button from "../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
-import Container from "../Components/Container/Container";
 import FormContainer from "../Components/FormContainer/FormContainer";
+import { Link } from "react-router-dom";
 interface FormData {
   email: string;
 }
@@ -73,6 +73,9 @@ const ForgotPass: React.FC = () => {
         {errors.email && (
           <p className="text-error text-base">{errors.email.message}</p>
         )}
+        <p className=" flex justify-end mb-[10px] text-link">
+          <Link to="/login">Remember Password?</Link>
+        </p>
         {/* ----password input----- */}
         {success && <Toast message={messages} type={true} />}
         {success === false && <Toast message={messages} type={false} />}

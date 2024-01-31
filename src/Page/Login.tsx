@@ -6,7 +6,6 @@ import Toast from "../Components/Toast";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/Button/Button";
 import UAParser from "ua-parser-js";
-import Container from "../Components/Container/Container";
 import FormContainer from "../Components/FormContainer/FormContainer";
 interface FormData {
   password: string;
@@ -100,7 +99,6 @@ const Login: React.FC = () => {
         <p className=" flex justify-end mb-[10px] text-link">
           <Link to="/forgot_pass">Forgot Password?</Link>
         </p>
-
         {success && <Toast message={messages} type={true} />}
         {success === false && <Toast message={messages} type={false} />}
         {serverError && <Toast message={serverError} type={false} />}

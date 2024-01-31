@@ -26,7 +26,7 @@ const Navbar = () => {
     },
   ];
   return (
-    <nav className=" flex flex-col w-[100%] shrink-0 fixed z-[1100] top-0 left-auto right-0 bg-transparent backdrop-blur-[9px] text-white shadow-sm">
+    <nav className=" flex flex-col w-[100%] shrink-0 fixed z-[1100] top-0 left-auto right-0 bg-transparent backdrop-blur-[9px] text-white shadow-sm sm:px-0 px-4">
       {/* conatiner */}
       <Container className="pt-4 pb-2 relative">
         <div className=" xl:mx-[40px] min-h-[48px] sm:min-h-[64px] relative pt-[8px] pb-[12px] flex items-center justify-between">
@@ -52,7 +52,7 @@ const Navbar = () => {
             })}
           </div>
           {/*----mobile menu----*/}
-          <div className=" md:hidden block ml-[-12px] mr-[18px] z-[100]">
+          <div className="md:hidden block ml-[-12px] mr-[18px] z-[100]">
             {navbar ? (
               <FiAlignRight
                 onClick={() => setNavbar(!navbar)}
@@ -66,7 +66,11 @@ const Navbar = () => {
             )}
           </div>
           {navbar && (
-            <div className=" md:hidden block w-[100%] h-[100vh] top-[0px] left-0 right-0 bottom-0 fixed z-[10]  bg-black bg-opacity-50">
+            <div
+              className={`md:hidden block w-[100%] h-[100vh] top-[0px] left-0 right-0 bottom-0 fixed z-[10]  bg-black bg-opacity-50 animation ${
+                !navbar ? "hide" : "show"
+              }`}
+            >
               <div className="w-[calc(100%-40px)] top-[80px] mr-[20px] fixed backdrop-blur-[12.5px] rounded-[14px] pb-[24px] bg-[#070723bf] mx-[16px] my-0 py-[8px]">
                 <div className=" flex flex-col mx-[16px] my-0 py-[8px] px-6">
                   {route.map((item, index) => {

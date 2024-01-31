@@ -51,7 +51,7 @@ const Footer = () => {
   ];
   return (
     <>
-      <div className="py-6 mt-32">
+      <div className="py-6 mt-32 sm:px-0 px-4">
         <Container className=" text-textPrimary">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

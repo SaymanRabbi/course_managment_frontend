@@ -4,7 +4,7 @@ import { useUserStore } from "../Store/UserStore";
 import Toast from "../Components/Toast";
 import Button from "../Components/Button/Button";
 import { useNavigate, useParams } from "react-router-dom";
-import Container from "../Components/Container/Container";
+
 import FormContainer from "../Components/FormContainer/FormContainer";
 interface FormData {
   code: string;
@@ -108,7 +108,7 @@ const ForgotPassCode: React.FC = () => {
         <Button
           disabled={isLoading}
           type="submit"
-          className="bg-gradient-to-r from-[#384fde] to-[#985cf0] mb-[15px]"
+          className="bg-gradient-to-r from-rgbFrom to-rgbTomb-[15px]"
         >
           {isLoading ? "Loading..." : "Next"}
         </Button>

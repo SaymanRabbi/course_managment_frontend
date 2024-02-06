@@ -1,28 +1,26 @@
 import { useState } from "react";
 import { FiAlignLeft, FiAlignRight } from "react-icons/fi";
 import Container from "../Container/Container";
+import { Link, useLocation } from "react-router-dom";
 interface Route {
   name: string;
   link: string;
 }
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
+  const { pathname } = useLocation();
   const route: Route[] = [
     {
       name: "Home",
-      link: "",
+      link: "/",
     },
     {
-      name: "Products",
-      link: "",
+      name: "Profile",
+      link: "/profile",
     },
     {
-      name: "About",
-      link: "",
-    },
-    {
-      name: "Success",
-      link: "",
+      name: "login",
+      link: "/login",
     },
   ];
   return (
@@ -43,10 +41,21 @@ const Navbar = () => {
             {route.map((item, index) => {
               return (
                 <div
-                  className=" px-6 capitalize no-underline text-textSecondary cursor-pointer"
+                  className=" px-6 capitalize no-underline text-textSecondary cursor-pointer relative"
                   key={index}
                 >
-                  {item.name}
+                  <Link to={item.link} className="relative">
+                    {item.name}
+                  </Link>
+                  {item.link === pathname ? (
+                    <span
+                      className=" w-[60%]  bottom-[-4px] left-[20%] h-[2px] bg-gradient-to-r from-rgbFrom to-rgbTo absolute 
+                    "
+                    ></span>
+                  ) : (
+                    ""
+                  )}
+                  {item.name === "Success" ? "" : <></>}
                 </div>
               );
             })}
@@ -76,12 +85,12 @@ const Navbar = () => {
                   {route.map((item, index) => {
                     return (
                       <div className=" pb-[8px]" key={index}>
-                        <a
-                          href=""
+                        <Link
+                          to={item.link}
                           className="  capitalize no-underline text-textSecondary cursor-pointer"
                         >
                           {item.name}
-                        </a>
+                        </Link>
                         {item.name === "Success" ? (
                           ""
                         ) : (

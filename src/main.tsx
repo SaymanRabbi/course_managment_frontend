@@ -8,10 +8,10 @@ import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Navbar />
     <BrowserRouter>
+      <Navbar />
       <App />
+      <Footer />
     </BrowserRouter>
-    <Footer />
   </React.StrictMode>
 );

@@ -5,7 +5,6 @@ import { useUserStore } from "../Store/UserStore";
 import Toast from "../Components/Toast";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/Button/Button";
-import Container from "../Components/Container/Container";
 import FormContainer from "../Components/FormContainer/FormContainer";
 interface FormData {
   username: string;
@@ -114,7 +113,7 @@ const Register: React.FC = () => {
         <Button
           disabled={isLoading}
           type="submit"
-          className="bg-gradient-to-r from-[#384fde] to-[#985cf0] mb-[15px]"
+          className="bg-gradient-to-r from-rgbFrom to-rgbTo mb-[15px]"
         >
           {isLoading ? "Loading..." : "Register"}
         </Button>

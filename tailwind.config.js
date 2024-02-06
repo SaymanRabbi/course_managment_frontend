@@ -11,6 +11,8 @@ export default {
         link: "#1976d2",
         textPrimary: "#FFFFFF",
         textSecondary: "#eee0ff",
+        rgbFrom: "#384fde",
+        rgbTo: "#985cf0",
       },
     },
   },

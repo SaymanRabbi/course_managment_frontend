@@ -2,8 +2,11 @@ import img from "../../../public/images/card/rnext-thumb.png";
 import { FiVideo } from "react-icons/fi";
 import { AiTwotoneExclamationCircle } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
+import CourseAvailabilityTimer from "../../utils/Timer";
 
 const HomeCard = () => {
+  const threeDaysFromNow = new Date();
+  threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 30);
   const data = [
     {
       name: "React Next",
@@ -16,7 +19,12 @@ const HomeCard = () => {
     <>
       {data.map((item, index) => {
         return (
-          <div className="relative z-10 flex flex-col border-[.5px] border-bgPrimary p-4 bg-bgPrimary/20 rounded-[10px] w-full hover:scale-105 transition duration-700 ease-in-out">
+          <div className="relative  flex flex-col border-[.5px] border-bgPrimary p-4 bg-bgPrimary/20 rounded-[10px] w-full hover:scale-105 transition duration-700 ease-in-out">
+            {/* timer---- */}
+            <div className=" absolute top-[3%] left-[3%] from-rgbFrom to-rgbTo font-bold bg-gradient-to-r px-3 py-2 rounded-[5px] z-10 shadow-2xl">
+              <CourseAvailabilityTimer courseStartDate={threeDaysFromNow} />
+            </div>
+            {/* timer---- */}
             {/* Add your code here */}
             {/* ---image--- */}
             <div className="flex flex-col items-center space-y-4 text-center">
@@ -40,7 +48,7 @@ const HomeCard = () => {
               <div className="w-full space-y-4 text-center">
                 <div className=" flex justify-center gap-x-4">
                   {/* -------flex---- */}
-                  <button className="text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out bg-gradient-to-r from-rgbFrom to-rgbTo font-bold">
+                  <button className="text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out bg-gradient-to-r from-rgbFrom to-rgbTo font-bold items-center">
                     <CiClock2 className="text-2xl" />
                     1100 Taka
                     <span>|</span>

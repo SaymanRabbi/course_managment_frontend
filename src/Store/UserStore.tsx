@@ -15,7 +15,6 @@ interface UserStoreState {
   code: string;
   confirmPasswordReset: (formData: any) => Promise<void>;
 }
-
 export const useUserStore = create<UserStoreState>((set) => ({
   user: null,
   isLoading: false,

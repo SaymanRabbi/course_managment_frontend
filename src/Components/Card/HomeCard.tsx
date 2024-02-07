@@ -1,6 +1,7 @@
 import img from "../../../public/images/card/rnext-thumb.png";
 import { FiVideo } from "react-icons/fi";
 import { AiTwotoneExclamationCircle } from "react-icons/ai";
+import { CiClock2 } from "react-icons/ci";
 
 const HomeCard = () => {
   const data = [
@@ -29,15 +30,23 @@ const HomeCard = () => {
               {/* ---image--- */}
               {/* -------text for course */}
               <p className="mt-4 !text-center lg:text-left text-textSecondary">
-                ডকুমেন্টেশন থেকে রিয়্যাক্ট ও নেক্সট জে.এস-এর মৌলিক ও আবশ্যিক
-                বিষয়সমূহ বুঝার পাশাপাশি এই কোর্সের প্রজেক্ট ভিত্তিক শেখানোর
-                পদ্ধতি আপনাকে একজন দক্ষ রিয়্যাক্ট ফ্রন্ট-এন্ড ডেভেলপার হয়ে উঠতে
-                সাহায্য করবে বলে আমাদের বিশ্বাস।
+                Basics and Essentials of React and NextJS from the documentation
+                Apart from understanding the topics, this course is project
+                based teaching Method to make you a proficient React front-end
+                developer We believe it will help.
               </p>
               {/* -------text for course */}
               <div className="mt-6 flex flex-col justify-center gap-4 lg:max-0 lg:flex-row"></div>
               <div className="w-full space-y-4 text-center">
-                <div className=" flex justify-center">
+                <div className=" flex justify-center gap-x-4">
+                  {/* -------flex---- */}
+                  <button className="text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out bg-gradient-to-r from-rgbFrom to-rgbTo font-bold">
+                    <CiClock2 className="text-2xl" />
+                    1100 Taka
+                    <span>|</span>
+                    Enroll Now
+                  </button>
+                  {/* -------flex---- */}
                   <button className=" text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out">
                     <FiVideo className="text-2xl" />
                     Course Details
@@ -48,8 +57,8 @@ const HomeCard = () => {
                   <div className="flex space-x-1 text-sm text-textSecondary items-center">
                     <AiTwotoneExclamationCircle className="text-[20px]" />
                     <p>
-                      কোর্সে এনরোল করার সময় শেষ হয়ে গিয়েছে, আপনি এখন এনরোল করতে
-                      পারবেন না।
+                      The time to enroll in the course has ended, you should
+                      enroll now can't
                     </p>
                   </div>
                   {/* show some text is that available or not */}

@@ -1,7 +1,15 @@
 import { BiVideo } from "react-icons/bi";
 import DynamicHedding from "../DynamicHedding/DynamicHedding";
+import CourseSvg from "../../../public/images/svg/peep1.svg";
+interface Content {
+  id: number;
+  name: string;
+  description: string;
+  isborder?: boolean;
+  borderButtom?: boolean;
+}
 const Details = () => {
-  const content = [
+  const content: Content[] = [
     {
       id: 1,
       name: "150+ videos in 15 modules",
@@ -19,34 +27,35 @@ const Details = () => {
       name: "150+ videos in 15 modules",
       description:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+      isborder: true,
     },
     {
       id: 4,
       name: "150+ videos in 15 modules",
       description:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+      borderButtom: true,
     },
     {
       id: 5,
       name: "150+ videos in 15 modules",
       description:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+      borderButtom: true,
     },
     {
       id: 6,
       name: "150+ videos in 15 modules",
       description:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+      isborder: true,
+      borderButtom: true,
     },
   ];
   return (
     <div>
       <div>
-        <img
-          className="h-32 mx-auto"
-          src="https://learnwithsumit.com/assets/images/svgs/peep1.svg"
-          alt=""
-        />
+        <img className="h-32 mx-auto" src={CourseSvg} alt="" />
         <DynamicHedding>
           <h4 className="text-2xl lg:text-4xl font-bold text-textPrimary py-4 text-center">
             Our Curses at a glance
@@ -62,18 +71,22 @@ const Details = () => {
           return (
             <div
               key={item.id}
-              className="border-b border-r border-bgPrimary p-8"
+              className={` border-bgPrimary p-8 overflow-hidden ${
+                item.isborder ? "" : "border-r"
+              } ${item.borderButtom ? "" : "border-b"}`}
             >
-              <BiVideo
-                size={50}
-                className="mx-auto bg-gradient-to-r text-[#384fde]"
-              />
-              <p className="font-bold text-textPrimary text-center">
-                {item.name}
-              </p>
-              <p className="text-textSecondary text-center text-sm mt-2 leading-8">
-                {item.description}
-              </p>
+              <div className=" hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer">
+                <BiVideo
+                  size={50}
+                  className="mx-auto bg-gradient-to-r text-[#384fde]"
+                />
+                <p className="font-bold text-textPrimary text-center">
+                  {item.name}
+                </p>
+                <p className="text-textSecondary text-center text-sm mt-2 leading-8">
+                  {item.description}
+                </p>
+              </div>
             </div>
           );
         })}

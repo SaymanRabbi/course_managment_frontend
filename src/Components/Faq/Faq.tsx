@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DynamicHedding from "../DynamicHedding/DynamicHedding";
+import faqImg from "../../../public/images/svg/peep2.svg";
 
 const Faq = () => {
   const [isOpen, setIsOpen] = useState(null);
@@ -25,17 +26,13 @@ const Faq = () => {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat porro, temporibus aliquid dolor nam ullam, maxime quas nulla enim reprehenderit consequuntur dolorem nesciunt, amet itaque ad?",
     },
   ];
-  const toggle = (idx) => {
+  const toggle = (idx: any) => {
     setIsOpen((prevIdx) => (prevIdx === idx ? null : idx));
   };
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-12">
       <div>
-        <img
-          className="h-40"
-          src="https://learnwithsumit.com/_next/static/media/Prerequisite.b0ff46bc.svg"
-          alt=""
-        />
+        <img className="h-40" src={faqImg} alt="" />
         <DynamicHedding>
           <h2 className="text-2xl lg:text-4xl font-bold text-textPrimary">
             Frequently asked questions

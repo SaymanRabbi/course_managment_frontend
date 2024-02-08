@@ -1,6 +1,7 @@
 import { IoMdBook } from "react-icons/io";
 import { LuAward } from "react-icons/lu";
 import { IoArrowForwardOutline } from "react-icons/io5";
+
 import Button from "../Button/Button";
 const Banner = () => {
   return (

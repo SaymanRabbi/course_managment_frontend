@@ -6,7 +6,9 @@ import Login from "./Page/Login";
 import ForgotPass from "./Page/ForgotPass";
 import ForgotPassCode from "./Page/ForgotPassCode";
 import Home from "./Page/Home";
-import StudentDashboard from "./Page/StudentDashboard";
+import Dashboard from "./Page/Dashboard";
+import Profile from "./Components/Dashboard/Profile";
+import DashboardContent from "./Components/Dashboard/DashboardContent";
 function App() {
   return (
     <>
@@ -17,7 +19,10 @@ function App() {
         <Route path="/verify-email/:token" element={<VerifyToken />} />
         <Route path="/forgot_pass" element={<ForgotPass />} />
         <Route path="/forgotpasscode/:id" element={<ForgotPassCode />} />
-        <Route path="/dashboard" element={<StudentDashboard />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="/dashboard" element={<DashboardContent />} />
+          <Route path="/dashboard/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </>
   );

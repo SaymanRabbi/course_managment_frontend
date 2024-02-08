@@ -1,4 +1,5 @@
 import { BiVideo } from "react-icons/bi";
+import DynamicHedding from "../DynamicHedding/DynamicHedding";
 const Details = () => {
   const content = [
     {
@@ -20,23 +21,23 @@ const Details = () => {
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
     },
     {
-        id: 4,
-        name: "150+ videos in 15 modules",
-        description:
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
-      },
-      {
-        id: 5,
-        name: "150+ videos in 15 modules",
-        description:
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
-      },
-      {
-        id: 6,
-        name: "150+ videos in 15 modules",
-        description:
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
-      },
+      id: 4,
+      name: "150+ videos in 15 modules",
+      description:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+    },
+    {
+      id: 5,
+      name: "150+ videos in 15 modules",
+      description:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+    },
+    {
+      id: 6,
+      name: "150+ videos in 15 modules",
+      description:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+    },
   ];
   return (
     <div>
@@ -46,9 +47,11 @@ const Details = () => {
           src="https://learnwithsumit.com/assets/images/svgs/peep1.svg"
           alt=""
         />
-        <h4 className="text-2xl lg:text-4xl font-bold text-textPrimary py-4 text-center">
-          Our Curses at a glance
-        </h4>
+        <DynamicHedding>
+          <h4 className="text-2xl lg:text-4xl font-bold text-textPrimary py-4 text-center">
+            Our Curses at a glance
+          </h4>
+        </DynamicHedding>
         <p className="text-textPrimary text-center text-base">
           What will be in this course
         </p>

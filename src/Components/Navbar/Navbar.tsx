@@ -15,8 +15,8 @@ const Navbar = () => {
       link: "/",
     },
     {
-      name: "Profile",
-      link: "/profile",
+      name: "Dashboard",
+      link: "/dashboard",
     },
     {
       name: "login",

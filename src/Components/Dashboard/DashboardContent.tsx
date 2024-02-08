@@ -3,6 +3,8 @@ import { FaAward } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import { FcReading } from "react-icons/fc";
 import { IoStar } from "react-icons/io5";
+import { feedbackData } from "../../dummyData/DummyData";
+import DashboardCard from "./DashboardCard";
 interface Data {
   name: string;
   value: number;
@@ -26,37 +28,10 @@ const DashboardContent = () => {
       icon: <FcReading />,
     },
   ];
-  const feedbackData = [
-    {
-      name: "Javascript",
-      enrolled: 1100,
-      rating: 4.5,
-    },
-    {
-      name: "PHP",
-      enrolled: 700,
-      rating: 5,
-    },
-    {
-      name: "Python",
-      enrolled: 1200,
-      rating: 4.5,
-    },
-    {
-      name: "Java",
-      enrolled: 900,
-      rating: 4,
-    },
-  ];
+
   return (
     <div>
-      <div className=" shadow-lg bg-bgPrimary/10 mb-[30px] px-[40px] py-[50px] rounded-[10px]">
-        {/* -------dashboard tittel---- */}
-        <DashboardTittle>
-          <h4 className=" font-[700] text-textPrimary text-[20px]">Summery</h4>
-        </DashboardTittle>
-        {/* -------dashboard tittel---- */}
-        {/* -------dashboard content---- */}
+      <DashboardCard title="Overview">
         <div className=" grid grid-cols-12 gap-5">
           {data.map((item, index) => (
             <div className=" bg-bgPrimary/15 py-[30px] px-[30px] mb-[20px] rounded-[20px] shadow-md xl:col-span-4 lg:col-span-5 col-span-12 border-[1px] border-bgPrimary/50">
@@ -82,7 +57,7 @@ const DashboardContent = () => {
             </div>
           ))}
         </div>
-      </div>
+      </DashboardCard>
       <div className="shadow-lg bg-bgPrimary/10 mb-[30px] px-[40px] py-[50px] rounded-[10px]">
         <DashboardTittle>
           <div className=" flex justify-between w-[100%] items-center">

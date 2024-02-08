@@ -54,7 +54,7 @@ const Details = () => {
         </p>
       </div>
       {/* Course Elements */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-bgPrimary/20 border-[.5px] border-bgPrimary rounded-[10px] my-4 p-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-bgPrimary/20 border-[.5px] border-bgPrimary rounded-[10px] my-4 p-4 mt-8">
         {content.map((item) => {
           return (
             <div

@@ -48,7 +48,7 @@ const HomeCard = () => {
                 <img
                   src={item.image}
                   alt=""
-                  className="absolute top-0 left-0 bottom-0 right-0 p-0 border-none m-auto block w-0 h-0 min-h-[100%] min-w-[100%] max-w-[100%] max-h-[100%] object-fill rounded-[10px]"
+                  className="absolute top-0 left-0 bottom-0 right-0 p-0 border-none m-auto block w-0 h-0 min-h-[100%] min-w-[100%] max-w-[100%] max-h-[100%]  rounded-[10px] object-cover"
                 />
               </div>
               {/* ---image--- */}

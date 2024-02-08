@@ -3,6 +3,7 @@ import { FaAward } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import { FcReading } from "react-icons/fc";
 import { IoStar } from "react-icons/io5";
+import { feedbackData } from "../../dummyData/DummyData";
 interface Data {
   name: string;
   value: number;
@@ -26,28 +27,7 @@ const DashboardContent = () => {
       icon: <FcReading />,
     },
   ];
-  const feedbackData = [
-    {
-      name: "Javascript",
-      enrolled: 1100,
-      rating: 4.5,
-    },
-    {
-      name: "PHP",
-      enrolled: 700,
-      rating: 5,
-    },
-    {
-      name: "Python",
-      enrolled: 1200,
-      rating: 4.5,
-    },
-    {
-      name: "Java",
-      enrolled: 900,
-      rating: 4,
-    },
-  ];
+
   return (
     <div>
       <div className=" shadow-lg bg-bgPrimary/10 mb-[30px] px-[40px] py-[50px] rounded-[10px]">

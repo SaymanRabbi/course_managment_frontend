@@ -1,57 +1,25 @@
 import { BiVideo } from "react-icons/bi";
 import DynamicHedding from "../DynamicHedding/DynamicHedding";
 import CourseSvg from "../../../public/images/svg/peep1.svg";
-interface Content {
-  id: number;
-  name: string;
-  description: string;
-  isborder?: boolean;
-  borderButtom?: boolean;
-}
+import { useEffect, useState } from "react";
+import { DetailsContent } from "../../dummyData/DummyData";
+
 const Details = () => {
-  const content: Content[] = [
-    {
-      id: 1,
-      name: "150+ videos in 15 modules",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
-    },
-    {
-      id: 2,
-      name: "150+ videos in 15 modules",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
-    },
-    {
-      id: 3,
-      name: "150+ videos in 15 modules",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
-      isborder: true,
-    },
-    {
-      id: 4,
-      name: "150+ videos in 15 modules",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
-      borderButtom: true,
-    },
-    {
-      id: 5,
-      name: "150+ videos in 15 modules",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
-      borderButtom: true,
-    },
-    {
-      id: 6,
-      name: "150+ videos in 15 modules",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
-      isborder: true,
-      borderButtom: true,
-    },
-  ];
+  const [width, setWidth] = useState<number>(window.innerWidth);
+  useEffect(() => {
+    // Function to update the width when the window is resized
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+
+    // Attach the event listener
+    window.addEventListener("resize", handleResize);
+
+    // Detach the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div>
       <div>
@@ -66,14 +34,20 @@ const Details = () => {
         </p>
       </div>
       {/* Course Elements */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-bgPrimary/20 border-[.5px] border-bgPrimary rounded-[10px] my-4 p-4 mt-8">
-        {content.map((item) => {
+      <div className="grid grid-cols-12 bg-bgPrimary/20 border-[.5px] border-bgPrimary rounded-[10px] my-4 p-4 mt-8">
+        {DetailsContent.map((item) => {
           return (
             <div
               key={item.id}
-              className={` border-bgPrimary p-8 overflow-hidden ${
-                item.isborder ? "" : "border-r"
-              } ${item.borderButtom ? "" : "border-b"}`}
+              className={` border-bgPrimary p-8 overflow-hidden lg:col-span-4 md:col-span-6 col-span-12
+              ${width >= 1024 && item.isborder ? "border-r" : " border-r-0"} 
+              ${width >= 1024 && item.borderButtom ? "" : "border-b"}
+              ${
+                (width >= 768 && width <= 1024 && item.borderRight) === true
+                  ? " border-l"
+                  : ""
+              }
+              `}
             >
               <div className=" hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer">
                 <BiVideo

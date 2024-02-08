@@ -1,31 +1,10 @@
 import { useState } from "react";
 import DynamicHedding from "../DynamicHedding/DynamicHedding";
 import faqImg from "../../../public/images/svg/peep2.svg";
+import { accordionsContent } from "../../dummyData/DummyData";
 
 const Faq = () => {
   const [isOpen, setIsOpen] = useState(null);
-  const accordions = [
-    {
-      title: "What people want to know?",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat porro, temporibus aliquid dolor nam ullam, maxime quas nulla enim reprehenderit consequuntur dolorem nesciunt, amet itaque ad?",
-    },
-    {
-      title: "What people want to know?",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat porro, temporibus aliquid dolor nam ullam, maxime quas nulla enim reprehenderit consequuntur dolorem nesciunt, amet itaque ad?",
-    },
-    {
-      title: "What people want to know?",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat porro, temporibus aliquid dolor nam ullam, maxime quas nulla enim reprehenderit consequuntur dolorem nesciunt, amet itaque ad?",
-    },
-    {
-      title: "What people want to know?",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat porro, temporibus aliquid dolor nam ullam, maxime quas nulla enim reprehenderit consequuntur dolorem nesciunt, amet itaque ad?",
-    },
-  ];
   const toggle = (idx: any) => {
     setIsOpen((prevIdx) => (prevIdx === idx ? null : idx));
   };
@@ -45,7 +24,7 @@ const Faq = () => {
         </p>
       </div>
       <div className="rounded-lg font-sans mx-4 bg-bgPrimary/20">
-        {accordions.map((PerAccordion, idx) => (
+        {accordionsContent.map((PerAccordion, idx) => (
           <div key={idx} className="p-4">
             <button
               onClick={() => toggle(idx)}

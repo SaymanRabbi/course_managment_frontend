@@ -1,5 +1,5 @@
 import Container from "../Container/Container";
-import hero from "../../../public/images/hero/hero.png";
+import hero3 from "../../../public/images/hero/hero3.webp";
 
 const Hero = () => {
   return (
@@ -18,7 +18,7 @@ const Hero = () => {
         </div>
         {/* Images Area */}
         <div className="mt-8 md:mt-0">
-          <img className="mx-auto" src={hero} alt="" />
+          <img className="mx-auto w-[100%]" src={hero3} alt="" />
         </div>
       </div>
     </Container>

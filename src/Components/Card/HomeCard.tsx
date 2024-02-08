@@ -1,4 +1,3 @@
-import img from "../../../public/images/card/rnext-thumb.png";
 import { FiVideo } from "react-icons/fi";
 import { AiTwotoneExclamationCircle } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
@@ -28,7 +27,7 @@ const HomeCard = () => {
       {data.map((item, index) => {
         return (
           <div
-            className="relative  flex flex-col border-[.5px] border-bgPrimary p-4 bg-bgPrimary/20 rounded-[10px] w-full hover:scale-105 transition duration-700 ease-in-out"
+            className="relative  flex flex-col border-[.5px] border-bgPrimary p-4 bg-bgPrimary/20 rounded-[10px] w-full hover:scale-105 transition duration-700 ease-in-out cursor-pointer"
             key={index}
           >
             {/* timer---- */}
@@ -60,7 +59,7 @@ const HomeCard = () => {
               {/* -------text for course */}
               <div className="mt-6 flex flex-col justify-center gap-4 lg:max-0 lg:flex-row"></div>
               <div className="w-full space-y-4 text-center">
-                <div className=" flex justify-center gap-x-4">
+                <div className=" xl:flex-row flex-col justify-center gap-4 flex">
                   {/* -------flex---- */}
                   <button className="text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out bg-gradient-to-r from-rgbFrom to-rgbTo font-bold items-center">
                     <CiClock2 className="text-2xl" />

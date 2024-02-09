@@ -1,3 +1,12 @@
+import { MdQuiz } from "react-icons/md";
+import { MdAssignment } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
+import { FiLogOut } from "react-icons/fi";
+import { RxDashboard } from "react-icons/rx";
+import { LuUser } from "react-icons/lu";
+import { FaRegMessage } from "react-icons/fa6";
+import { FaRegBookmark } from "react-icons/fa6";
+import { FaRegStar } from "react-icons/fa";
 interface DContentinterface {
   id: number;
   name: string;
@@ -153,60 +162,60 @@ export const ReviewData: ReviewDataInterface[] = [
 
 interface Messageinterface {
   id: number;
-  img:string;
+  img: string;
   name: string;
   sms: string;
-  time: string
+  time: string;
 }
 export const Messages: Messageinterface[] = [
   {
     id: 1,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 2,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 3,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 4,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 5,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 6,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 7,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
 ];
 
@@ -214,78 +223,131 @@ interface QuizDataInterface {
   date: string;
   des: string;
   name: string;
-  qus:number;
-  tm:number;
-  ca:number;
-  res:string;
+  qus: number;
+  tm: number;
+  ca: number;
+  res: string;
 }
 export const QuizData: QuizDataInterface[] = [
   {
     date: "December 26, 2023",
     des: "Write a on yourself using the 5",
-    name:"Student: Mice Jerry",
-    qus:4,
-    tm:8,
-    ca:4,
-    res:"cancel",
+    name: "Student: Mice Jerry",
+    qus: 4,
+    tm: 8,
+    ca: 4,
+    res: "cancel",
   },
   {
     date: "December 26, 2023",
     des: "Write a on yourself using the 5",
-    name:"Student: Mice Jerry",
-    qus:4,
-    tm:8,
-    ca:4,
-    res:"over",
+    name: "Student: Mice Jerry",
+    qus: 4,
+    tm: 8,
+    ca: 4,
+    res: "over",
   },
-  { 
+  {
     date: "December 26, 2023",
     des: "Write a on yourself using the 5",
-    name:"Student: Mice Jerry",
-    qus:4,
-    tm:8,
-    ca:4,
-    res:"pass",
+    name: "Student: Mice Jerry",
+    qus: 4,
+    tm: 8,
+    ca: 4,
+    res: "pass",
   },
-  { 
+  {
     date: "December 26, 2023",
     des: "Write a on yourself using the 5",
-    name:"Student: Mice Jerry",
-    qus:4,
-    tm:8,
-    ca:4,
-    res:"pass",
+    name: "Student: Mice Jerry",
+    qus: 4,
+    tm: 8,
+    ca: 4,
+    res: "pass",
   },
 ];
 interface AssignmentsDataInterface {
   title: string;
   courseName: string;
   marks: number;
-  submit:number;
+  submit: number;
 }
 export const AssignmentsData: AssignmentsDataInterface[] = [
   {
     title: "Write a the 5",
     courseName: "Fundamentals",
-    marks:60,
-    submit:4,
+    marks: 60,
+    submit: 4,
   },
   {
     title: "Write a the 5",
     courseName: "Fundamentals",
-    marks:60,
-    submit:4,
+    marks: 60,
+    submit: 4,
   },
-  { 
+  {
     title: "Write a the 5",
     courseName: "Fundamentals",
-    marks:60,
-    submit:4,
+    marks: 60,
+    submit: 4,
   },
-  { 
+  {
     title: "Write a the 5",
     courseName: "Fundamentals",
-    marks:60,
-    submit:4,
+    marks: 60,
+    submit: 4,
+  },
+];
+interface SidebarInterface {
+  name: string;
+  icon: JSX.Element;
+  link: string;
+}
+export const SideBaritem: SidebarInterface[] = [
+  {
+    name: "Dashboard",
+    icon: <RxDashboard />,
+    link: "/dashboard",
+  },
+  {
+    name: "Profile",
+    icon: <LuUser />,
+    link: "/dashboard/profile",
+  },
+  {
+    name: "Message",
+    icon: <FaRegMessage />,
+    link: "/dashboard/message",
+  },
+  {
+    name: "Enrolled Courses",
+    icon: <FaRegBookmark />,
+    link: "/dashboard/enrolled-courses",
+  },
+
+  {
+    name: "Reviews",
+    icon: <FaRegStar />,
+    link: "/dashboard/reviews",
+  },
+  {
+    name: "My Quiz Attempts",
+    icon: <MdQuiz />,
+    link: "/dashboard/quiz",
+  },
+  {
+    name: "My Assignments",
+    icon: <MdAssignment />,
+    link: "/dashboard/assignments",
+  },
+  {
+    name: "Settings",
+    icon: <IoSettingsOutline />,
+    link: "/dashboard/setting",
+  },
+  {
+    name: "Logout",
+    icon: <FiLogOut />,
+    link: "/dashboard",
   },
 ];

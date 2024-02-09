@@ -16,6 +16,7 @@ import EnrolledCourses from "./Components/Dashboard/EnrolledCourses";
 import Reviews from "./Components/Dashboard/Reviews";
 import QuizAttempts from "./Components/Dashboard/QuizAttempts";
 import Assignments from "./Components/Dashboard/Assignments";
+import Setting from "./Components/Dashboard/Setting";
 
 function App() {
   return (
@@ -40,7 +41,8 @@ function App() {
           <Route path="/dashboard/reviews" element={<Reviews />} />
           <Route path="/dashboard/quiz" element={<QuizAttempts />} />
           <Route path="/dashboard/assignments" element={<Assignments />} />
-
+          <Route path="/dashboard/setting" element={<Setting />} />
+          <Route path="/dashboard" element={<Setting />} />
         </Route>
       </Routes>
     </>

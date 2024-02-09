@@ -2,7 +2,6 @@ import { RxDashboard } from "react-icons/rx";
 import { LuUser } from "react-icons/lu";
 import { FaRegMessage } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa6";
-import { CiBookmarkPlus } from "react-icons/ci";
 import { FaRegStar } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { MdQuiz } from "react-icons/md";
@@ -33,15 +32,11 @@ const Sidebar = () => {
       icon: <FaRegBookmark />,
       link: "/dashboard/enrolled-courses",
     },
-    {
-      name: "Wishlist",
-      icon: <CiBookmarkPlus />,
-      link: "/wishlist",
-    },
+
     {
       name: "Reviews",
       icon: <FaRegStar />,
-      link: "/reviews",
+      link: "/dashboard/reviews",
     },
     {
       name: "My Quiz Attempts",

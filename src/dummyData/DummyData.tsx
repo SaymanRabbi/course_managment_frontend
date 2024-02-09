@@ -135,3 +135,18 @@ export const ProfileData: CourseDataInterface[] = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit Quisquam, voluptates?",
   },
 ];
+interface ReviewDataInterface {
+  name: string;
+  rating: number;
+}
+export const ReviewData: ReviewDataInterface[] = [
+  {
+    name: "How to Write Your First Novel",
+    rating: 4,
+  },
+  {
+    name: "How to Web Design",
+    rating: 5,
+  },
+  { name: "English", rating: 4 },
+];

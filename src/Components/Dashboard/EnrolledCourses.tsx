@@ -1,4 +1,5 @@
 import PerchesCourseCard from "../Card/PerchesCourseCard";
+import DashboardCard from "./DashboardCard";
 
 const EnrolledCourses = () => {
   const data = [
@@ -12,11 +13,13 @@ const EnrolledCourses = () => {
     },
   ];
   return (
-    <div className=" grid grid-cols-12 gap-4">
-      {data.map((course) => {
-        return <PerchesCourseCard key={course.id} />;
-      })}
-    </div>
+    <DashboardCard title="Enrolled Courses">
+      <div className=" grid grid-cols-12 gap-4">
+        {data.map((course) => {
+          return <PerchesCourseCard key={course.id} />;
+        })}
+      </div>
+    </DashboardCard>
   );
 };
 

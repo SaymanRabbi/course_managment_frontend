@@ -1,7 +1,7 @@
-import React from "react";
+// import React from "react";
 import img from "../../../public/images/card/card1.jpg";
 import Button from "../Button/Button";
-
+interface Props {}
 const PerchesCourseCard = () => {
   return (
     <div className="p-[18px] rounded-[12px] shadow-lg bg-bgPrimary/10 md:col-span-12 col-span-12">
@@ -12,7 +12,7 @@ const PerchesCourseCard = () => {
           <img
             src={img}
             alt=""
-            className=" w-[100%] object-contain aspect-[3/2] rounded-[12px] "
+            className=" w-[100%] object-contain aspect-[3/2] rounded-[20px] "
           />
         </div>
         {/* -----image---- */}

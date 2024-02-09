@@ -3,26 +3,46 @@ import Container from "../Container/Container";
 import { BiSearch } from "react-icons/bi";
 import { FaCheck } from "react-icons/fa6";
 import { useEffect, useState } from "react";
+interface IModule {
+  id: number;
+  name: string;
+  video: string;
+  itWatched: boolean;
+}
+interface IDummyData {
+  id: number;
+  name: string;
+  module: IModule[];
+}
 
 const VideoPlayer = () => {
   const [video, setVideo] = useState("");
   const [index, setIndex] = useState(0);
-  const dummyData = [
+  const dummyData: IDummyData[] = [
     {
       id: 1,
       name: "Introduction",
       module: [
         {
           id: 0,
-          name: "Its working bro dont worry1",
+          name: "Introduction to Python",
           video:
             "https://res.cloudinary.com/dnr5u3jpb/video/upload/v1704521580/mt33rqkjeqopbcslutbr.mp4",
+          itWatched: false,
         },
         {
           id: 1,
-          name: "Its working bro dont worry2",
+          name: "Its Music so relax some time",
           video:
             "https://res.cloudinary.com/dnr5u3jpb/video/upload/v1707495557/Untitled_Project_vd25j6.mp4",
+          itWatched: false,
+        },
+        {
+          id: 2,
+          name: "Paython 100 days challenge",
+          video:
+            "https://res.cloudinary.com/dnr5u3jpb/video/upload/v1707497233/049_Using_the_for_loop_with_Python_Lists_cjirlp.mp4",
+          itWatched: false,
         },
       ],
     },
@@ -35,9 +55,10 @@ const VideoPlayer = () => {
   return (
     <Container>
       <div className=" pt-[200px] w-[90%] mx-auto grid-cols-12 grid gap-x-6">
-        <div className=" md:col-span-8 col-span-12 w-[100%] h-[100%] bg-bgPrimary/10 rounded-md">
+        <div className=" md:col-span-7  col-span-12 w-[100%] h-[100%] bg-bgPrimary/10 rounded-md">
           <ReactPlayer
             url={video}
+            className="  ]"
             controls
             width="100%"
             height="100%"
@@ -51,7 +72,7 @@ const VideoPlayer = () => {
           />
         </div>
         {/* -------module name---- */}
-        <div className="md:col-span-4 col-span-12">
+        <div className="md:col-span-5 col-span-12">
           {/* ----heading--- */}
           <div className=" flex text-textPrimary font-bold gap-4 items-center w-[100%] mt-4 md:mt-0">
             <h2 className=" w-[40%]">Running Module :01</h2>
@@ -62,7 +83,7 @@ const VideoPlayer = () => {
           </div>
           {/* ----heading--- */}
           {/* Module Name----- */}
-          <div className=" w-[100%] px-3 mt-3 overflow-y-auto max-h-[700px] h-[100%]  rounded-md p-3 bg-gradient-to-r from-rgbFrom to-rgbTo">
+          <div className=" w-[100%] px-3 mt-3 overflow-y-auto max-h-[700px] h-[100%]  rounded-md p-3">
             {/* -----search--- */}
             <div className=" w-[100%] bg-bgPrimary rounded relative">
               <BiSearch className=" absolute top-1/2 left-2 transform -translate-y-1/2 text-textPrimary  font-bold" />

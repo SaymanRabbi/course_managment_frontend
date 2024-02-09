@@ -40,11 +40,11 @@ const Assignments = () => {
                           <FaRegPenToSquare className="text-[15px]" />
                           <span>Edit</span>
                         </button>
-                        <button className="flex items-center gap-2 bg-pink-700 px-10 py-1 rounded-md">
+                        <button className="flex items-center gap-2 bg-pink-700 px-9 py-1 rounded-md">
                           <IoIosSend className="text-[15px] " />
                           <span>Submit</span>
                         </button>
-                        <button className="flex items-center gap-2 bg-gradient-to-r from-rgbFrom to-rgbTo px-8 py-1 rounded-md my-2">
+                        <button className="flex items-center gap-2 bg-gradient-to-r from-rgbFrom to-rgbTo px-7 py-1 rounded-md my-2">
                           <IoMdDownload className="text-[15px] " />
                           <span>Download</span>
                         </button>

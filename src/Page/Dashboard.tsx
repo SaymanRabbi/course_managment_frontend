@@ -6,7 +6,12 @@ import Sidebar from "../Components/DashboardSideBar/Sidebar";
 const Dashboard = () => {
   return (
     <Container className=" pt-[130px] xl:!px-[60px] px-[30px]">
-      <Banner />
+      <Banner
+        name="Sayman Rabbi"
+        ernolledCourses={12}
+        certificate={8}
+        buttonTitle="Enroll New Course"
+      />
       {/* main part include sidebar and content */}
       <div className=" grid grid-cols-12 p-4 mt-3 gap-8">
         <div className=" col-span-12 lg:col-span-3">

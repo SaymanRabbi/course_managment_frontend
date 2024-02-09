@@ -198,3 +198,35 @@ export const QuizData: QuizDataInterface[] = [
     res:"pass",
   },
 ];
+interface AssignmentsDataInterface {
+  title: string;
+  courseName: string;
+  marks: number;
+  submit:number;
+}
+export const AssignmentsData: AssignmentsDataInterface[] = [
+  {
+    title: "Write a the 5",
+    courseName: "Fundamentals",
+    marks:60,
+    submit:4,
+  },
+  {
+    title: "Write a the 5",
+    courseName: "Fundamentals",
+    marks:60,
+    submit:4,
+  },
+  { 
+    title: "Write a the 5",
+    courseName: "Fundamentals",
+    marks:60,
+    submit:4,
+  },
+  { 
+    title: "Write a the 5",
+    courseName: "Fundamentals",
+    marks:60,
+    submit:4,
+  },
+];

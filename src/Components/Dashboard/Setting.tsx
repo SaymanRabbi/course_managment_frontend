@@ -2,6 +2,7 @@ import DashboardCard from "./DashboardCard";
 import Button from "../Button/Button";
 import { useForm } from "react-hook-form";
 import HotToast from "../../utils/HotToast";
+import { useState } from "react";
 interface FormData {
   firstName: string;
   lastName: string;
@@ -12,14 +13,35 @@ interface FormData {
   biography: string;
 }
 const Setting = () => {
+  const [toast, setToast] = useState({
+    message: "",
+    type: null as "success" | "error" | "warning" | "loading" | null,
+    duration: 0,
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-  const onSubmit = (data: FormData) => console.log(data);
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+    setToast({
+      message: "Your Profile has been Updated",
+      type: "success",
+      duration: 2000,
+    });
+  };
   return (
     <DashboardCard title="Settings">
+      {/* -----toast----- */}
+      {toast.type && (
+        <HotToast
+          message={toast.message}
+          type={toast.type}
+          duration={toast.duration}
+        />
+      )}
+      {/* -----toast----- */}
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* -----input filed ---- */}
         <div className=" grid grid-cols-12 gap-4">
@@ -218,11 +240,6 @@ const Setting = () => {
         </div>
         {/* ------button */}
       </form>
-      <HotToast
-        message="Your Profile has been Updated"
-        type="success"
-        duration={2000}
-      />
     </DashboardCard>
   );
 };

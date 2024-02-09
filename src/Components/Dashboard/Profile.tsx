@@ -1,5 +1,4 @@
 import { ProfileData } from "../../dummyData/DummyData";
-import Button from "../Button/Button";
 import DashboardCard from "./DashboardCard";
 
 const Profile = () => {
@@ -22,13 +21,6 @@ const Profile = () => {
           );
         })}
       </>
-      <Button
-        className=" text-white w-full mt-4 !py-4 bg-gradient-to-r from-rgbTo to-rgbFrom
-        
-      "
-      >
-        Edit Profile
-      </Button>
     </DashboardCard>
   );
 };

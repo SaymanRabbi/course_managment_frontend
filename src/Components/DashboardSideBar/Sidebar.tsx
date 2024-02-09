@@ -78,8 +78,8 @@ const Sidebar = () => {
         <ul>
           {navitem.map((item, i) => (
             <li
-              className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%] relative list-none text-[16px] border-bgPrimary/70 flex text-textPrimary items-center gap-1 hover:text-rgbFrom/100 transition-all duration-300 ease-in-out pl-2 ${
-                location === item.link ? "text-rgbFrom/90" : ""
+              className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%] relative list-none text-[16px] border-bgPrimary/70 flex  items-center gap-1 hover:text-rgbFrom/100 transition-all duration-300 ease-in-out pl-2 ${
+                location === item.link ? "text-rgbFrom/90" : "text-textPrimary"
               }`}
               key={i}
             >

@@ -9,6 +9,8 @@ import Home from "./Page/Home";
 import Dashboard from "./Page/Dashboard";
 import Profile from "./Components/Dashboard/Profile";
 import DashboardContent from "./Components/Dashboard/DashboardContent";
+import EnrolledCourses from "./Components/Dashboard/EnrolledCourses";
+import Reviews from "./Components/Dashboard/Reviews";
 function App() {
   return (
     <>
@@ -22,6 +24,11 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="/dashboard" element={<DashboardContent />} />
           <Route path="/dashboard/profile" element={<Profile />} />
+          <Route
+            path="/dashboard/enrolled-courses"
+            element={<EnrolledCourses />}
+          />
+          <Route path="/dashboard/reviews" element={<Reviews />} />
         </Route>
       </Routes>
     </>

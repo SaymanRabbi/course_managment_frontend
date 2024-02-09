@@ -1,6 +1,6 @@
 import DynamicHedding from "../DynamicHedding/DynamicHedding";
 import { IoSearch } from "react-icons/io5";
-import { Messages } from "../../dummyData/MessageData";
+import { Messages } from "../../dummyData/DummyData";
 import teacher from "../../../public/images/message/teacher.png";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaVideo } from "react-icons/fa6";

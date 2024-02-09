@@ -31,7 +31,7 @@ const Sidebar = () => {
     {
       name: "Enrolled Courses",
       icon: <FaRegBookmark />,
-      link: "/enrolled-courses",
+      link: "/dashboard/enrolled-courses",
     },
     {
       name: "Wishlist",

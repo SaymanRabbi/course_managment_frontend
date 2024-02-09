@@ -112,3 +112,26 @@ export const feedbackData: feedbackDataInterface[] = [
     rating: 4,
   },
 ];
+interface CourseDataInterface {
+  registrationDate: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  phoneNumber: string;
+  expart: string;
+  biography: string;
+}
+export const ProfileData: CourseDataInterface[] = [
+  {
+    registrationDate: "20, January 2024 9:00 PM",
+    firstName: "Sayman",
+    lastName: "Rabbi",
+    userName: "sayman009",
+    email: "sayman@gmail.com",
+    phoneNumber: "01700000000",
+    expart: "Web Developer",
+    biography:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit Quisquam, voluptates?",
+  },
+];

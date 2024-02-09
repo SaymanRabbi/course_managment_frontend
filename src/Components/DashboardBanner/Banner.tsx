@@ -1,11 +1,26 @@
 import { IoMdBook } from "react-icons/io";
 import { LuAward } from "react-icons/lu";
 import { IoArrowForwardOutline } from "react-icons/io5";
-
 import Button from "../Button/Button";
-const Banner = () => {
+import React, { ReactNode } from "react";
+interface Props {
+  className?: string;
+  name: string;
+  ernolledCourses: number;
+  certificate: number;
+  buttonTitle: string;
+  children?: ReactNode;
+}
+const Banner: React.FC<Props> = ({
+  className,
+  name,
+  ernolledCourses,
+  certificate,
+  buttonTitle,
+  children,
+}) => {
   return (
-    <div className=" grid grid-cols-12">
+    <div className={`grid grid-cols-12 ${className}`}>
       <div className=" col-span-12 max-w-[100%]">
         <div className=" p-[40px] flex justify-between items-center flex-wrap rounded-[10px] bg-gradient-to-r from-rgbFrom to-rgbTo">
           <div className=" flex items-center flex-wrap justify-center">
@@ -21,16 +36,16 @@ const Banner = () => {
             {/* ------dashboard left content----- */}
             <div>
               <h4 className=" font-[900] text-textPrimary text-[20px] mb-3 text-center sm:text-start">
-                Sayman Rabbi
+                {name}
               </h4>
               <ul className=" flex gap-4">
                 <li className=" flex items-center gap-x-2 text-textSecondary">
                   <IoMdBook className=" text-lg" />
-                  <span>9 Courses Enroled</span>
+                  <span>{ernolledCourses} Courses Enroled</span>
                 </li>
                 <li className=" flex items-center gap-x-2 text-textSecondary">
                   <LuAward className=" text-lg" />
-                  <span>8 Certificate</span>
+                  <span>{certificate} Certificate</span>
                 </li>
               </ul>
             </div>
@@ -39,12 +54,13 @@ const Banner = () => {
           <div className=" flex justify-center mt-2 mx-auto sm:mx-0">
             {/* button */}
             <Button className=" bg-bgPrimary text-textSecondary border-[1px] border-bgPrimary hover:bg-transparent hover:text-textSecondary !py-[12px] flex items-center gap-2">
-              Enroll A New Course
+              {buttonTitle}
               <IoArrowForwardOutline className=" text-lg" />
             </Button>
           </div>
         </div>
       </div>
+      {children}
     </div>
   );
 };

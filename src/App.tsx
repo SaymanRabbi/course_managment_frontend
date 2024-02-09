@@ -17,6 +17,7 @@ import Reviews from "./Components/Dashboard/Reviews";
 import QuizAttempts from "./Components/Dashboard/QuizAttempts";
 import Assignments from "./Components/Dashboard/Assignments";
 import Setting from "./Components/Dashboard/Setting";
+import VideoPlayer from "./Components/Video/VideoPlayer";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/dashboard/setting" element={<Setting />} />
           <Route path="/dashboard" element={<Setting />} />
         </Route>
+        <Route path="/video" element={<VideoPlayer />} />
       </Routes>
     </>
   );

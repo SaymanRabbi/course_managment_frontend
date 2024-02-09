@@ -46,7 +46,7 @@ const Sidebar = () => {
     {
       name: "My Assignments",
       icon: <MdAssignment />,
-      link: "/assignments",
+      link: "/dashboard/assignments",
     },
     {
       name: "Settings",

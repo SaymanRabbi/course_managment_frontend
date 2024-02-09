@@ -3,7 +3,7 @@ import hero3 from "../../../public/images/hero/hero3.webp";
 
 const Hero = () => {
   return (
-    <Container>
+    <Container className="pt-10 min-h-[75vh]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-28 w-[95%] mx-auto">
         {/* Text Area */}
         <div className="my-auto">

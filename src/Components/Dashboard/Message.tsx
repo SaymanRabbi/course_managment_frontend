@@ -9,6 +9,7 @@ import { IoSend } from "react-icons/io5";
 const Message = () => {
   return (
     <div>
+      {/* Title */}
       <DynamicHedding>
         <h4 className="text-2xl text-textPrimary">Message</h4>
       </DynamicHedding>

@@ -348,6 +348,6 @@ export const SideBaritem: SidebarInterface[] = [
   {
     name: "Logout",
     icon: <FiLogOut />,
-    link: "/logout",
+    link: "/dashboard",
   },
 ];

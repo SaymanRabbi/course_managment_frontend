@@ -42,6 +42,7 @@ function App() {
           <Route path="/dashboard/quiz" element={<QuizAttempts />} />
           <Route path="/dashboard/assignments" element={<Assignments />} />
           <Route path="/dashboard/setting" element={<Setting />} />
+          <Route path="/dashboard" element={<Setting />} />
         </Route>
       </Routes>
     </>

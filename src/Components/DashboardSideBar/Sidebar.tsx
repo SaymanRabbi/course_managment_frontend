@@ -15,6 +15,7 @@ const Sidebar = () => {
 
   const logoutFunc = () => {
     logout();
+    console.log("logout");
     setToast({
       message: "You have been logged out",
       type: "success",
@@ -42,7 +43,7 @@ const Sidebar = () => {
                     : "text-textPrimary"
                 }`}
                 key={i}
-                onClick={logoutFunc}
+                onClick={() => logoutFunc()}
               >
                 {item.icon}
                 <Link
@@ -75,11 +76,13 @@ const Sidebar = () => {
         </ul>
       </div>
       {/* ------nav item */}
-      <HotToast
-        message={toast.message}
-        type={toast.type}
-        duration={toast.duration}
-      />
+      {toast.type && (
+        <HotToast
+          message={toast.message}
+          type={toast.type}
+          duration={toast.duration}
+        />
+      )}
     </div>
   );
 };

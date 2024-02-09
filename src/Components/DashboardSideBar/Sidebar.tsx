@@ -41,7 +41,7 @@ const Sidebar = () => {
     {
       name: "My Quiz Attempts",
       icon: <MdQuiz />,
-      link: "/quiz",
+      link: "/dashboard/quiz",
     },
     {
       name: "My Assignments",

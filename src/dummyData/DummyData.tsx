@@ -150,3 +150,51 @@ export const ReviewData: ReviewDataInterface[] = [
   },
   { name: "English", rating: 4 },
 ];
+
+interface QuizDataInterface {
+  date: string;
+  des: string;
+  name: string;
+  qus:number;
+  tm:number;
+  ca:number;
+  res:string;
+}
+export const QuizData: QuizDataInterface[] = [
+  {
+    date: "December 26, 2023",
+    des: "Write a on yourself using the 5",
+    name:"Student: Mice Jerry",
+    qus:4,
+    tm:8,
+    ca:4,
+    res:"cancel",
+  },
+  {
+    date: "December 26, 2023",
+    des: "Write a on yourself using the 5",
+    name:"Student: Mice Jerry",
+    qus:4,
+    tm:8,
+    ca:4,
+    res:"over",
+  },
+  { 
+    date: "December 26, 2023",
+    des: "Write a on yourself using the 5",
+    name:"Student: Mice Jerry",
+    qus:4,
+    tm:8,
+    ca:4,
+    res:"pass",
+  },
+  { 
+    date: "December 26, 2023",
+    des: "Write a on yourself using the 5",
+    name:"Student: Mice Jerry",
+    qus:4,
+    tm:8,
+    ca:4,
+    res:"pass",
+  },
+];

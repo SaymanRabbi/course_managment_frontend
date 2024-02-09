@@ -14,6 +14,7 @@ import Message from "./Components/Dashboard/Message";
 
 import EnrolledCourses from "./Components/Dashboard/EnrolledCourses";
 import Reviews from "./Components/Dashboard/Reviews";
+import QuizAttempts from "./Components/Dashboard/QuizAttempts";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             element={<EnrolledCourses />}
           />
           <Route path="/dashboard/reviews" element={<Reviews />} />
+          <Route path="/dashboard/quiz" element={<QuizAttempts />} />
 
         </Route>
       </Routes>

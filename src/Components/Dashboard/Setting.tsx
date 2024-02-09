@@ -1,6 +1,7 @@
 import DashboardCard from "./DashboardCard";
 import Button from "../Button/Button";
 import { useForm } from "react-hook-form";
+import HotToast from "../../utils/HotToast";
 interface FormData {
   firstName: string;
   lastName: string;
@@ -217,6 +218,11 @@ const Setting = () => {
         </div>
         {/* ------button */}
       </form>
+      <HotToast
+        message="Your Profile has been Updated"
+        type="success"
+        duration={2000}
+      />
     </DashboardCard>
   );
 };

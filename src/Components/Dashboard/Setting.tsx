@@ -21,6 +21,7 @@ const Setting = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>();
   const onSubmit = (data: FormData) => {
@@ -30,6 +31,7 @@ const Setting = () => {
       type: "success",
       duration: 2000,
     });
+    reset();
   };
   return (
     <DashboardCard title="Settings">

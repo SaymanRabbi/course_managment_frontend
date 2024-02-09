@@ -150,3 +150,142 @@ export const ReviewData: ReviewDataInterface[] = [
   },
   { name: "English", rating: 4 },
 ];
+
+interface Messageinterface {
+  id: number;
+  img:string;
+  name: string;
+  sms: string;
+  time: string
+}
+export const Messages: Messageinterface[] = [
+  {
+    id: 1,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    sms: "How are you?",
+    time:"4:15 pm",
+  },
+  {
+    id: 2,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    sms: "How are you?",
+    time:"4:15 pm",
+  },
+  {
+    id: 3,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    sms: "How are you?",
+    time:"4:15 pm",
+  },
+  {
+    id: 4,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    sms: "How are you?",
+    time:"4:15 pm",
+  },
+  {
+    id: 5,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    sms: "How are you?",
+    time:"4:15 pm",
+  },
+  {
+    id: 6,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    sms: "How are you?",
+    time:"4:15 pm",
+  },
+  {
+    id: 7,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    sms: "How are you?",
+    time:"4:15 pm",
+  },
+];
+
+interface QuizDataInterface {
+  date: string;
+  des: string;
+  name: string;
+  qus:number;
+  tm:number;
+  ca:number;
+  res:string;
+}
+export const QuizData: QuizDataInterface[] = [
+  {
+    date: "December 26, 2023",
+    des: "Write a on yourself using the 5",
+    name:"Student: Mice Jerry",
+    qus:4,
+    tm:8,
+    ca:4,
+    res:"cancel",
+  },
+  {
+    date: "December 26, 2023",
+    des: "Write a on yourself using the 5",
+    name:"Student: Mice Jerry",
+    qus:4,
+    tm:8,
+    ca:4,
+    res:"over",
+  },
+  { 
+    date: "December 26, 2023",
+    des: "Write a on yourself using the 5",
+    name:"Student: Mice Jerry",
+    qus:4,
+    tm:8,
+    ca:4,
+    res:"pass",
+  },
+  { 
+    date: "December 26, 2023",
+    des: "Write a on yourself using the 5",
+    name:"Student: Mice Jerry",
+    qus:4,
+    tm:8,
+    ca:4,
+    res:"pass",
+  },
+];
+interface AssignmentsDataInterface {
+  title: string;
+  courseName: string;
+  marks: number;
+  submit:number;
+}
+export const AssignmentsData: AssignmentsDataInterface[] = [
+  {
+    title: "Write a the 5",
+    courseName: "Fundamentals",
+    marks:60,
+    submit:4,
+  },
+  {
+    title: "Write a the 5",
+    courseName: "Fundamentals",
+    marks:60,
+    submit:4,
+  },
+  { 
+    title: "Write a the 5",
+    courseName: "Fundamentals",
+    marks:60,
+    submit:4,
+  },
+  { 
+    title: "Write a the 5",
+    courseName: "Fundamentals",
+    marks:60,
+    submit:4,
+  },
+];

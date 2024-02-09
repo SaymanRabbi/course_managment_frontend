@@ -26,7 +26,7 @@ const Sidebar = () => {
     {
       name: "Message",
       icon: <FaRegMessage />,
-      link: "/message",
+      link: "/dashboard/message",
     },
     {
       name: "Enrolled Courses",

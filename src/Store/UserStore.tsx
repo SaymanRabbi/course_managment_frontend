@@ -14,6 +14,8 @@ interface UserStoreState {
   passwordReset: (email: string) => Promise<void>;
   code: string;
   confirmPasswordReset: (formData: any) => Promise<void>;
+  courses: any;
+  getCourses: () => Promise<void>;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   user: null,
@@ -21,6 +23,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   serverError: null,
   success: null,
   messages: "",
+  courses: [],
   code: "",
   createUser: async (userData) => {
     try {
@@ -161,6 +164,30 @@ export const useUserStore = create<UserStoreState>((set) => ({
       const data = await resp.json();
       if (data) {
         set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getCourses: async () => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/getCourse`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          courses: data.data,
           isLoading: false,
           success: data?.status,
           messages: data.message,

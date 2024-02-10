@@ -1,11 +1,13 @@
 import ReactPlayer from "react-player";
 import Container from "../Container/Container";
 import { BiSearch } from "react-icons/bi";
-import { FaCheck } from "react-icons/fa6";
+import { CiVideoOn } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import { MdOutlineQuestionAnswer } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { dummyData } from "../../dummyData/DummyData";
+import { useUserStore } from "../../Store/UserStore";
+import { MdAssignment } from "react-icons/md";
 
 const VideoPlayer = () => {
   const [moduleIndex, setmoduleIndex] = useState(
@@ -14,8 +16,10 @@ const VideoPlayer = () => {
   const [index, setIndex] = useState(
     JSON.parse(localStorage.getItem("ind") || "{}").videoindex || 0
   );
-  const [video, setVideo] = useState(dummyData[moduleIndex].module[index].url);
-
+  const { courses, getCourses } = useUserStore((state) => state);
+  const [video, setVideo] = useState(
+    courses[0]?.modules[moduleIndex].lessons[index].url
+  );
   const ChangesVideoUrl = (module: any, ind: any, videoIndx: number) => {
     setVideo(module.url);
     setIndex(videoIndx);
@@ -25,7 +29,13 @@ const VideoPlayer = () => {
       JSON.stringify({ moduleIndex: ind, videoindex: videoIndx })
     );
   };
-  useEffect(() => {}, [video, setVideo, dummyData]);
+  useEffect(() => {
+    const getCourse = async () => {
+      await getCourses();
+    };
+    getCourse();
+  }, [video, setVideo, dummyData]);
+  console.log(courses);
   return (
     <Container>
       <div className=" pt-[200px] w-[95%] lg:w-[90%] mx-auto grid-cols-12 grid gap-x-6 ">
@@ -51,10 +61,10 @@ const VideoPlayer = () => {
         <div className="lg:col-span-5 col-span-12 mt-6 md:mt-0">
           {/* ----heading--- */}
           <div className=" flex text-textPrimary font-bold gap-4 items-center w-[100%]  md:mt-0">
-            <h2 className=" w-[40%]">Running Module :01</h2>
+            <h2 className=" w-[40%]">Running Module : {courses.length}</h2>
             <div className=" flex items-center gap-x-2 w-[60%]">
               <div className=" w-[100%] bg-gradient-to-r from-rgbFrom to-rgbTo h-[10px] rounded-md"></div>
-              <h2>9/9</h2>
+              <h2>{courses.length}/9</h2>
             </div>
           </div>
           {/* ----heading--- */}
@@ -73,48 +83,79 @@ const VideoPlayer = () => {
             </div>
             {/* -----search--- */}
             {/* ----module list---- */}
-            {dummyData.map((data, ind) => (
-              <div
-                className=" bg-bgPrimary p-3 rounded mt-4 w-[100%] overflow-hidden"
-                key={ind}
-              >
-                <h2 className=" text-textPrimary">
-                  <span className=" font-bold">01 :</span> {data.name}
-                </h2>
-                {/* video */}
-                {data.module.map((module, i) =>
-                  module.type === "video" ? (
-                    <div
-                      className={`mt-2 flex w-[100%] cursor-pointer rounded py-2 ${
-                        index === i && moduleIndex === ind ? " bg-rgbTo" : ""
-                      }`}
-                      key={i}
-                      onClick={() => ChangesVideoUrl(module, ind, i)}
-                    >
-                      <FaCheck className=" text-success text-[30px] w-[10%]" />
-                      <h2 className=" text-textPrimary ml-2 w-[80%]">
-                        {module.name}
-                      </h2>
-                    </div>
-                  ) : module.type === "quiz" ? (
-                    <div>
-                      <Link
-                        to={`/dashboard/quiz/${module.id}`}
-                        className={`mt-2 flex w-[100%] cursor-pointer rounded py-2 
-                      `}
+            {courses?.map((data: any) =>
+              data.modules.map((data: any, ind: any) => (
+                <div
+                  className=" bg-bgPrimary p-3 rounded mt-4 w-[100%] overflow-hidden"
+                  key={ind}
+                >
+                  <h2 className=" text-textPrimary">
+                    <span className=" font-bold">01 :</span> {data?.title}
+                  </h2>
+                  {/* video */}
+                  {data.lessons.map((module: any, i: any) =>
+                    module.type === "video" ? (
+                      <div
+                        className={`mt-2 flex w-[100%] cursor-pointer rounded py-2 ${
+                          index === i && moduleIndex === ind ? " bg-rgbTo" : ""
+                        }`}
+                        key={i}
+                        onClick={() => ChangesVideoUrl(module, ind, i)}
                       >
-                        <MdOutlineQuestionAnswer className=" text-success text-[30px] w-[10%]" />
+                        <CiVideoOn
+                          className={` text-[30px] w-[10%] font-[600] ${
+                            index === i && moduleIndex === ind
+                              ? "text-bgPrimary"
+                              : " text-textSecondary"
+                          }`}
+                        />
                         <h2 className=" text-textPrimary ml-2 w-[80%]">
-                          {module.name}
+                          {module.title}
+                        </h2>
+                      </div>
+                    ) : module.type === "quiz" ? (
+                      <div>
+                        <Link
+                          to={`/dashboard/quiz/${data._id}`}
+                          className={`mt-2 flex w-[100%] cursor-pointer rounded py-2 
+                  `}
+                        >
+                          <MdOutlineQuestionAnswer
+                            className={` text-[30px] w-[10%] font-[600] ${
+                              index === i && moduleIndex === ind
+                                ? "text-bgPrimary"
+                                : " text-textSecondary"
+                            }`}
+                          />
+                          <h2 className=" text-textPrimary ml-2 w-[80%]">
+                            {module.title}
+                          </h2>
+                        </Link>
+                      </div>
+                    ) : module.type === "assignment" ? (
+                      <Link
+                        to={`/dashboard/assignment/${data._id}`}
+                        className={`mt-2 flex w-[100%] cursor-pointer rounded py-2 
+                  `}
+                      >
+                        <MdAssignment
+                          className={` text-[30px] w-[10%] font-[600] ${
+                            index === i && moduleIndex === ind
+                              ? "text-bgPrimary"
+                              : " text-textSecondary"
+                          }`}
+                        />
+                        <h2 className=" text-textPrimary ml-2 w-[80%]">
+                          {module.title}
                         </h2>
                       </Link>
-                    </div>
-                  ) : (
-                    ""
-                  )
-                )}
-              </div>
-            ))}
+                    ) : (
+                      ""
+                    )
+                  )}
+                </div>
+              ))
+            )}
 
             {/* ----module list---- */}
           </div>

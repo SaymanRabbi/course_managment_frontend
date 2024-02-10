@@ -20,6 +20,7 @@ const Login: React.FC = () => {
   const { isLoading, success, messages, serverError, user } = useUserStore(
     (state) => state
   );
+  console.log(user);
   //  ------store user data
   const {
     register,

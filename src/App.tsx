@@ -18,6 +18,7 @@ import QuizAttempts from "./Components/Dashboard/QuizAttempts";
 import Assignments from "./Components/Dashboard/Assignments";
 import Setting from "./Components/Dashboard/Setting";
 import VideoPlayer from "./Components/Video/VideoPlayer";
+import Quiz from "./Components/Dashboard/Quiz";
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
           <Route path="/dashboard/assignments" element={<Assignments />} />
           <Route path="/dashboard/setting" element={<Setting />} />
           <Route path="/dashboard" element={<Setting />} />
+          {/* ------quiz-------- */}
+          <Route path="/dashboard/quiz/:id" element={<Quiz />} />
+          {/* ------quiz-------- */}
         </Route>
         <Route path="/video" element={<VideoPlayer />} />
       </Routes>

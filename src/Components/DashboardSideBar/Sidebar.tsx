@@ -58,6 +58,11 @@ const Sidebar = () => {
       icon: <FiLogOut />,
       link: "/logout",
     },
+    {
+      name: "AdminDashboard",
+      icon: <RxDashboard />,
+      link: "/dashboard/admin-dashboard",
+    },
   ];
   return (
     <div className=" pt-[20px] pr-[30px] pb-[30px] pl-[30px] shadow-lg rounded-[10px] bg-bgPrimary/10">

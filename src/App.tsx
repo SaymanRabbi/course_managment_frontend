@@ -19,6 +19,7 @@ import Assignments from "./Components/Dashboard/Assignments";
 import AdminDashboard from "./Components/Dashboard/AdminDashboard/AdminDashboard";
 import AdminProfile from "./Components/Dashboard/AdminDashboard/AdminProfile";
 import AdminMessage from "./Components/Dashboard/AdminDashboard/AdminMessage";
+import Courses from "./Components/Dashboard/AdminDashboard/Courses";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
           />
           <Route path="/dashboard/admin-profile" element={<AdminProfile />} />
           <Route path="/dashboard/admin-message" element={<AdminMessage />} />
+          <Route path="/dashboard/admin-courses" element={<Courses />} />
         </Route>
       </Routes>
     </>

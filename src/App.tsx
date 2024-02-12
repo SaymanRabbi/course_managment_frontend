@@ -18,6 +18,7 @@ import QuizAttempts from "./Components/Dashboard/QuizAttempts";
 import Assignments from "./Components/Dashboard/Assignments";
 import AdminDashboard from "./Components/Dashboard/AdminDashboard/AdminDashboard";
 import AdminProfile from "./Components/Dashboard/AdminDashboard/AdminProfile";
+import AdminMessage from "./Components/Dashboard/AdminDashboard/AdminMessage";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             element={<AdminDashboard />}
           />
           <Route path="/dashboard/admin-profile" element={<AdminProfile />} />
+          <Route path="/dashboard/admin-message" element={<AdminMessage />} />
         </Route>
       </Routes>
     </>

@@ -16,7 +16,8 @@ import EnrolledCourses from "./Components/Dashboard/EnrolledCourses";
 import Reviews from "./Components/Dashboard/Reviews";
 import QuizAttempts from "./Components/Dashboard/QuizAttempts";
 import Assignments from "./Components/Dashboard/Assignments";
-import AdminDashboard from './Components/Dashboard/AdminDashboard/AdminDashboard';
+import AdminDashboard from "./Components/Dashboard/AdminDashboard/AdminDashboard";
+import AdminProfile from "./Components/Dashboard/AdminDashboard/AdminProfile";
 
 function App() {
   return (
@@ -41,10 +42,13 @@ function App() {
           <Route path="/dashboard/reviews" element={<Reviews />} />
           <Route path="/dashboard/quiz" element={<QuizAttempts />} />
           <Route path="/dashboard/assignments" element={<Assignments />} />
-          <Route path="/dashboard/admin-dashboard" element={<AdminDashboard />} />
+
           {/* Admin Dashboard */}
-
-
+          <Route
+            path="/dashboard/admin-dashboard"
+            element={<AdminDashboard />}
+          />
+          <Route path="/dashboard/admin-profile" element={<AdminProfile />} />
         </Route>
       </Routes>
     </>

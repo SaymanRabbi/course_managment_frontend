@@ -63,6 +63,11 @@ const Sidebar = () => {
       icon: <RxDashboard />,
       link: "/dashboard/admin-dashboard",
     },
+    {
+      name: "AdminProfile",
+      icon: <LuUser />,
+      link: "/dashboard/admin-profile",
+    },
   ];
   return (
     <div className=" pt-[20px] pr-[30px] pb-[30px] pl-[30px] shadow-lg rounded-[10px] bg-bgPrimary/10">

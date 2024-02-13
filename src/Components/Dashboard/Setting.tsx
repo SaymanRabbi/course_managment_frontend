@@ -25,7 +25,6 @@ const Setting = () => {
     formState: { errors },
   } = useForm<FormData>();
   const onSubmit = (data: FormData) => {
-    console.log(data);
     setToast({
       message: "Your Profile has been Updated",
       type: "success",

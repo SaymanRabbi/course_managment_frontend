@@ -39,9 +39,7 @@ const Login: React.FC = () => {
           "unknown",
       };
       getUser(userData);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     setTimeout(() => {

@@ -17,7 +17,7 @@ const VideoPlayer = () => {
     JSON.parse(localStorage.getItem("ind") || "{}").videoindex || 0
   );
   const { courses, getCourses, courseId } = useUserStore((state) => state);
-  console.log(courseId);
+
   const [video, setVideo] = useState(
     courses[0]?.modules[moduleIndex].lessons[index].url
   );
@@ -36,7 +36,7 @@ const VideoPlayer = () => {
     };
     getCourse();
   }, [video, setVideo, dummyData]);
-  console.log(courses);
+
   return (
     <Container>
       <div className=" pt-[200px] w-[95%] lg:w-[90%] mx-auto grid-cols-12 grid gap-x-6 ">

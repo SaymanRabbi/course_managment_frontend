@@ -15,7 +15,7 @@ const Sidebar = () => {
 
   const logoutFunc = () => {
     logout();
-    console.log("logout");
+
     setToast({
       message: "You have been logged out",
       type: "success",

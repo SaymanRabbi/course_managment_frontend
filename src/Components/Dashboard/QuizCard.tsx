@@ -32,6 +32,28 @@ const HeroIq: React.FC<Props> = () => {
       : false
   );
   const [nextIndex, setNextIndex] = useState(0);
+  useEffect(() => {
+    const ScoreCheck = () => {
+      let score = 0;
+      if (quiz?.length) {
+        quiz[0]?.quizDetails.questions.forEach(
+          (question: any, questionIndex: any) => {
+            if (
+              index[questionIndex] ===
+              question.options.findIndex(
+                (option: any) => option.answer === true
+              )
+            ) {
+              score++;
+            }
+          }
+        );
+        setScore(score);
+        return score;
+      }
+    };
+    ScoreCheck();
+  }, [finish]);
   if (quiz?.length === 0 || !quiz) {
     return <div className=" text-error font-bold text-xl">loading...</div>;
   }
@@ -59,23 +81,6 @@ const HeroIq: React.FC<Props> = () => {
     localStorage.setItem("index", JSON.stringify(index));
     localStorage.setItem("finish", JSON.stringify(true));
   };
-  const ScoreCheck = () => {
-    let score = 0;
-    quiz[0]?.quizDetails.questions.forEach(
-      (question: any, questionIndex: any) => {
-        index[questionIndex] ===
-        question.options.findIndex((option: any) => option.answer === true)
-          ? score++
-          : null;
-      }
-    );
-    setScore(score);
-    return score;
-  };
-
-  useEffect(() => {
-    ScoreCheck();
-  }, [finish]);
 
   return (
     <>

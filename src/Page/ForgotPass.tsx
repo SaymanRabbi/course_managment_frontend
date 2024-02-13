@@ -29,9 +29,7 @@ const ForgotPass: React.FC = () => {
     try {
       const email = data.email;
       passwordReset(email);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     if (success) {

@@ -31,7 +31,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   code: "",
   token: localStorage.getItem("token") || "",
   courseId: "",
-  quiz: [],
+  quiz: JSON.parse(localStorage.getItem("quiz") as string) || [],
 
   createUser: async (userData) => {
     try {
@@ -230,6 +230,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
           messages: data.message,
           serverError: null,
         });
+        localStorage.setItem("quiz", JSON.stringify(data.data));
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });

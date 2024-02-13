@@ -42,9 +42,7 @@ const ForgotPassCode: React.FC = () => {
       };
       confirmPasswordReset(formData);
       //   passwordReset(email);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     if (success) {

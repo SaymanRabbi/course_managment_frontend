@@ -20,6 +20,10 @@ import AdminDashboard from "./Components/Dashboard/AdminDashboard/AdminDashboard
 import AdminProfile from "./Components/Dashboard/AdminDashboard/AdminProfile";
 import AdminMessage from "./Components/Dashboard/AdminDashboard/AdminMessage";
 import Courses from "./Components/Dashboard/AdminDashboard/Courses";
+import PopularInstructor from "./Components/Dashboard/AdminDashboard/PopularInstructor";
+import NoticeBoard from "./Components/Dashboard/AdminDashboard/NoticeBoard";
+import Notifications from "./Components/Dashboard/AdminDashboard/Notifications";
+import RecentCourses from "./Components/Dashboard/AdminDashboard/RecentCourses";
 
 function App() {
   return (
@@ -53,6 +57,10 @@ function App() {
           <Route path="/dashboard/admin-profile" element={<AdminProfile />} />
           <Route path="/dashboard/admin-message" element={<AdminMessage />} />
           <Route path="/dashboard/admin-courses" element={<Courses />} />
+          <Route path="/dashboard/popular-instructor" element={<PopularInstructor />} />
+          <Route path="/dashboard/notice-board" element={<NoticeBoard />} />
+          <Route path="/dashboard/notifications" element={<Notifications />} />
+          <Route path="/dashboard/recent-courses" element={<RecentCourses />} />
         </Route>
       </Routes>
     </>

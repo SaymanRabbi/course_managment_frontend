@@ -98,6 +98,11 @@ const Sidebar = () => {
       icon: <FaRegBookmark />,
       link: "/dashboard/recent-courses",
     },
+    {
+      name: "AdminQuize",
+      icon: <FaRegBookmark />,
+      link: "/dashboard/admin-quiz",
+    },
   ];
   return (
     <div className=" pt-[20px] pr-[30px] pb-[30px] pl-[30px] shadow-lg rounded-[10px] bg-bgPrimary/10">

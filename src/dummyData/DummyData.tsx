@@ -448,3 +448,42 @@ export const notifications: notificationsinterface[] = [
   },
   
 ];
+
+interface quizAdmininterface {
+  id: number;
+  img: string;
+  courseName: string;
+  insName: string;
+  purchase: number;
+}
+export const quizAdmin: quizAdmininterface[] = [
+  {
+    id: 1,
+    img: "../../public/images/notice/notice.png",
+    courseName:"Complte Web Development Course",
+    insName:"John Roe",
+    purchase:5000,
+  },
+  {
+    id: 2,
+    img: "../../public/images/notice/notice.png",
+    courseName:"Complte Web Development Course",
+    insName:"John Roe",
+    purchase:5000,
+  },
+  {
+    id: 3,
+    img: "../../public/images/notice/notice.png",
+    courseName:"Complte Web Development Course",
+    insName:"John Roe",
+    purchase:5000,
+  },
+  {
+    id: 4,
+    img: "../../public/images/notice/notice.png",
+    courseName:"Complte Web Development Course",
+    insName:"John Roe",
+    purchase:5000,
+  },
+  
+];

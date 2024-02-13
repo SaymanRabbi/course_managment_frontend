@@ -10,7 +10,12 @@ interface Props {
 }
 const HeroIq: React.FC<Props> = () => {
   const { id } = useParams<{ id: string }>();
-  const { getQuiz, courseId, quiz, token } = useUserStore((state) => state);
+  // get state---
+  const { getQuiz, courseId, quiz, token, updateQuiz } = useUserStore(
+    (state) => state
+  );
+
+  // get state---
   const getQuizs = async () => {
     await getQuiz(id, courseId, token);
   };
@@ -33,8 +38,8 @@ const HeroIq: React.FC<Props> = () => {
   );
   const [nextIndex, setNextIndex] = useState(0);
   useEffect(() => {
-    const ScoreCheck = () => {
-      let score = 0;
+    const ScoreCheck = async () => {
+      let scores = 0;
       if (quiz?.length) {
         quiz[0]?.quizDetails.questions.forEach(
           (question: any, questionIndex: any) => {
@@ -44,11 +49,12 @@ const HeroIq: React.FC<Props> = () => {
                 (option: any) => option.answer === true
               )
             ) {
-              score++;
+              scores++;
             }
           }
         );
-        setScore(score);
+        await updateQuiz(token, id, scores, courseId);
+        setScore(scores);
         return score;
       }
     };

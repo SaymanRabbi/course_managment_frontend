@@ -1,7 +1,9 @@
 import { create } from "zustand";
 import { User } from "../Types";
+
 interface UserStoreState {
   user: User | null;
+  setUserData: (user: User) => void;
   isLoading: boolean;
   serverError: any;
   createUser: (user: User) => Promise<void>;
@@ -263,4 +265,5 @@ export const useUserStore = create<UserStoreState>((set) => ({
       set({ serverError: error?.message, isLoading: false });
     }
   },
+  setUserData: (user: User) => set({ user }),
 }));

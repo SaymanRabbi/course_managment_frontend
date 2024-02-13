@@ -2,12 +2,14 @@ import { useState } from "react";
 import { FiAlignLeft, FiAlignRight } from "react-icons/fi";
 import Container from "../Container/Container";
 import { Link, useLocation } from "react-router-dom";
+import { useUserStore } from "../../Store/UserStore";
 interface Route {
   name: string;
   link: string;
 }
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
+  const { user } = useUserStore((state) => state);
   const { pathname } = useLocation();
   const route: Route[] = [
     {
@@ -45,7 +47,30 @@ const Navbar = () => {
                   key={index}
                 >
                   <Link to={item.link} className="relative">
-                    {item.name}
+                    {user ? (
+                      item.name === "login" ? (
+                        <Link
+                          to="/login"
+                          className="capitalize no-underline text-textSecondary cursor-pointer"
+                        >
+                          Logout
+                        </Link>
+                      ) : (
+                        <Link
+                          to={item.link}
+                          className="capitalize no-underline text-textSecondary cursor-pointer"
+                        >
+                          {item.name}
+                        </Link>
+                      )
+                    ) : (
+                      <Link
+                        to={item.link}
+                        className="capitalize no-underline text-textSecondary cursor-pointer"
+                      >
+                        {item.name}
+                      </Link>
+                    )}
                   </Link>
                   {item.link === pathname ? (
                     <span

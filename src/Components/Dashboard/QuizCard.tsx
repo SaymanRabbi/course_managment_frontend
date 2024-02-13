@@ -14,7 +14,6 @@ const HeroIq: React.FC<Props> = () => {
   const { getQuiz, courseId, quiz, token, updateQuiz } = useUserStore(
     (state) => state
   );
-
   // get state---
   const getQuizs = async () => {
     await getQuiz(id, courseId, token);
@@ -29,7 +28,6 @@ const HeroIq: React.FC<Props> = () => {
       : {}
   );
   const [score, setScore] = useState<number>(0);
-  const [next, setNext] = useState<boolean>(false);
   const [yourAnswer, setYourAnswer] = useState<number>();
   const [finish, setFinish] = useState<boolean>(
     localStorage.getItem("finish")
@@ -55,7 +53,7 @@ const HeroIq: React.FC<Props> = () => {
         );
         await updateQuiz(token, id, scores, courseId);
         setScore(scores);
-        return score;
+        return scores;
       }
     };
     ScoreCheck();
@@ -73,12 +71,12 @@ const HeroIq: React.FC<Props> = () => {
   };
   const OnClickNext = () => {
     setNextIndex(nextIndex + 1);
-    setNext(true);
+
     // setClick(false)
   };
   const OnClickPrev = () => {
     setNextIndex(nextIndex - 1);
-    setNext(false);
+
     // setClick(false)
   };
   const Finish = () => {

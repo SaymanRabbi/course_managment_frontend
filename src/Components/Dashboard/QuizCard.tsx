@@ -3,10 +3,19 @@ import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { quizData } from "../../dummyData/DummyData";
 import Button from "../Button/Button";
-
-const HeroIq: React.FC = () => {
+import { useUserStore } from "../../Store/UserStore";
+interface Props {
+  id: string;
+}
+const HeroIq: React.FC<Props> = ({ id }) => {
+  const { getQuiz, courseId, quiz, token } = useUserStore((state) => state);
   const [data, setData] = useState(quizData);
-
+  useEffect(() => {
+    const getQuizs = async () => {
+      await getQuiz(id, courseId, token);
+    };
+    getQuizs();
+  }, [id]);
   const [click, setClick] = useState<any>({});
   const [index, setIndex] = useState<any>(
     localStorage.getItem("index")

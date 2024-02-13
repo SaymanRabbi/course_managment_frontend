@@ -16,6 +16,10 @@ interface UserStoreState {
   confirmPasswordReset: (formData: any) => Promise<void>;
   courses: any;
   getCourses: () => Promise<void>;
+  token: string;
+  courseId: string;
+  quiz: any;
+  getQuiz: (id: any, quizID: any, token: any) => Promise<void>;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   user: null,
@@ -25,6 +29,10 @@ export const useUserStore = create<UserStoreState>((set) => ({
   messages: "",
   courses: [],
   code: "",
+  token: "",
+  courseId: "",
+  quiz: [],
+
   createUser: async (userData) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
@@ -69,6 +77,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
           success: data?.status,
           messages: data.message,
           serverError: null,
+          token: data.token,
         });
       }
     } catch (error: any) {
@@ -188,6 +197,33 @@ export const useUserStore = create<UserStoreState>((set) => ({
       if (data) {
         set({
           courses: data.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+          courseId: data.data[0]._id,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getQuiz: async (id: any, quizID: any, token) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/getQuiz/${id}`;
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ quizID: quizID }),
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          quiz: data.data,
           isLoading: false,
           success: data?.status,
           messages: data.message,

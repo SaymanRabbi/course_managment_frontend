@@ -376,3 +376,46 @@ export const notices: noticesinterface[] = [
   },
   
 ];
+interface recentCoursesinterface {
+  id: number;
+  img: string;
+  courseName: string;
+  insName: string;
+  duration: string;
+  Lesson: string;
+}
+export const recentCourses: recentCoursesinterface[] = [
+  {
+    id: 1,
+    img: "../../public/images/notice/notice.png",
+    courseName:"Complte Web Development Course",
+    insName:"John Roe",
+    Lesson:"3",
+    duration:"3 hr 13 min"
+  },
+  {
+    id: 2,
+    img: "../../public/images/notice/notice.png",
+    courseName:"Complte Web Development Course",
+    insName:"John Roe",
+    Lesson:"3",
+    duration:"3 hr 13 min"
+  },
+  {
+    id: 3,
+    img: "../../public/images/notice/notice.png",
+    courseName:"Complte Web Development Course",
+    insName:"John Roe",
+    Lesson:"3",
+    duration:"3 hr 13 min"
+  },
+  {
+    id: 4,
+    img: "../../public/images/notice/notice.png",
+    courseName:"Complte Web Development Course",
+    insName:"John Roe",
+    Lesson:"3",
+    duration:"3 hr 13 min"
+  },
+  
+];

@@ -419,3 +419,32 @@ export const recentCourses: recentCoursesinterface[] = [
   },
   
 ];
+
+interface notificationsinterface {
+  id: number;
+  title: string;
+  time: string;
+}
+export const notifications: notificationsinterface[] = [
+  {
+    id: 1,
+    title: "Password has been changed two times",
+    time:"50 min ago",
+  },
+  {
+    id: 2,
+    title: "Password has been changed two times",
+    time:"50 min ago",
+  },
+  {
+    id: 3,
+    title: "Password has been changed two times",
+    time:"50 min ago",
+  },
+  {
+    id: 4,
+    title: "Password has been changed two times",
+    time:"50 min ago",
+  },
+  
+];

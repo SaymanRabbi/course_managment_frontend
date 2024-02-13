@@ -153,60 +153,60 @@ export const ReviewData: ReviewDataInterface[] = [
 
 interface Messageinterface {
   id: number;
-  img:string;
+  img: string;
   name: string;
   sms: string;
-  time: string
+  time: string;
 }
 export const Messages: Messageinterface[] = [
   {
     id: 1,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 2,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 3,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 4,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 5,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 6,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
   {
     id: 7,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     sms: "How are you?",
-    time:"4:15 pm",
+    time: "4:15 pm",
   },
 ];
 
@@ -214,137 +214,165 @@ interface QuizDataInterface {
   date: string;
   des: string;
   name: string;
-  qus:number;
-  tm:number;
-  ca:number;
-  res:string;
+  qus: number;
+  tm: number;
+  ca: number;
+  res: string;
 }
 export const QuizData: QuizDataInterface[] = [
   {
     date: "December 26, 2023",
     des: "Write a on yourself using the 5",
-    name:"Student: Mice Jerry",
-    qus:4,
-    tm:8,
-    ca:4,
-    res:"cancel",
+    name: "Student: Mice Jerry",
+    qus: 4,
+    tm: 8,
+    ca: 4,
+    res: "cancel",
   },
   {
     date: "December 26, 2023",
     des: "Write a on yourself using the 5",
-    name:"Student: Mice Jerry",
-    qus:4,
-    tm:8,
-    ca:4,
-    res:"over",
+    name: "Student: Mice Jerry",
+    qus: 4,
+    tm: 8,
+    ca: 4,
+    res: "over",
   },
-  { 
+  {
     date: "December 26, 2023",
     des: "Write a on yourself using the 5",
-    name:"Student: Mice Jerry",
-    qus:4,
-    tm:8,
-    ca:4,
-    res:"pass",
+    name: "Student: Mice Jerry",
+    qus: 4,
+    tm: 8,
+    ca: 4,
+    res: "pass",
   },
-  { 
+  {
     date: "December 26, 2023",
     des: "Write a on yourself using the 5",
-    name:"Student: Mice Jerry",
-    qus:4,
-    tm:8,
-    ca:4,
-    res:"pass",
+    name: "Student: Mice Jerry",
+    qus: 4,
+    tm: 8,
+    ca: 4,
+    res: "pass",
   },
 ];
 interface AssignmentsDataInterface {
   title: string;
   courseName: string;
   marks: number;
-  submit:number;
+  submit: number;
 }
 export const AssignmentsData: AssignmentsDataInterface[] = [
   {
     title: "Write a the 5",
     courseName: "Fundamentals",
-    marks:60,
-    submit:4,
+    marks: 60,
+    submit: 4,
   },
   {
     title: "Write a the 5",
     courseName: "Fundamentals",
-    marks:60,
-    submit:4,
+    marks: 60,
+    submit: 4,
   },
-  { 
+  {
     title: "Write a the 5",
     courseName: "Fundamentals",
-    marks:60,
-    submit:4,
+    marks: 60,
+    submit: 4,
   },
-  { 
+  {
     title: "Write a the 5",
     courseName: "Fundamentals",
-    marks:60,
-    submit:4,
+    marks: 60,
+    submit: 4,
   },
 ];
 
 interface popularInstructorsinterface {
   id: number;
-  img:string;
+  img: string;
   name: string;
   students: number;
   courses: number;
-  reviews: number
+  reviews: number;
 }
 export const popularInstructors: popularInstructorsinterface[] = [
   {
     id: 1,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     students: 600,
-    courses:5,
-    reviews:5000,
+    courses: 5,
+    reviews: 5000,
   },
   {
     id: 2,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     students: 600,
-    courses:5,
-    reviews:5000,
+    courses: 5,
+    reviews: 5000,
   },
   {
     id: 3,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     students: 600,
-    courses:5,
-    reviews:5000,
+    courses: 5,
+    reviews: 5000,
   },
   {
     id: 4,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     students: 600,
-    courses:5,
-    reviews:5000,
+    courses: 5,
+    reviews: 5000,
   },
   {
     id: 5,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     students: 600,
-    courses:5,
-    reviews:5000,
+    courses: 5,
+    reviews: 5000,
   },
   {
     id: 6,
-    img:"../../public/images/message/teacher.png",
+    img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     students: 600,
-    courses:5,
-    reviews:5000,
+    courses: 5,
+    reviews: 5000,
   },
+];
+interface noticesinterface {
+  id: number;
+  img: string;
+  des: string;
+}
+export const notices: noticesinterface[] = [
+  {
+    id: 1,
+    img: "../../public/images/notice/notice.png",
+    des: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, recusandae atque? Consectetur repellendus quibusdam, cupiditate tenetur similique nobis dicta id!",
+  },
+  {
+    id: 2,
+    img: "../../public/images/notice/notice.png",
+    des: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, recusandae atque? Consectetur repellendus quibusdam, cupiditate tenetur similique nobis dicta id!",
+  },
+  {
+    id: 3,
+    img: "../../public/images/notice/notice.png",
+    des: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, recusandae atque? Consectetur repellendus quibusdam, cupiditate tenetur similique nobis dicta id!",
+  },
+  {
+    id: 4,
+    img: "../../public/images/notice/notice.png",
+    des: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, recusandae atque? Consectetur repellendus quibusdam, cupiditate tenetur similique nobis dicta id!",
+  },
+  
 ];

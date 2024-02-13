@@ -1,7 +1,9 @@
+import { useUserStore } from "../../Store/UserStore";
 import { ProfileData } from "../../dummyData/DummyData";
 import DashboardCard from "./DashboardCard";
 
 const Profile = () => {
+  const { user } = useUserStore((state) => state);
   return (
     <DashboardCard title="Profile">
       <>

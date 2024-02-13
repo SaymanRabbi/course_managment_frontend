@@ -84,6 +84,13 @@ const Navbar = () => {
                 </div>
               );
             })}
+            {user ? (
+              <div className=" w-[50px] h-[50px] rounded-full bg-gradient-to-r to-rgbFrom  from-rgbTo flex items-center justify-center text-textPrimary">
+                user
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           {/*----mobile menu----*/}
           <div className="md:hidden block ml-[-12px] mr-[18px] z-[100]">
@@ -124,6 +131,13 @@ const Navbar = () => {
                       </div>
                     );
                   })}
+                  {user ? (
+                    <div className=" w-[50px] h-[50px] rounded-full bg-gradient-to-r to-rgbFrom  from-rgbTo flex items-center justify-center text-textPrimary">
+                      user
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>

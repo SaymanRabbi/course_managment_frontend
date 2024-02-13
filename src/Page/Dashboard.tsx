@@ -2,12 +2,14 @@ import { Outlet } from "react-router-dom";
 import Container from "../Components/Container/Container";
 import Banner from "../Components/DashboardBanner/Banner";
 import Sidebar from "../Components/DashboardSideBar/Sidebar";
+import { useUserStore } from "../Store/UserStore";
 
 const Dashboard = () => {
+  const { user } = useUserStore((state) => state);
   return (
     <Container className=" pt-[130px] xl:!px-[60px] px-[30px]">
       <Banner
-        name="Sayman Rabbi"
+        name={user?.name || "User"}
         ernolledCourses={12}
         certificate={8}
         buttonTitle="Enroll New Course"

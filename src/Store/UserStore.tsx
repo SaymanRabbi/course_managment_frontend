@@ -230,7 +230,6 @@ export const useUserStore = create<UserStoreState>((set) => ({
           messages: data.message,
           serverError: null,
         });
-        localStorage.setItem("quiz", JSON.stringify(data.data));
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });

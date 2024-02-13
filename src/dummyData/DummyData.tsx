@@ -289,3 +289,62 @@ export const AssignmentsData: AssignmentsDataInterface[] = [
     submit:4,
   },
 ];
+
+interface popularInstructorsinterface {
+  id: number;
+  img:string;
+  name: string;
+  students: number;
+  courses: number;
+  reviews: number
+}
+export const popularInstructors: popularInstructorsinterface[] = [
+  {
+    id: 1,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses:5,
+    reviews:5000,
+  },
+  {
+    id: 2,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses:5,
+    reviews:5000,
+  },
+  {
+    id: 3,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses:5,
+    reviews:5000,
+  },
+  {
+    id: 4,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses:5,
+    reviews:5000,
+  },
+  {
+    id: 5,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses:5,
+    reviews:5000,
+  },
+  {
+    id: 6,
+    img:"../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses:5,
+    reviews:5000,
+  },
+];

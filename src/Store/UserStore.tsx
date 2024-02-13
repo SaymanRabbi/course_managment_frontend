@@ -29,7 +29,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   messages: "",
   courses: [],
   code: "",
-  token: "",
+  token: localStorage.getItem("token") || "",
   courseId: "",
   quiz: [],
 
@@ -79,6 +79,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
           serverError: null,
           token: data.token,
         });
+        localStorage.setItem("token", data.token);
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });
@@ -218,7 +219,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ quizID: quizID }),
+        body: JSON.stringify({ courseid: quizID }),
       });
       const data = await resp.json();
       if (data) {
@@ -229,6 +230,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
           messages: data.message,
           serverError: null,
         });
+        localStorage.setItem("quiz", JSON.stringify(data.data));
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });

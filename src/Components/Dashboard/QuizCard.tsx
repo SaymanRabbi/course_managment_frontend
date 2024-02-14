@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import { useUserStore } from "../../Store/UserStore";
 import { useParams } from "react-router-dom";
 interface Props {
-  id: string;
+  id: any;
 }
 const HeroIq: React.FC<Props> = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +14,7 @@ const HeroIq: React.FC<Props> = () => {
   const { getQuiz, courseId, quiz, token, updateQuiz } = useUserStore(
     (state) => state
   );
+  console.log(courseId);
   // get state---
   const getQuizs = async () => {
     await getQuiz(id, courseId, token);
@@ -51,7 +52,8 @@ const HeroIq: React.FC<Props> = () => {
             }
           }
         );
-        await updateQuiz(token, id, scores, courseId);
+        const avg = (scores * 100) / quiz[0]?.quizDetails.questions.length;
+        await updateQuiz(token, id, avg, courseId);
         setScore(scores);
         return scores;
       }

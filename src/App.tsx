@@ -18,13 +18,21 @@ import Setting from "./Components/Dashboard/Setting";
 import VideoPlayer from "./Components/Video/VideoPlayer";
 import Quiz from "./Components/Dashboard/Quiz";
 import { useUserStore } from "./Store/UserStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import RequireAuth from "./Components/RequreAuth";
+import NotFound from "./Page/NotFound";
+import Unauthorized from "./Page/Unauthorized";
 function App() {
-  const { getUserByToken } = useUserStore((state) => state);
+  const { getUserByToken, getCourses } = useUserStore((state) => state);
+  const [previousRoute, setPreviousRoute] = useState("");
   const route = useLocation().pathname;
   useEffect(() => {
-    getUserByToken();
+    // Check if the route has changed before calling the function
+    if (route !== previousRoute) {
+      getUserByToken();
+      getCourses();
+      setPreviousRoute(route); // Update the previous route after the function call
+    }
   }, [route]);
 
   return (
@@ -61,7 +69,9 @@ function App() {
             {/* ------quiz-------- */}
           </Route>
         </Route>
-        <Route path="/video" element={<VideoPlayer />} />
+        <Route path="/dashboard/module/video/:id" element={<VideoPlayer />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

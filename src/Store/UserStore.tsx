@@ -243,6 +243,9 @@ export const useUserStore = create<UserStoreState>((set) => ({
     }
   },
   getQuiz: async (id: any, quizID: any, token) => {
+    console.log(id);
+    console.log(quizID);
+    console.log(token);
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
       const url = `http://localhost:5000/api/v1/course/getQuiz/${id}`;
@@ -256,6 +259,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
       });
       const data = await resp.json();
       if (data) {
+        console.log(data);
         set({
           quiz: data.data,
           isLoading: false,
@@ -300,6 +304,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getUserByToken: async () => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
+      const token = localStorage.getItem("token");
+      if (!token) return set({ isLoading: false });
       const url = `http://localhost:5000/api/v1/user/login/token`;
       const resp = await fetch(url, {
         method: "GET",

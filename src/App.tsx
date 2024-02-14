@@ -9,9 +9,7 @@ import Home from "./Page/Home";
 import Dashboard from "./Page/Dashboard";
 import Profile from "./Components/Dashboard/Profile";
 import DashboardContent from "./Components/Dashboard/DashboardContent";
-
 import Message from "./Components/Dashboard/Message";
-
 import EnrolledCourses from "./Components/Dashboard/EnrolledCourses";
 import Reviews from "./Components/Dashboard/Reviews";
 import QuizAttempts from "./Components/Dashboard/QuizAttempts";
@@ -19,8 +17,27 @@ import Assignments from "./Components/Dashboard/Assignments";
 import Setting from "./Components/Dashboard/Setting";
 import VideoPlayer from "./Components/Video/VideoPlayer";
 import Quiz from "./Components/Dashboard/Quiz";
-
+import { useUserStore } from "./Store/UserStore";
+import { useQuery } from "react-query";
+import axios from "axios";
 function App() {
+  const { setUserData } = useUserStore((state) => state);
+  const fetchUser = () => {
+    return axios.get("http://localhost:5000/api/v1/user/login/token", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  };
+
+  const {} = useQuery("user", fetchUser, {
+    refetchOnMount: true,
+    onSuccess: (data) => {
+      setUserData(data.data.data);
+    },
+  });
+
   return (
     <>
       <Routes>

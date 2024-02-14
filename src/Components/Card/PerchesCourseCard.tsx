@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import img from "../../../public/images/card/card1.jpg";
 import Button from "../Button/Button";
-interface Props {}
+// interface Props {}
 const PerchesCourseCard = () => {
   return (
     <div className="p-[18px] rounded-[12px] shadow-lg bg-bgPrimary/10 md:col-span-12 col-span-12">

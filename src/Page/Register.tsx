@@ -34,9 +34,7 @@ const Register: React.FC = () => {
         password: data.password,
       };
       createUser(userData);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     setTimeout(() => {

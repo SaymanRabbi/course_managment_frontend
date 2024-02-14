@@ -1,7 +1,9 @@
 import { create } from "zustand";
 import { User } from "../Types";
+
 interface UserStoreState {
   user: User | null;
+  setUserData: (user: User) => void;
   isLoading: boolean;
   serverError: any;
   createUser: (user: User) => Promise<void>;
@@ -14,14 +16,55 @@ interface UserStoreState {
   passwordReset: (email: string) => Promise<void>;
   code: string;
   confirmPasswordReset: (formData: any) => Promise<void>;
+  courses: any;
+  getCourses: () => Promise<void>;
+  token: string;
+  courseId: string;
+  quiz: any;
+  getQuiz: (id: any, quizID: any, token: any) => Promise<void>;
+  updateQuiz: (id: any, quizID: any, token: any, score: any) => Promise<void>;
+  updateUserProfile: (token: any, data: any) => Promise<void>;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
-  user: null,
+  user: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user") || "")
+    : null,
   isLoading: false,
   serverError: null,
   success: null,
   messages: "",
+  courses: [],
   code: "",
+  token: localStorage.getItem("token") || "",
+  courseId: "",
+  quiz: [],
+  updateQuiz: async (token, quizID, score, courseId) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/update-quiz-score/${quizID}`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ courseId: courseId, score: score }),
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+        localStorage.setItem("quiz", JSON.stringify(data.data));
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+
   createUser: async (userData) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
@@ -66,7 +109,9 @@ export const useUserStore = create<UserStoreState>((set) => ({
           success: data?.status,
           messages: data.message,
           serverError: null,
+          token: data.token,
         });
+        localStorage.setItem("token", data.token);
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });
@@ -166,6 +211,86 @@ export const useUserStore = create<UserStoreState>((set) => ({
           messages: data.message,
           serverError: null,
         });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getCourses: async () => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/getCourse`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          courses: data.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+          courseId: data.data[0]._id,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getQuiz: async (id: any, quizID: any, token) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/getQuiz/${id}`;
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ courseid: quizID }),
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          quiz: data.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+        localStorage.setItem("quiz", JSON.stringify(data.data));
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  setUserData: (user: User) => set({ user }),
+  updateUserProfile: async (token, data) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/updateprofile`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      const res = await resp.json();
+      if (res) {
+        set({
+          user: res.data.user,
+          isLoading: false,
+          success: res?.status,
+          messages: res.message,
+          serverError: null,
+        });
+        localStorage.setItem("user", JSON.stringify(res.data));
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });

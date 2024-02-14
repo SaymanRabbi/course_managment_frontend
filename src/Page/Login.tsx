@@ -20,6 +20,7 @@ const Login: React.FC = () => {
   const { isLoading, success, messages, serverError, user } = useUserStore(
     (state) => state
   );
+
   //  ------store user data
   const {
     register,
@@ -39,9 +40,7 @@ const Login: React.FC = () => {
           "unknown",
       };
       getUser(userData);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     setTimeout(() => {

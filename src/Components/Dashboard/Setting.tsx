@@ -3,16 +3,21 @@ import Button from "../Button/Button";
 import { useForm } from "react-hook-form";
 import HotToast from "../../utils/HotToast";
 import { useState } from "react";
+import { useUserStore } from "../../Store/UserStore";
 interface FormData {
-  firstName: string;
-  lastName: string;
-  userName: string;
-  phoneNumber: number;
-  occupation: string;
+  name: string;
+  lastname: string;
+  UserName: string;
+  PhoneNumber: number;
+  ExpartIn: string;
   displayName: string;
-  biography: string;
+  Biography: "string";
 }
 const Setting = () => {
+  const { user, updateUserProfile, success, clearMessages } = useUserStore(
+    (state) => state
+  );
+  console.log(user);
   const [toast, setToast] = useState({
     message: "",
     type: null as "success" | "error" | "warning" | "loading" | null,
@@ -24,14 +29,14 @@ const Setting = () => {
     reset,
     formState: { errors },
   } = useForm<FormData>();
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     console.log(data);
-    setToast({
-      message: "Your Profile has been Updated",
-      type: "success",
-      duration: 2000,
-    });
-    reset();
+    await updateUserProfile(localStorage.getItem("token"), data);
+    if (success) {
+      setToast({ message: "Profile Updated", type: "success", duration: 5000 });
+      reset();
+      clearMessages();
+    }
   };
   return (
     <DashboardCard title="Settings">
@@ -56,7 +61,7 @@ const Setting = () => {
               id="firstName"
               className="profile_input"
               placeholder="First Name"
-              {...register("firstName", {
+              {...register("name", {
                 required: "First Name was Required",
                 pattern: {
                   value: /^[A-Za-z]+$/i,
@@ -68,8 +73,8 @@ const Setting = () => {
                 },
               })}
             />
-            {errors.firstName && (
-              <p className="text-error text-base">{errors.firstName.message}</p>
+            {errors.name && (
+              <p className="text-error text-base">{errors.name.message}</p>
             )}
           </div>
           <div className="md:col-span-6 col-span-12">
@@ -81,7 +86,7 @@ const Setting = () => {
               id="lastName"
               className="profile_input"
               placeholder="Last Name"
-              {...register("lastName", {
+              {...register("lastname", {
                 required: "Last Name was Required",
                 pattern: {
                   value: /^[A-Za-z]+$/i,
@@ -93,8 +98,8 @@ const Setting = () => {
                 },
               })}
             />
-            {errors.lastName && (
-              <p className="text-error text-base">{errors.lastName.message}</p>
+            {errors.lastname && (
+              <p className="text-error text-base">{errors.lastname.message}</p>
             )}
           </div>
           <div className="md:col-span-6 col-span-12">
@@ -106,11 +111,12 @@ const Setting = () => {
               id="userName"
               className="profile_input"
               placeholder="User Name"
-              {...register("userName", {
+              {...register("UserName", {
                 required: "User Name was Required",
                 pattern: {
-                  value: /^[A-Za-z]+$/i,
-                  message: "User Name should be a string",
+                  value: /^(?=.*[A-Za-z])[A-Za-z0-9]+$/,
+                  message:
+                    "User Name should contain at least one letter and can include letters and numbers",
                 },
                 minLength: {
                   value: 3,
@@ -118,8 +124,8 @@ const Setting = () => {
                 },
               })}
             />
-            {errors.userName && (
-              <p className="text-error text-base">{errors.userName.message}</p>
+            {errors.UserName && (
+              <p className="text-error text-base">{errors.UserName.message}</p>
             )}
           </div>
           <div className="md:col-span-6 col-span-12">
@@ -131,7 +137,7 @@ const Setting = () => {
               id="phone"
               className="profile_input"
               placeholder="Phone Number"
-              {...register("phoneNumber", {
+              {...register("PhoneNumber", {
                 required: "Phone Number was Required",
                 pattern: {
                   value: /^[0-9]+$/i,
@@ -143,9 +149,9 @@ const Setting = () => {
                 },
               })}
             />
-            {errors.phoneNumber && (
+            {errors.PhoneNumber && (
               <p className="text-error text-base">
-                {errors.phoneNumber.message}
+                {errors.PhoneNumber.message}
               </p>
             )}
           </div>
@@ -158,7 +164,7 @@ const Setting = () => {
               id="skill"
               className="profile_input"
               placeholder="Skill/Occupation"
-              {...register("occupation", {
+              {...register("ExpartIn", {
                 required: "Occupation was Required",
                 pattern: {
                   value: /^[A-Za-z]+$/i,
@@ -170,10 +176,8 @@ const Setting = () => {
                 },
               })}
             />
-            {errors.occupation && (
-              <p className="text-error text-base">
-                {errors.occupation.message}
-              </p>
+            {errors.ExpartIn && (
+              <p className="text-error text-base">{errors.ExpartIn.message}</p>
             )}
           </div>
           <div className="md:col-span-6 col-span-12">
@@ -213,20 +217,16 @@ const Setting = () => {
               placeholder="Display Name Publicly As"
               cols={30}
               rows={8}
-              {...register("biography", {
+              {...register("Biography", {
                 required: "Biography was Required",
-                pattern: {
-                  value: /^[A-Za-z]+$/i,
-                  message: "Biography should be a string",
-                },
                 minLength: {
                   value: 20,
                   message: "Biography should be 20 characters long",
                 },
               })}
             />
-            {errors.biography && (
-              <p className="text-error text-base">{errors.biography.message}</p>
+            {errors.Biography && (
+              <p className="text-error text-base">{errors.Biography.message}</p>
             )}
           </div>
         </div>

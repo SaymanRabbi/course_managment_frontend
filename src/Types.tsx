@@ -8,4 +8,10 @@ export interface User {
   isVerified?: boolean;
   token?: string;
   _id?: string;
+  lastname?: string;
+  UserName?: string;
+  PhoneNumber?: string;
+  ExpartIn?: string;
+  Biography?: string;
+  displayName?: string;
 }

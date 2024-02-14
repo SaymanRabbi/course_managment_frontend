@@ -1,11 +1,24 @@
+import { useUserStore } from "../../Store/UserStore";
 import { ProfileData } from "../../dummyData/DummyData";
 import DashboardCard from "./DashboardCard";
 
 const Profile = () => {
+  const { user } = useUserStore((state) => state);
+  const userData = {
+    name: `${user?.name} ${user?.lastname}` || "",
+    email: user?.email || "Not Available",
+    isVerified: user?.isVerified ? "Verified" : "Not Verified",
+    role: user?.role || "Not Available",
+    UserName: user?.UserName || "Not Available",
+    displayName: user?.displayName || "Not Available",
+    PhoneNumber: user?.PhoneNumber || "Not Available",
+    ExpartIn: user?.ExpartIn || "Not Available",
+    Biography: user?.Biography || "Not Available",
+  };
   return (
     <DashboardCard title="Profile">
       <>
-        {Object.entries(ProfileData[0]).map((data, index) => {
+        {Object.entries(userData).map((data, index) => {
           return (
             <div
               key={index}

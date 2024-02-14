@@ -2,12 +2,31 @@ import { Outlet } from "react-router-dom";
 import Container from "../Components/Container/Container";
 import Banner from "../Components/DashboardBanner/Banner";
 import Sidebar from "../Components/DashboardSideBar/Sidebar";
+import { useUserStore } from "../Store/UserStore";
+import axios from "axios";
+import { useQuery } from "react-query";
 
 const Dashboard = () => {
+  const { setUserData, user } = useUserStore((state) => state);
+  const fetchUser = () => {
+    return axios.get("http://localhost:5000/api/v1/user/login/token", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  };
+
+  const {} = useQuery("user", fetchUser, {
+    refetchOnMount: true,
+    onSuccess: (data) => {
+      setUserData(data.data.data);
+    },
+  });
   return (
     <Container className=" pt-[130px] xl:!px-[60px] px-[30px]">
       <Banner
-        name="Sayman Rabbi"
+        name={user?.name || "User"}
         ernolledCourses={12}
         certificate={8}
         buttonTitle="Enroll New Course"

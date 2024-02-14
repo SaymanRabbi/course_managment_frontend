@@ -21,7 +21,6 @@ const Login: React.FC = () => {
   const { clearMessages, getUser } = useUserStore((state) => state);
   const { isLoading, success, messages, serverError, user, token } =
     useUserStore((state) => state);
-
   //  ------store user data
   const {
     register,
@@ -45,7 +44,11 @@ const Login: React.FC = () => {
   };
   useEffect(() => {
     setTimeout(() => {
-      if (success) {
+      if (
+        messages === "User logged in successfully" &&
+        user !== null &&
+        token !== null
+      ) {
         setAuth({ token: token, user: user, role: user?.role });
         clearMessages();
         redirect("/");

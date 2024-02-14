@@ -14,7 +14,6 @@ const HeroIq: React.FC<Props> = () => {
   const { getQuiz, courseId, quiz, token, updateQuiz } = useUserStore(
     (state) => state
   );
-  console.log(courseId);
   // get state---
   const getQuizs = async () => {
     await getQuiz(id, courseId, token);
@@ -53,7 +52,7 @@ const HeroIq: React.FC<Props> = () => {
           }
         );
         const avg = (scores * 100) / quiz[0]?.quizDetails.questions.length;
-        await updateQuiz(token, id, avg, courseId);
+        await updateQuiz(token, id, avg, courseId, index);
         setScore(scores);
         return scores;
       }

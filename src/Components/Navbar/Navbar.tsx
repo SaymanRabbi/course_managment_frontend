@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { FiAlignLeft, FiAlignRight } from "react-icons/fi";
 import Container from "../Container/Container";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUserStore } from "../../Store/UserStore";
+import useAuth from "../../hooks/useAuth";
 interface Route {
   name: string;
   link: string;
 }
 const Navbar = () => {
+  const { setAuth } = useAuth();
   const [navbar, setNavbar] = useState(false);
   const { user } = useUserStore((state) => state);
   const { pathname } = useLocation();
+  const navigation = useNavigate();
   const route: Route[] = [
     {
       name: "Home",
@@ -25,6 +28,12 @@ const Navbar = () => {
       link: "/login",
     },
   ];
+  const Logout = () => {
+    setAuth({ user: false, token: "", role: "" });
+    localStorage.removeItem("token");
+    localStorage.removeItem("auth");
+    navigation("/login");
+  };
   return (
     <nav className=" flex flex-col w-[100%] shrink-0 fixed z-[1100] top-0 left-auto right-0 bg-transparent backdrop-blur-[9px] text-white shadow-sm sm:px-0 px-4">
       {/* conatiner */}
@@ -49,12 +58,12 @@ const Navbar = () => {
                   <Link to={item.link} className="relative">
                     {user ? (
                       item.name === "login" ? (
-                        <Link
-                          to="/login"
+                        <p
+                          onClick={Logout}
                           className="capitalize no-underline text-textSecondary cursor-pointer"
                         >
                           Logout
-                        </Link>
+                        </p>
                       ) : (
                         <Link
                           to={item.link}
@@ -117,12 +126,22 @@ const Navbar = () => {
                   {route.map((item, index) => {
                     return (
                       <div className=" pb-[8px]" key={index}>
-                        <Link
-                          to={item.link}
-                          className="  capitalize no-underline text-textSecondary cursor-pointer"
-                        >
-                          {item.name}
-                        </Link>
+                        {user && item.name === "login" ? (
+                          <p
+                            onClick={Logout}
+                            className="capitalize no-underline text-textSecondary cursor-pointer"
+                          >
+                            Logout
+                          </p>
+                        ) : (
+                          <Link
+                            to={item.link}
+                            className="  capitalize no-underline text-textSecondary cursor-pointer"
+                          >
+                            {item.name}
+                          </Link>
+                        )}
+
                         {item.name === "Success" ? (
                           ""
                         ) : (

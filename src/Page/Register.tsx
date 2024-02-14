@@ -38,7 +38,11 @@ const Register: React.FC = () => {
   };
   useEffect(() => {
     setTimeout(() => {
-      if (success) {
+      if (
+        success &&
+        messages ===
+          "User created successfully Please check Email to verify Account"
+      ) {
         reset();
         clearMessages();
         redirect("/login");

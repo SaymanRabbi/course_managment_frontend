@@ -22,7 +22,13 @@ interface UserStoreState {
   courseId: string;
   quiz: any;
   getQuiz: (id: any, quizID: any, token: any) => Promise<void>;
-  updateQuiz: (id: any, quizID: any, token: any, score: any) => Promise<void>;
+  updateQuiz: (
+    id: any,
+    quizID: any,
+    token: any,
+    score: any,
+    submitAnswerobg: any
+  ) => Promise<void>;
   updateUserProfile: (token: any, data: any) => Promise<void>;
   getUserByToken: () => Promise<void>;
 }
@@ -39,7 +45,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   token: localStorage.getItem("token") || "",
   courseId: "",
   quiz: [],
-  updateQuiz: async (token, quizID, score, courseId) => {
+  updateQuiz: async (token, quizID, score, courseId, submitAnswerobg) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
       const url = `http://localhost:5000/api/v1/user/update-quiz-score/${quizID}`;
@@ -49,7 +55,11 @@ export const useUserStore = create<UserStoreState>((set) => ({
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ courseId: courseId, score: score }),
+        body: JSON.stringify({
+          courseId: courseId,
+          score: score,
+          submitAnswerobg,
+        }),
       });
       const data = await resp.json();
       if (data) {
@@ -80,7 +90,6 @@ export const useUserStore = create<UserStoreState>((set) => ({
       const data = await resp.json();
       if (data) {
         set({
-          user: data.data,
           isLoading: false,
           success: data?.status,
           messages: data.message,
@@ -243,9 +252,6 @@ export const useUserStore = create<UserStoreState>((set) => ({
     }
   },
   getQuiz: async (id: any, quizID: any, token) => {
-    console.log(id);
-    console.log(quizID);
-    console.log(token);
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
       const url = `http://localhost:5000/api/v1/course/getQuiz/${id}`;
@@ -323,7 +329,6 @@ export const useUserStore = create<UserStoreState>((set) => ({
           messages: data.message,
           serverError: null,
         });
-        localStorage.setItem("user", JSON.stringify(data.data));
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });

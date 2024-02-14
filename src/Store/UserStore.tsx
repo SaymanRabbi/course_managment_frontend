@@ -23,9 +23,12 @@ interface UserStoreState {
   quiz: any;
   getQuiz: (id: any, quizID: any, token: any) => Promise<void>;
   updateQuiz: (id: any, quizID: any, token: any, score: any) => Promise<void>;
+  updateUserProfile: (token: any, data: any) => Promise<void>;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
-  user: null,
+  user: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user") || "")
+    : null,
   isLoading: false,
   serverError: null,
   success: null,
@@ -266,4 +269,31 @@ export const useUserStore = create<UserStoreState>((set) => ({
     }
   },
   setUserData: (user: User) => set({ user }),
+  updateUserProfile: async (token, data) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/updateprofile`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      const res = await resp.json();
+      if (res) {
+        set({
+          user: res.data.user,
+          isLoading: false,
+          success: res?.status,
+          messages: res.message,
+          serverError: null,
+        });
+        localStorage.setItem("user", JSON.stringify(res.data));
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
 }));

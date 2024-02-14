@@ -19,27 +19,25 @@ import VideoPlayer from "./Components/Video/VideoPlayer";
 import Quiz from "./Components/Dashboard/Quiz";
 import { useUserStore } from "./Store/UserStore";
 import { useQuery } from "react-query";
-import Loading from "./Components/Loading/Loading";
+import axios from "axios";
 function App() {
   const { setUserData } = useUserStore((state) => state);
-  const token = localStorage.getItem("token");
-  const { isLoading } = useQuery("user", async () => {
-    const url = `http://localhost:5000/api/v1/user/login/token`;
-    const resp = await fetch(url, {
-      method: "GET",
+  const fetchUser = () => {
+    return axios.get("http://localhost:5000/api/v1/user/login/token", {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    const data = await resp.json();
-    if (data) {
-      setUserData(data.data);
-    }
+  };
+
+  const {} = useQuery("user", fetchUser, {
+    refetchOnMount: true,
+    onSuccess: (data) => {
+      setUserData(data.data.data);
+    },
   });
-  if (isLoading) {
-    return <Loading title="Please Wait" />;
-  }
+
   return (
     <>
       <Routes>

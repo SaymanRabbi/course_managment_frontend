@@ -8,6 +8,8 @@ import { MdQuiz } from "react-icons/md";
 import { MdAssignment } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
+import { GrNotification, GrUserManager } from "react-icons/gr";
+import { RiNotificationBadgeFill } from "react-icons/ri";
 
 const Sidebar = () => {
   const location = useLocation().pathname;
@@ -80,17 +82,17 @@ const Sidebar = () => {
     },
     {
       name: "PopularInstructors",
-      icon: <FaRegBookmark />,
+      icon: <GrUserManager />,
       link: "/dashboard/popular-instructor",
     },
     {
       name: "NoticeBoard",
-      icon: <FaRegBookmark />,
+      icon: <RiNotificationBadgeFill />,
       link: "/dashboard/notice-board",
     },
     {
       name: "Notifications",
-      icon: <FaRegBookmark />,
+      icon: <GrNotification />,
       link: "/dashboard/notifications",
     },
     {
@@ -100,7 +102,7 @@ const Sidebar = () => {
     },
     {
       name: "AdminQuize",
-      icon: <FaRegBookmark />,
+      icon: <MdQuiz />,
       link: "/dashboard/admin-quiz",
     },
   ];

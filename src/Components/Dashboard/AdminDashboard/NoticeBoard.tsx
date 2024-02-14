@@ -10,7 +10,7 @@ const NoticeBoard = () => {
                     return(
                         <div className="md:flex items-center gap-5 mt-8 text-textPrimary">
                             <img className="w-full md:w-40 md:h-24" src={item.img} alt="" />
-                            <p>{item.des}</p>
+                            <p className="mt-3 md:mt-0">{item.des}</p>
                         </div>
                     )
                 })

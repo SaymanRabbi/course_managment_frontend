@@ -1,9 +1,18 @@
+import { useEffect } from "react";
 import { useUserStore } from "../../Store/UserStore";
-import { ProfileData } from "../../dummyData/DummyData";
 import DashboardCard from "./DashboardCard";
+import { useLocation } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 const Profile = () => {
-  const { user } = useUserStore((state) => state);
+  const { getUserByToken, user, isLoading } = useUserStore((state) => state);
+  const route = useLocation().pathname;
+  useEffect(() => {
+    const getUser = async () => {
+      await getUserByToken();
+    };
+    getUser();
+  }, [route]);
   const userData = {
     name: `${user?.name} ${user?.lastname}` || "",
     email: user?.email || "Not Available",
@@ -15,6 +24,7 @@ const Profile = () => {
     ExpartIn: user?.ExpartIn || "Not Available",
     Biography: user?.Biography || "Not Available",
   };
+  if (isLoading) return <Loading title="Loading.." />;
   return (
     <DashboardCard title="Profile">
       <>

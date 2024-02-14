@@ -16,7 +16,7 @@ const VideoPlayer = () => {
   const [index, setIndex] = useState(
     JSON.parse(localStorage.getItem("ind") || "{}").videoindex || 0
   );
-  const { courses, getCourses, courseId } = useUserStore((state) => state);
+  const { courses, getCourses } = useUserStore((state) => state);
 
   const [video, setVideo] = useState(
     courses[0]?.modules[moduleIndex].lessons[index].url

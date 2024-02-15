@@ -23,8 +23,7 @@ import Courses from "./Components/Dashboard/AdminDashboard/Courses";
 import PopularInstructor from "./Components/Dashboard/AdminDashboard/PopularInstructor";
 import NoticeBoard from "./Components/Dashboard/AdminDashboard/NoticeBoard";
 import Notifications from "./Components/Dashboard/AdminDashboard/Notifications";
-import RecentCourses from "./Components/Dashboard/AdminDashboard/RecentCourses";
-import AdminQuizAttempts from "./Components/Dashboard/AdminDashboard/AdminQuizAttempts";
+
 
 function App() {
   return (
@@ -61,8 +60,6 @@ function App() {
           <Route path="/dashboard/popular-instructor" element={<PopularInstructor />} />
           <Route path="/dashboard/notice-board" element={<NoticeBoard />} />
           <Route path="/dashboard/notifications" element={<Notifications />} />
-          <Route path="/dashboard/recent-courses" element={<RecentCourses />} />
-          <Route path="/dashboard/admin-quiz" element={<AdminQuizAttempts />} />
         </Route>
       </Routes>
     </>

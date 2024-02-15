@@ -5,7 +5,6 @@ import { CiVideoOn } from "react-icons/ci";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineQuestionAnswer } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { dummyData } from "../../dummyData/DummyData";
 import { useUserStore } from "../../Store/UserStore";
 import { MdAssignment } from "react-icons/md";
 
@@ -15,6 +14,8 @@ const VideoPlayer = () => {
   const [moduleIndex, setmoduleIndex] = useState(
     JSON.parse(localStorage.getItem("ind") || "{}").moduleIndex || 0
   );
+  const [search, setSearch] = useState("");
+  const [filterModule, setFilterModule] = useState([] as any);
   const [index, setIndex] = useState(
     JSON.parse(localStorage.getItem("ind") || "{}").videoindex || 0
   );
@@ -52,9 +53,18 @@ const VideoPlayer = () => {
       await getCourses();
     };
     getCourse();
-  }, [video, setVideo, dummyData]);
+  }, [video, setVideo, search, courses]);
+  useEffect(() => {
+    if (search) {
+      const filterData = courses?.modules?.filter((data: any) =>
+        data.title.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilterModule(filterData);
+    } else {
+      setFilterModule(courses);
+    }
+  }, [search, courses]);
   // useEffect to load the video where the user left off after window refresh
-
   return (
     <Container>
       <div className=" pt-[200px] w-[95%] lg:w-[90%] mx-auto grid-cols-12 grid gap-x-6 ">
@@ -96,13 +106,15 @@ const VideoPlayer = () => {
                 type="text"
                 name=""
                 id=""
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 className=" w-[100%] rounded py-3 px-8 bg-transparent outline-none border-none text-textPrimary"
                 placeholder="Search Module"
               />
             </div>
             {/* -----search--- */}
             {/* ----module list---- */}
-            {courses?.map((data: any) =>
+            {filterModule?.map((data: any) =>
               data.modules.map((data: any, ind: any) => (
                 <div
                   className=" bg-bgPrimary p-3 rounded mt-4 w-[100%] overflow-hidden"

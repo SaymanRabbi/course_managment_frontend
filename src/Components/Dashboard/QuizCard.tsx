@@ -11,7 +11,7 @@ interface Props {
 const HeroIq: React.FC<Props> = () => {
   const { id } = useParams<{ id: string }>();
   // get state---
-  const { getQuiz, courseId, quiz, token, updateQuiz } = useUserStore(
+  const { getQuiz, courseId, quiz, token, updateQuiz, user } = useUserStore(
     (state) => state
   );
   // get state---
@@ -51,8 +51,7 @@ const HeroIq: React.FC<Props> = () => {
             }
           }
         );
-        const avg = (scores * 100) / quiz[0]?.quizDetails.questions.length;
-        await updateQuiz(token, id, avg, courseId, index);
+
         setScore(scores);
         return scores;
       }
@@ -80,16 +79,23 @@ const HeroIq: React.FC<Props> = () => {
 
     // setClick(false)
   };
-  const Finish = () => {
+  const Finish = async () => {
+    const avg = (score * 100) / quiz[0]?.quizDetails.questions.length;
+    await updateQuiz(token, id, avg, courseId, index);
     setFinish(true);
     setIndex({ ...index, [nextIndex]: yourAnswer });
-    localStorage.setItem("index", JSON.stringify(index));
-    localStorage.setItem("finish", JSON.stringify(true));
   };
 
   return (
     <>
-      {finish ? (
+      {user?.quizs && user?.quizs.find((item: any) => item.quizId === id) ? (
+        <div className="text-center font-bold text-xl text-success">
+          You have already taken this quiz and your score is {""}
+          {(user?.quizs &&
+            user?.quizs.find((item: any) => item.quizId === id).score) ||
+            ""}
+        </div>
+      ) : finish ? (
         <div className="block w-full h-full">
           <div className="w-[100%] mx-auto">
             <span className="block text-center font-[800] text-textPrimary md:text-[30px] text-[25px] pb-8">
@@ -167,7 +173,7 @@ const HeroIq: React.FC<Props> = () => {
                         <div
                           key={i}
                           onClick={() => OnClick(i)}
-                          className={`lg:col-span-6 col-span-12 py-3 pl-[10px] flex lg:gap-4 gap-2 border-2 border-b-[3px] rounded-[10px] cursor-pointer ${
+                          className={`lg:col-span-6 col-span-12 py-3 pl-[10px] flex lg:gap-4 gap-2  cursor-pointer ${
                             click && index[nextIndex] === i
                               ? "border-rgbFrom  bg-transparent "
                               : ""

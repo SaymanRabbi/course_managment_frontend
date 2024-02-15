@@ -21,6 +21,13 @@ const VideoPlayer = () => {
   const [video, setVideo] = useState(
     courses[0]?.modules[moduleIndex].lessons[index].url
   );
+  useEffect(() => {
+    if (moduleIndex !== undefined && index !== undefined) {
+      const currentVideo =
+        courses[0]?.modules[moduleIndex]?.lessons[index]?.url;
+      setVideo(currentVideo);
+    }
+  }, [moduleIndex, index, courses]);
   const ChangesVideoUrl = (module: any, ind: any, videoIndx: number) => {
     setVideo(module.url);
     setIndex(videoIndx);
@@ -36,6 +43,7 @@ const VideoPlayer = () => {
     };
     getCourse();
   }, [video, setVideo, dummyData]);
+  // useEffect to load the video where the user left off after window refresh
 
   return (
     <Container>
@@ -62,10 +70,10 @@ const VideoPlayer = () => {
         <div className="lg:col-span-5 col-span-12 mt-6 md:mt-0">
           {/* ----heading--- */}
           <div className=" flex text-textPrimary font-bold gap-4 items-center w-[100%]  md:mt-0">
-            <h2 className=" w-[40%]">Running Module : {courses.length}</h2>
+            <h2 className=" w-[40%]">Running Module : {moduleIndex + 1}</h2>
             <div className=" flex items-center gap-x-2 w-[60%]">
               <div className=" w-[100%] bg-gradient-to-r from-rgbFrom to-rgbTo h-[10px] rounded-md"></div>
-              <h2>{courses.length}/9</h2>
+              <h2>{courses[0]?.modules?.length}/9</h2>
             </div>
           </div>
           {/* ----heading--- */}
@@ -91,7 +99,8 @@ const VideoPlayer = () => {
                   key={ind}
                 >
                   <h2 className=" text-textPrimary">
-                    <span className=" font-bold">01 :</span> {data?.title}
+                    <span className=" font-bold">{ind + 1} :-</span>{" "}
+                    {data?.title}
                   </h2>
                   {/* video */}
                   {data.lessons.map((module: any, i: any) =>
@@ -129,7 +138,10 @@ const VideoPlayer = () => {
                             }`}
                           />
                           <h2 className=" text-textPrimary ml-2 w-[80%]">
-                            {module.title}
+                            {module.title}{" "}
+                            <span className=" text-rgbTo font-bold">
+                              "Quiz"
+                            </span>
                           </h2>
                         </Link>
                       </div>
@@ -147,7 +159,11 @@ const VideoPlayer = () => {
                           }`}
                         />
                         <h2 className=" text-textPrimary ml-2 w-[80%]">
-                          {module.title}
+                          {module.title}{" "}
+                          <span className=" text-rgbTo font-bold">
+                            {" "}
+                            "Assignment"{" "}
+                          </span>
                         </h2>
                       </Link>
                     ) : (

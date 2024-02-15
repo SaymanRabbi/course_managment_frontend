@@ -11,7 +11,7 @@ interface Route {
 const Navbar = () => {
   const { setAuth } = useAuth();
   const [navbar, setNavbar] = useState(false);
-  const { user } = useUserStore((state) => state);
+  const { user, logout } = useUserStore((state) => state);
   const { pathname } = useLocation();
   const navigation = useNavigate();
   const route: Route[] = [
@@ -29,6 +29,7 @@ const Navbar = () => {
     },
   ];
   const Logout = () => {
+    logout();
     setAuth({ user: false, token: "", role: "" });
     localStorage.removeItem("token");
     localStorage.removeItem("auth");
@@ -55,32 +56,22 @@ const Navbar = () => {
                   className=" px-6 capitalize no-underline text-textSecondary cursor-pointer relative"
                   key={index}
                 >
-                  <Link to={item.link} className="relative">
-                    {user ? (
-                      item.name === "login" ? (
-                        <p
-                          onClick={Logout}
-                          className="capitalize no-underline text-textSecondary cursor-pointer"
-                        >
-                          Logout
-                        </p>
-                      ) : (
-                        <Link
-                          to={item.link}
-                          className="capitalize no-underline text-textSecondary cursor-pointer"
-                        >
-                          {item.name}
-                        </Link>
-                      )
-                    ) : (
-                      <Link
-                        to={item.link}
-                        className="capitalize no-underline text-textSecondary cursor-pointer"
-                      >
-                        {item.name}
-                      </Link>
-                    )}
-                  </Link>
+                  {user?.email && item.name === "login" ? (
+                    <p
+                      onClick={() => Logout()}
+                      className="capitalize no-underline text-textSecondary cursor-pointer"
+                    >
+                      Logout
+                    </p>
+                  ) : (
+                    <Link
+                      to={item.link}
+                      className="capitalize no-underline text-textSecondary cursor-pointer"
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+
                   {item.link === pathname ? (
                     <span
                       className=" w-[60%]  bottom-[-4px] left-[20%] h-[2px] bg-gradient-to-r from-rgbFrom to-rgbTo absolute 
@@ -126,9 +117,9 @@ const Navbar = () => {
                   {route.map((item, index) => {
                     return (
                       <div className=" pb-[8px]" key={index}>
-                        {user && item.name === "login" ? (
+                        {user?.email && item.name === "login" ? (
                           <p
-                            onClick={Logout}
+                            onClick={() => Logout()}
                             className="capitalize no-underline text-textSecondary cursor-pointer"
                           >
                             Logout

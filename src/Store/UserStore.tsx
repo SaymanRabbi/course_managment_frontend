@@ -27,7 +27,9 @@ interface UserStoreState {
     quizID: any,
     token: any,
     score: any,
-    submitAnswerobg: any
+    submitAnswerobg: any,
+    title: any,
+    quizLength: any
   ) => Promise<void>;
   updateUserProfile: (token: any, data: any) => Promise<void>;
   getUserByToken: () => Promise<void>;
@@ -45,7 +47,15 @@ export const useUserStore = create<UserStoreState>((set) => ({
   token: localStorage.getItem("token") || "",
   courseId: "",
   quiz: [],
-  updateQuiz: async (token, quizID, score, courseId, submitAnswerobg) => {
+  updateQuiz: async (
+    token,
+    quizID,
+    score,
+    courseId,
+    submitAnswerobg,
+    title,
+    quizLength
+  ) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
       const url = `http://localhost:5000/api/v1/user/update-quiz-score/${quizID}`;
@@ -59,6 +69,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
           courseId: courseId,
           score: score,
           submitAnswerobg,
+          title,
+          quizLength,
         }),
       });
       const data = await resp.json();
@@ -265,7 +277,6 @@ export const useUserStore = create<UserStoreState>((set) => ({
       });
       const data = await resp.json();
       if (data) {
-        console.log(data);
         set({
           quiz: data.data,
           isLoading: false,

@@ -17,7 +17,7 @@ const Setting = () => {
   const { user, updateUserProfile, success, clearMessages } = useUserStore(
     (state) => state
   );
-  console.log(user);
+
   const [toast, setToast] = useState({
     message: "",
     type: null as "success" | "error" | "warning" | "loading" | null,
@@ -30,7 +30,6 @@ const Setting = () => {
     formState: { errors },
   } = useForm<FormData>();
   const onSubmit = async (data: FormData) => {
-    console.log(data);
     await updateUserProfile(localStorage.getItem("token"), data);
     if (success) {
       setToast({ message: "Profile Updated", type: "success", duration: 5000 });
@@ -60,6 +59,7 @@ const Setting = () => {
               type="text"
               id="firstName"
               className="profile_input"
+              defaultValue={user?.name ? user.name : ""}
               placeholder="First Name"
               {...register("name", {
                 required: "First Name was Required",
@@ -84,6 +84,7 @@ const Setting = () => {
             <input
               type="text"
               id="lastName"
+              defaultValue={user?.lastname ? user.lastname : ""}
               className="profile_input"
               placeholder="Last Name"
               {...register("lastname", {
@@ -109,6 +110,7 @@ const Setting = () => {
             <input
               type="text"
               id="userName"
+              defaultValue={user?.UserName ? user.UserName : ""}
               className="profile_input"
               placeholder="User Name"
               {...register("UserName", {
@@ -135,6 +137,7 @@ const Setting = () => {
             <input
               type="number"
               id="phone"
+              defaultValue={user?.PhoneNumber ? user.PhoneNumber : ""}
               className="profile_input"
               placeholder="Phone Number"
               {...register("PhoneNumber", {
@@ -162,6 +165,7 @@ const Setting = () => {
             <input
               type="text"
               id="skill"
+              defaultValue={user?.ExpartIn ? user.ExpartIn : ""}
               className="profile_input"
               placeholder="Skill/Occupation"
               {...register("ExpartIn", {
@@ -189,6 +193,7 @@ const Setting = () => {
               id="display"
               className="profile_input"
               placeholder="Display Name Publicly As"
+              defaultValue={user?.displayName ? user.displayName : ""}
               {...register("displayName", {
                 required: "Display Name was Required",
                 pattern: {
@@ -216,6 +221,7 @@ const Setting = () => {
               className="profile_input resize-none"
               placeholder="Display Name Publicly As"
               cols={30}
+              defaultValue={user?.Biography ? user.Biography : ""}
               rows={8}
               {...register("Biography", {
                 required: "Biography was Required",

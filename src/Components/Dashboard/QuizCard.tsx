@@ -14,6 +14,7 @@ const HeroIq: React.FC<Props> = () => {
   const { getQuiz, courseId, quiz, token, updateQuiz, user } = useUserStore(
     (state) => state
   );
+
   // get state---
   const getQuizs = async () => {
     await getQuiz(id, courseId, token);
@@ -80,8 +81,24 @@ const HeroIq: React.FC<Props> = () => {
     // setClick(false)
   };
   const Finish = async () => {
-    const avg = (score * 100) / quiz[0]?.quizDetails.questions.length;
-    await updateQuiz(token, id, avg, courseId, index);
+    let scores = 0;
+    if (quiz?.length) {
+      quiz[0]?.quizDetails.questions.forEach(
+        (question: any, questionIndex: any) => {
+          if (
+            index[questionIndex] ===
+            question.options.findIndex((option: any) => option.answer === true)
+          ) {
+            scores++;
+          }
+        }
+      );
+      setScore(scores);
+    }
+    const avg = (scores * 100) / quiz[0]?.quizDetails.questions.length;
+    const title = quiz[0]?.title;
+    const quizLength = quiz[0]?.quizDetails.questions.length;
+    await updateQuiz(token, id, avg, courseId, index, title, quizLength);
     setFinish(true);
     setIndex({ ...index, [nextIndex]: yourAnswer });
   };

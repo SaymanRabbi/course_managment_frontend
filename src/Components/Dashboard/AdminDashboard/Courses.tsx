@@ -1,8 +1,13 @@
 import DashboardCard from "../DashboardCard";
 import { FiUser } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import { quizAdmin } from "../../../dummyData/DummyData";
 
 const Courses = () => {
+  const navigate = useNavigate();
+  const handleDetailsClick = (courseId: number) => {
+    navigate(`/dashboard/course-details/${courseId}`);
+  };
   return (
     <DashboardCard title="Recent Courses">
       <div>
@@ -30,7 +35,10 @@ const Courses = () => {
                   </div>
                 </div>
                 <div className="">
-                  <button className="flex items-center gap-2 bg-pink-700 px-8 py-2 rounded-md w-full mt-4 md:mt-8">
+                  <button
+                    className="flex items-center gap-2 bg-pink-700 px-8 py-2 rounded-md w-full mt-4 md:mt-8"
+                    onClick={() => handleDetailsClick(item.id)}
+                  >
                     <span className="mx-auto">Details</span>
                   </button>
                 </div>

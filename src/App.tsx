@@ -24,6 +24,7 @@ import PopularInstructor from "./Components/Dashboard/AdminDashboard/PopularInst
 import NoticeBoard from "./Components/Dashboard/AdminDashboard/NoticeBoard";
 import Notifications from "./Components/Dashboard/AdminDashboard/Notifications";
 import ManageRole from "./Components/Dashboard/AdminDashboard/ManageRole";
+import CourseDetails from "./Components/Dashboard/AdminDashboard/CourseDetails";
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
           <Route path="/dashboard/notice-board" element={<NoticeBoard />} />
           <Route path="/dashboard/notifications" element={<Notifications />} />
           <Route path="/dashboard/manageRole" element={<ManageRole />} />
+          <Route path="/dashboard/course-details/:id" element={<CourseDetails />} />
         </Route>
       </Routes>
     </>

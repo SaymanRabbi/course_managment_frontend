@@ -487,3 +487,48 @@ export const quizAdmin: quizAdmininterface[] = [
   },
   
 ];
+
+interface managerolesinterface {
+  id: number;
+  img: string;
+  name: string;
+  designation: string;
+}
+export const manageroles: managerolesinterface[] = [
+  {
+    id: 1,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Instructor",
+  },
+  {
+    id: 2,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Student",
+  },
+  {
+    id: 3,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Student",
+  },
+  {
+    id: 4,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Instructor",
+  },
+  {
+    id: 5,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Instructor",
+  },
+  {
+    id: 6,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Instructor",
+  },
+];

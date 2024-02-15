@@ -95,6 +95,11 @@ const Sidebar = () => {
       icon: <GrNotification />,
       link: "/dashboard/notifications",
     },
+    {
+      name: "Manage-Role",
+      icon: <GrNotification />,
+      link: "/dashboard/manageRole",
+    },
   ];
   return (
     <div className=" pt-[20px] pr-[30px] pb-[30px] pl-[30px] shadow-lg rounded-[10px] bg-bgPrimary/10">

@@ -108,9 +108,8 @@ const HeroIq: React.FC<Props> = () => {
       {user?.quizs && user?.quizs.find((item: any) => item.quizId === id) ? (
         <div className="text-center font-bold text-xl text-success">
           You have already taken this quiz and your score is {""}
-          {(user?.quizs &&
-            user?.quizs.find((item: any) => item.quizId === id).score) ||
-            ""}
+          {user?.quizs &&
+            user?.quizs.find((item: any) => item.quizId === id)?.score}
         </div>
       ) : finish ? (
         <div className="block w-full h-full">

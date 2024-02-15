@@ -2,7 +2,7 @@ import ReactPlayer from "react-player";
 import Container from "../Container/Container";
 import { BiSearch } from "react-icons/bi";
 import { CiVideoOn } from "react-icons/ci";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineQuestionAnswer } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { dummyData } from "../../dummyData/DummyData";
@@ -10,6 +10,8 @@ import { useUserStore } from "../../Store/UserStore";
 import { MdAssignment } from "react-icons/md";
 
 const VideoPlayer = () => {
+  const activeModuleRef = useRef<HTMLDivElement>(null);
+  const parentDivRef = useRef<HTMLDivElement>(null);
   const [moduleIndex, setmoduleIndex] = useState(
     JSON.parse(localStorage.getItem("ind") || "{}").moduleIndex || 0
   );
@@ -28,6 +30,14 @@ const VideoPlayer = () => {
       setVideo(currentVideo);
     }
   }, [moduleIndex, index, courses]);
+  useEffect(() => {
+    if (activeModuleRef.current && parentDivRef.current) {
+      activeModuleRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  }, [moduleIndex, index]);
   const ChangesVideoUrl = (module: any, ind: any, videoIndx: number) => {
     setVideo(module.url);
     setIndex(videoIndx);
@@ -97,6 +107,7 @@ const VideoPlayer = () => {
                 <div
                   className=" bg-bgPrimary p-3 rounded mt-4 w-[100%] overflow-hidden"
                   key={ind}
+                  ref={parentDivRef}
                 >
                   <h2 className=" text-textPrimary">
                     <span className=" font-bold">{ind + 1} :-</span>{" "}
@@ -109,6 +120,11 @@ const VideoPlayer = () => {
                         className={`mt-2 flex w-[100%] cursor-pointer rounded py-2 ${
                           index === i && moduleIndex === ind ? " bg-rgbTo" : ""
                         }`}
+                        ref={
+                          index === i && moduleIndex === ind
+                            ? activeModuleRef
+                            : null
+                        }
                         key={i}
                         onClick={() => ChangesVideoUrl(module, ind, i)}
                       >

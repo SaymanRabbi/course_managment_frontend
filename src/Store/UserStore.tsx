@@ -22,8 +22,17 @@ interface UserStoreState {
   courseId: string;
   quiz: any;
   getQuiz: (id: any, quizID: any, token: any) => Promise<void>;
-  updateQuiz: (id: any, quizID: any, token: any, score: any) => Promise<void>;
+  updateQuiz: (
+    id: any,
+    quizID: any,
+    token: any,
+    score: any,
+    submitAnswerobg: any,
+    title: any,
+    quizLength: any
+  ) => Promise<void>;
   updateUserProfile: (token: any, data: any) => Promise<void>;
+  getUserByToken: () => Promise<void>;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   user: localStorage.getItem("user")
@@ -38,7 +47,15 @@ export const useUserStore = create<UserStoreState>((set) => ({
   token: localStorage.getItem("token") || "",
   courseId: "",
   quiz: [],
-  updateQuiz: async (token, quizID, score, courseId) => {
+  updateQuiz: async (
+    token,
+    quizID,
+    score,
+    courseId,
+    submitAnswerobg,
+    title,
+    quizLength
+  ) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
       const url = `http://localhost:5000/api/v1/user/update-quiz-score/${quizID}`;
@@ -48,7 +65,13 @@ export const useUserStore = create<UserStoreState>((set) => ({
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ courseId: courseId, score: score }),
+        body: JSON.stringify({
+          courseId: courseId,
+          score: score,
+          submitAnswerobg,
+          title,
+          quizLength,
+        }),
       });
       const data = await resp.json();
       if (data) {
@@ -79,7 +102,6 @@ export const useUserStore = create<UserStoreState>((set) => ({
       const data = await resp.json();
       if (data) {
         set({
-          user: data.data,
           isLoading: false,
           success: data?.status,
           messages: data.message,
@@ -291,6 +313,33 @@ export const useUserStore = create<UserStoreState>((set) => ({
           serverError: null,
         });
         localStorage.setItem("user", JSON.stringify(res.data));
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getUserByToken: async () => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const token = localStorage.getItem("token");
+      if (!token) return set({ isLoading: false });
+      const url = `http://localhost:5000/api/v1/user/login/token`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          user: data.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });

@@ -1,6 +1,6 @@
 import Register from "./Page/Register";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import VerifyToken from "./Page/VerifyToken";
 import Login from "./Page/Login";
 import ForgotPass from "./Page/ForgotPass";
@@ -18,25 +18,22 @@ import Setting from "./Components/Dashboard/Setting";
 import VideoPlayer from "./Components/Video/VideoPlayer";
 import Quiz from "./Components/Dashboard/Quiz";
 import { useUserStore } from "./Store/UserStore";
-import { useQuery } from "react-query";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import RequireAuth from "./Components/RequreAuth";
+import NotFound from "./Page/NotFound";
+import Unauthorized from "./Page/Unauthorized";
 function App() {
-  const { setUserData } = useUserStore((state) => state);
-  const fetchUser = () => {
-    return axios.get("http://localhost:5000/api/v1/user/login/token", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-  };
-
-  const {} = useQuery("user", fetchUser, {
-    refetchOnMount: true,
-    onSuccess: (data) => {
-      setUserData(data.data.data);
-    },
-  });
+  const { getUserByToken, getCourses } = useUserStore((state) => state);
+  const [previousRoute, setPreviousRoute] = useState("");
+  const route = useLocation().pathname;
+  useEffect(() => {
+    // Check if the route has changed before calling the function
+    if (route !== previousRoute) {
+      getUserByToken();
+      getCourses();
+      setPreviousRoute(route); // Update the previous route after the function call
+    }
+  }, [route]);
 
   return (
     <>
@@ -47,26 +44,34 @@ function App() {
         <Route path="/verify-email/:token" element={<VerifyToken />} />
         <Route path="/forgot_pass" element={<ForgotPass />} />
         <Route path="/forgotpasscode/:id" element={<ForgotPassCode />} />
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="/dashboard" element={<DashboardContent />} />
-          <Route path="/dashboard/profile" element={<Profile />} />
+        <Route
+          element={
+            <RequireAuth allowedRoles={["admin", "teacher", "student"]} />
+          }
+        >
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="/dashboard" element={<DashboardContent />} />
+            <Route path="/dashboard/profile" element={<Profile />} />
 
-          <Route path="/dashboard/message" element={<Message />} />
+            <Route path="/dashboard/message" element={<Message />} />
 
-          <Route
-            path="/dashboard/enrolled-courses"
-            element={<EnrolledCourses />}
-          />
-          <Route path="/dashboard/reviews" element={<Reviews />} />
-          <Route path="/dashboard/quiz" element={<QuizAttempts />} />
-          <Route path="/dashboard/assignments" element={<Assignments />} />
-          <Route path="/dashboard/setting" element={<Setting />} />
-          <Route path="/dashboard" element={<Setting />} />
-          {/* ------quiz-------- */}
-          <Route path="/dashboard/quiz/:id" element={<Quiz />} />
-          {/* ------quiz-------- */}
+            <Route
+              path="/dashboard/enrolled-courses"
+              element={<EnrolledCourses />}
+            />
+            <Route path="/dashboard/reviews" element={<Reviews />} />
+            <Route path="/dashboard/quiz" element={<QuizAttempts />} />
+            <Route path="/dashboard/assignments" element={<Assignments />} />
+            <Route path="/dashboard/setting" element={<Setting />} />
+            <Route path="/dashboard" element={<Setting />} />
+            {/* ------quiz-------- */}
+            <Route path="/dashboard/quiz/:id" element={<Quiz />} />
+            {/* ------quiz-------- */}
+          </Route>
         </Route>
-        <Route path="/video" element={<VideoPlayer />} />
+        <Route path="/dashboard/module/video/:id" element={<VideoPlayer />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

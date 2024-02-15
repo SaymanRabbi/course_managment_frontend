@@ -32,12 +32,12 @@ const PerchesCourseCard = () => {
           {/* -----percentense */}
           {/* ----Button--- */}
           <div className=" flex gap-x-4">
-            <Link to="/video">
+            <Link to={`/dashboard/module/video/${10}`}>
               <Button className=" bg-gradient-to-r from-rgbFrom to-rgbTo text-textSecondary !py-3 w-full mt-4 ">
                 Start Learning
               </Button>
             </Link>
-            <Link to="/video">
+            <Link to={`/dashboard/module/video/${10}`}>
               <Button className=" bg-bgPrimary/20 text-textSecondary !py-3 w-full mt-4">
                 Outline
               </Button>

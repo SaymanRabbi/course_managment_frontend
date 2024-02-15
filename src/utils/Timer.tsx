@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 
 interface CourseAvailabilityTimerProps {
-  courseStartDate: Date;
+  startDate: Date;
+  deadline: Date;
 }
 
 const CourseAvailabilityTimer: React.FC<CourseAvailabilityTimerProps> = ({
-  courseStartDate,
+  startDate,
+  deadline,
 }) => {
   const [remainingTime, setRemainingTime] = useState<number>(() =>
-    calculateRemainingTime(courseStartDate)
+    calculateRemainingTime(deadline)
   );
 
   useEffect(() => {
@@ -27,11 +29,11 @@ const CourseAvailabilityTimer: React.FC<CourseAvailabilityTimerProps> = ({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [courseStartDate]);
+  }, [deadline]);
 
-  function calculateRemainingTime(startDate: Date): number {
+  function calculateRemainingTime(endDate: Date): number {
     const currentDate = new Date();
-    const timeDifference = startDate.getTime() - currentDate.getTime();
+    const timeDifference = endDate.getTime() - currentDate.getTime();
     return Math.max(0, Math.floor(timeDifference / 1000));
   }
 
@@ -46,7 +48,7 @@ const CourseAvailabilityTimer: React.FC<CourseAvailabilityTimerProps> = ({
   return (
     <div>
       {remainingTime > 0 ? (
-        <h2 className=" text-textPrimary text-[16px]">
+        <h2 className="text-textPrimary text-[16px]">
           {formatTime(remainingTime)}
         </h2>
       ) : (

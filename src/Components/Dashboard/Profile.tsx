@@ -1,9 +1,11 @@
 import { useUserStore } from "../../Store/UserStore";
-import { ProfileData } from "../../dummyData/DummyData";
 import DashboardCard from "./DashboardCard";
 
+import Loading from "../Loading/Loading";
+
 const Profile = () => {
-  const { user } = useUserStore((state) => state);
+  const { user, isLoading } = useUserStore((state) => state);
+
   const userData = {
     name: `${user?.name} ${user?.lastname}` || "",
     email: user?.email || "Not Available",
@@ -15,6 +17,7 @@ const Profile = () => {
     ExpartIn: user?.ExpartIn || "Not Available",
     Biography: user?.Biography || "Not Available",
   };
+  if (isLoading) return <Loading title="Loading.." />;
   return (
     <DashboardCard title="Profile">
       <>

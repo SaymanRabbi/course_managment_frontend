@@ -1,43 +1,24 @@
 import { FiVideo } from "react-icons/fi";
 import { AiTwotoneExclamationCircle } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
+import { useUserStore } from "../../Store/UserStore";
 import CourseAvailabilityTimer from "../../utils/Timer";
 
 const HomeCard = () => {
-  const data = [
-    {
-      name: "100 Days of Python",
-      description:
-        "Python is a popular programming language in the world. It is used for web development, data analysis, artificial intelligence, and scientific",
-      duration: 10,
-      price: 1000,
-      image: "../../../public/images/card/card1.jpg",
-    },
-    {
-      name: "React Full Stack",
-      description:
-        "React is a popular library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies.",
-      duration: 5,
-      price: 500,
-      image: "../../../public/images/card/card2.jpg",
-    },
-  ];
+  const { courses } = useUserStore((state) => state);
   return (
     <>
-      {data.map((item, index) => {
+      {courses.map((item: any, index: any) => {
         return (
           <div
-            className="relative  flex flex-col border-[.5px] border-bgPrimary p-4 bg-bgPrimary/20 rounded-[10px] w-full hover:scale-105 transition duration-700 ease-in-out cursor-pointer"
+            className="relative  flex flex-col border-[.5px] border-bgPrimary p-4 bg-bgPrimary/20 rounded-[10px] w-full hover:scale-105 transition duration-700 ease-in-out cursor-pointer max-w-[650px]  mx-auto  "
             key={index}
           >
             {/* timer---- */}
             <div className=" absolute top-[3%] left-[3%] from-rgbFrom to-rgbTo font-bold bg-gradient-to-r px-3 py-2 rounded-[5px] z-10 shadow-2xl">
               <CourseAvailabilityTimer
-                courseStartDate={
-                  new Date(
-                    new Date().getTime() + item.duration * 24 * 60 * 60 * 1000
-                  )
-                }
+                startDate={new Date(item?.startDate)}
+                deadline={new Date(item?.deadline)}
               />
             </div>
             {/* timer---- */}
@@ -63,7 +44,7 @@ const HomeCard = () => {
                   {/* -------flex---- */}
                   <button className="text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out bg-gradient-to-r from-rgbFrom to-rgbTo font-bold items-center">
                     <CiClock2 className="text-2xl" />
-                    {item.price > 0 ? `${item.price} Tk` : "Free"}
+                    {item.price > 0 ? `${item.price * 120} Tk` : "Free"}
                     <span>|</span>
                     Enroll Now
                   </button>
@@ -79,8 +60,8 @@ const HomeCard = () => {
                     <AiTwotoneExclamationCircle className="text-[20px]" />
                     <p>
                       If you do not use a Bangladeshi mobile number at the time
-                      of enrollment, the course fee will be {item.price + 100}{" "}
-                      Tk
+                      of enrollment, the course fee will be{" "}
+                      {item.price * 100 + 100} Tk
                     </p>
                   </div>
                   {/* show some text is that available or not */}

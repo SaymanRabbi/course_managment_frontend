@@ -1,7 +1,8 @@
 // import React from "react";
+import { Link } from "react-router-dom";
 import img from "../../../public/images/card/card1.jpg";
 import Button from "../Button/Button";
-interface Props {}
+// interface Props {}
 const PerchesCourseCard = () => {
   return (
     <div className="p-[18px] rounded-[12px] shadow-lg bg-bgPrimary/10 md:col-span-12 col-span-12">
@@ -31,12 +32,16 @@ const PerchesCourseCard = () => {
           {/* -----percentense */}
           {/* ----Button--- */}
           <div className=" flex gap-x-4">
-            <Button className=" bg-gradient-to-r from-rgbFrom to-rgbTo text-textSecondary !py-3 w-full mt-4 ">
-              Continue
-            </Button>
-            <Button className=" bg-bgPrimary/20 text-textSecondary !py-3 w-full mt-4">
-              Outline
-            </Button>
+            <Link to={`/dashboard/module/video/${10}`}>
+              <Button className=" bg-gradient-to-r from-rgbFrom to-rgbTo text-textSecondary !py-3 w-full mt-4 ">
+                Start Learning
+              </Button>
+            </Link>
+            <Link to={`/dashboard/module/video/${10}`}>
+              <Button className=" bg-bgPrimary/20 text-textSecondary !py-3 w-full mt-4">
+                Outline
+              </Button>
+            </Link>
           </div>
           {/* ----Button--- */}
         </div>

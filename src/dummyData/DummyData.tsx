@@ -1,3 +1,12 @@
+import { MdQuiz } from "react-icons/md";
+import { MdAssignment } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
+import { FiLogOut } from "react-icons/fi";
+import { RxDashboard } from "react-icons/rx";
+import { LuUser } from "react-icons/lu";
+import { FaRegMessage } from "react-icons/fa6";
+import { FaRegBookmark } from "react-icons/fa6";
+import { FaRegStar } from "react-icons/fa";
 interface DContentinterface {
   id: number;
   name: string;
@@ -290,6 +299,7 @@ export const AssignmentsData: AssignmentsDataInterface[] = [
   },
 ];
 
+
 interface popularInstructorsinterface {
   id: number;
   img: string;
@@ -375,6 +385,369 @@ export const notices: noticesinterface[] = [
     des: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, recusandae atque? Consectetur repellendus quibusdam, cupiditate tenetur similique nobis dicta id!",
   },
   
+
+interface SidebarInterface {
+  name: string;
+  icon: JSX.Element;
+  link: string;
+}
+export const SideBaritem: SidebarInterface[] = [
+  {
+    name: "Dashboard",
+    icon: <RxDashboard />,
+    link: "/dashboard",
+  },
+  {
+    name: "Profile",
+    icon: <LuUser />,
+    link: "/dashboard/profile",
+  },
+  {
+    name: "Message",
+    icon: <FaRegMessage />,
+    link: "/dashboard/message",
+  },
+  {
+    name: "Enrolled Courses",
+    icon: <FaRegBookmark />,
+    link: "/dashboard/enrolled-courses",
+  },
+
+  {
+    name: "Reviews",
+    icon: <FaRegStar />,
+    link: "/dashboard/reviews",
+  },
+  {
+    name: "My Quiz Attempts",
+    icon: <MdQuiz />,
+    link: "/dashboard/quiz",
+  },
+  {
+    name: "My Assignments",
+    icon: <MdAssignment />,
+    link: "/dashboard/assignments",
+  },
+  {
+    name: "Settings",
+    icon: <IoSettingsOutline />,
+    link: "/dashboard/setting",
+  },
+  {
+    name: "Logout",
+    icon: <FiLogOut />,
+    link: "/dashboard",
+  },
+];
+export interface IModule {
+  id: number;
+  name: string;
+  url: string;
+  itWatched?: boolean;
+  type:
+    | "video"
+    | "quiz"
+    | "assignment"
+    | "text"
+    | "audio"
+    | "pdf"
+    | "image"
+    | "code"
+    | "other";
+}
+interface IDummyData {
+  id: number;
+  name: string;
+  module: IModule[];
+}
+
+export const dummyData: IDummyData[] = [
+  {
+    id: 1,
+    name: "Introduction",
+    module: [
+      {
+        id: 0,
+        name: "Introduction to Python",
+        url: "https://res.cloudinary.com/dnr5u3jpb/video/upload/v1704521580/mt33rqkjeqopbcslutbr.mp4",
+        itWatched: false,
+        type: "video",
+      },
+      {
+        id: 1,
+        name: "Its Music so relax some time",
+        url: "https://res.cloudinary.com/dnr5u3jpb/video/upload/v1707495557/Untitled_Project_vd25j6.mp4",
+        itWatched: false,
+        type: "video",
+      },
+      {
+        id: 2,
+        name: "Paython 100 days challenge",
+        url: "https://res.cloudinary.com/dnr5u3jpb/video/upload/v1707497233/049_Using_the_for_loop_with_Python_Lists_cjirlp.mp4",
+        itWatched: false,
+        type: "video",
+      },
+      {
+        id: 3,
+        name: "Python 100 days challenge qiuz",
+        url: "",
+        itWatched: false,
+        type: "quiz",
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Introduction",
+    module: [
+      {
+        id: 0,
+        name: "Introduction to Python",
+        url: "https://res.cloudinary.com/dnr5u3jpb/video/upload/v1704521580/mt33rqkjeqopbcslutbr.mp4",
+        itWatched: false,
+        type: "video",
+      },
+      {
+        id: 1,
+        name: "Its Music so relax some time",
+        url: "https://res.cloudinary.com/dnr5u3jpb/video/upload/v1707495557/Untitled_Project_vd25j6.mp4",
+        itWatched: false,
+        type: "video",
+      },
+      {
+        id: 2,
+        name: "Paython 100 days challenge",
+        url: "https://res.cloudinary.com/dnr5u3jpb/video/upload/v1707497233/049_Using_the_for_loop_with_Python_Lists_cjirlp.mp4",
+        itWatched: false,
+        type: "video",
+      },
+      {
+        id: 3,
+        name: "Python 100 days challenge qiuz",
+        url: "",
+        itWatched: false,
+        type: "quiz",
+      },
+    ],
+  },
+];
+
+interface QuizItem {
+  id: number;
+  text: string;
+  answer: boolean;
+}
+
+interface EcosystemQuestion {
+  id: number;
+  tittle: string;
+  quiz: QuizItem[];
+}
+
+export const quizData: EcosystemQuestion[][] = [
+  [
+    {
+      id: 0,
+      tittle:
+        "Who is the current President of the United States as of September 2023?",
+      quiz: [
+        {
+          id: 1,
+          text: "Joe Biden",
+          answer: true,
+        },
+        {
+          id: 2,
+          text: "Donald Trump",
+          answer: false,
+        },
+        {
+          id: 3,
+          text: "Hillary Clinton",
+          answer: false,
+        },
+        {
+          id: 4,
+          text: " George W. Bush",
+          answer: false,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      id: 1,
+      tittle:
+        "What is the term for a system of government in which power is held by a small group of people?",
+      quiz: [
+        {
+          id: 1,
+          text: "Democracy",
+          answer: false,
+        },
+        {
+          id: 2,
+          text: "Oligarchy",
+          answer: true,
+        },
+        {
+          id: 3,
+          text: "Monarchy",
+          answer: false,
+        },
+        {
+          id: 4,
+          text: "Autocracy",
+          answer: false,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      id: 2,
+      tittle:
+        "In which country did the Arab Spring movement begin in late 2010?",
+      quiz: [
+        {
+          id: 1,
+          text: "Egypt",
+          answer: false,
+        },
+        {
+          id: 2,
+          text: "Tunisia",
+          answer: true,
+        },
+        {
+          id: 3,
+          text: "Syria",
+          answer: false,
+        },
+        {
+          id: 4,
+          text: "Saudi Arabia",
+          answer: false,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      id: 3,
+      tittle:
+        "Which of the following is not a branch of the United States government?",
+      quiz: [
+        {
+          id: 1,
+          text: "Executive",
+          answer: false,
+        },
+        {
+          id: 2,
+          text: "Legislative",
+          answer: false,
+        },
+        {
+          id: 3,
+          text: "Judicial",
+          answer: false,
+        },
+        {
+          id: 4,
+          text: "Parliamentary",
+          answer: true,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      id: 4,
+      tittle:
+        "What is the term for a government ruled by a single individual with absolute power and authority?",
+      quiz: [
+        {
+          id: 1,
+          text: "Democracy",
+          answer: false,
+        },
+        {
+          id: 2,
+          text: "Monarchy",
+          answer: false,
+        },
+        {
+          id: 3,
+          text: "Autocracy",
+          answer: true,
+        },
+        {
+          id: 4,
+          text: "Republic",
+          answer: false,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      id: 5,
+      tittle:
+        'Who is often referred to as the "Father of Modern Political Science" and wrote "The Prince" in the 16th century?',
+      quiz: [
+        {
+          id: 1,
+          text: "Karl Marx",
+          answer: false,
+        },
+        {
+          id: 2,
+          text: "John Locke",
+          answer: false,
+        },
+        {
+          id: 3,
+          text: "Niccolò Machiavelli",
+          answer: true,
+        },
+        {
+          id: 4,
+          text: "Thomas Hobbes",
+          answer: false,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      id: 6,
+      tittle: "What is the maximum number of terms a U.S. President can serve?",
+      quiz: [
+        {
+          id: 1,
+          text: "One",
+          answer: false,
+        },
+        {
+          id: 2,
+          text: "Two",
+          answer: true,
+        },
+        {
+          id: 3,
+          text: "Three",
+          answer: false,
+        },
+        {
+          id: 4,
+          text: "Unlimited",
+          answer: false,
+        },
+      ],
+    },
+  ],
+
 ];
 interface recentCoursesinterface {
   id: number;

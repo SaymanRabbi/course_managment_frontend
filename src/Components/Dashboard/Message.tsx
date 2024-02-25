@@ -14,13 +14,13 @@ const Message = () => {
         <h4 className="text-2xl text-textPrimary">Message</h4>
       </DynamicHedding>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        <div className="col-span-6 lg:col-span-4 border-[.5px] border-bgPrimary">
-          <p className="bg-textPrimary p-3 rounded-md font-bold">Chats</p>
+        <div className="col-span-6 lg:col-span-4 border-[.5px] border-bgPrimary rounded-t-[20px] rounded-bl-[20px]">
+          <p className="bg-textPrimary p-3  font-bold rounded-t-md">Chats</p>
           <div className="flex justify-center">
             <div className="flex items-center rounded-full bg-bgPrimary/10 border-[.5px] border-bgPrimary mt-5 px-4 py-2 w-[90%]">
               <IoSearch size={25} className="text-textSecondary" />
               <input
-                className="bg-bgPrimary/10 px-2 outline-none"
+                className="bg-bgPrimary/10 px-2 outline-none text-textPrimary"
                 type="search"
                 name=""
                 id=""
@@ -32,8 +32,8 @@ const Message = () => {
           <div className="h-[500px] overflow-y-scroll">
             {Messages.map((item) => {
               return (
-                <div className="px-2 flex justify-between border-t border-bgPrimary mt-3">
-                  <div className="flex items-center my-2 py-1 text-textPrimary gap-4">
+                <div className="px-5 flex justify-between border-t border-bgPrimary mt-3 py-2 ">
+                  <div className="flex items-center my-2 text-textPrimary gap-4">
                     <img className="h-10 rounded-full" src={item.img} alt="" />
                     <div>
                       <p className="font-bold">{item.name}</p>
@@ -49,7 +49,7 @@ const Message = () => {
           </div>
         </div>
         {/* Main Message Contents */}
-        <div className="col-span-6 lg:col-span-8 bg-bgPrimary/10 p-4">
+        <div className="col-span-6 lg:col-span-8 bg-bgPrimary/10 p-4 rounded-[20px]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <img className="h-12 rounded-full" src={teacher} alt="" />
@@ -72,34 +72,33 @@ const Message = () => {
           <div className="h-[500px] overflow-y-scroll">
             <div className="flex-row">
               {/* Left Side User */}
-              <div className="flex justify-start gap-2">
+              <div className="flex justify-start gap-2 pt-[30px] max-w-[415px] relative mr-auto gap-x-4">
                 <img className="h-10 rounded-full" src={teacher} alt="" />
                 <div>
-                  <p className="bg-[#17093E] text-textPrimary p-2 rounded-md my-3 w-[80%]">
+                  <p className="bg-[#17093E] text-textPrimary rounded-md p-2">
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   </p>
                   <p className="text-gray-500 my-3">4:15 pm</p>
-                  <p className="bg-[#17093E] text-textPrimary p-2 rounded-md my-1 w-[80%]">
+                  <p className="bg-[#17093E] text-textPrimary p-2 rounded-md my-1 ">
                     Lorem, ipsum dolor.
                   </p>
                   <p className="text-gray-500 my-3">4:15 pm</p>
                 </div>
               </div>
               {/* Right Side User */}
-              <div className="flex justify-end">
-                <div className="flex">
-                  <div>
-                    <p className="bg-[#17093E] text-textPrimary text-right p-2 rounded-md w-[80%]">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    </p>
-                    <p className="text-gray-500 my-1">4:15 pm</p>
-                    <p className="bg-[#17093E] text-textPrimary p-2 rounded-md my-1 w-[80%]">
-                      Lorem, ipsum dolor.
-                    </p>
-                    <p className="text-gray-500 my-3">4:15 pm</p>
-                  </div>
-                  <img className="h-10 rounded-full" src={teacher} alt="" />
+
+              <div className=" flex max-w-[415px] relative ml-auto gap-x-4">
+                <div>
+                  <p className="bg-[#17093E] text-textPrimary text-right p-2 rounded-md ">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  </p>
+                  <p className="text-gray-500 my-1">4:15 pm</p>
+                  <p className="bg-[#17093E] text-textPrimary p-2 rounded-md my-1 w-[80%]">
+                    Lorem, ipsum dolor.
+                  </p>
+                  <p className="text-gray-500 my-3">4:15 pm</p>
                 </div>
+                <img className="h-10 rounded-full" src={teacher} alt="" />
               </div>
             </div>
           </div>
@@ -109,7 +108,7 @@ const Message = () => {
               type="text"
               name=""
               id=""
-              className="w-full mt-2 px-2 outline-none py-3 rounded-full bg-[#17093E]"
+              className="w-full outline-none rounded-full bg-[#17093E] p-[12px] pl-[15px] text-textPrimary"
               placeholder="Type Message"
             />
             <IoSend size={20} className="text-gray-500 mr-4 cursor-pointer" />

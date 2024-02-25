@@ -7,19 +7,20 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../Components/Button/Button";
 import UAParser from "ua-parser-js";
 import FormContainer from "../Components/FormContainer/FormContainer";
+import useAuth from "../hooks/useAuth";
 interface FormData {
   password: string;
   email: string;
   deviceIdentifier: string;
 }
 const Login: React.FC = () => {
+  const { setAuth } = useAuth();
   const parser = new UAParser().getResult();
   const redirect = useNavigate();
   //  ------store user data
   const { clearMessages, getUser } = useUserStore((state) => state);
-  const { isLoading, success, messages, serverError, user } = useUserStore(
-    (state) => state
-  );
+  const { isLoading, success, messages, serverError, user, token } =
+    useUserStore((state) => state);
   //  ------store user data
   const {
     register,
@@ -39,13 +40,16 @@ const Login: React.FC = () => {
           "unknown",
       };
       getUser(userData);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     setTimeout(() => {
-      if (success) {
+      if (
+        messages === "User logged in successfully" &&
+        user !== null &&
+        token !== null
+      ) {
+        setAuth({ token: token, user: user, role: user?.role });
         clearMessages();
         redirect("/");
       }

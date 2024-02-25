@@ -4,6 +4,7 @@ import DynamicHedding from "../../DynamicHedding/DynamicHedding";
 import { GiBuyCard } from "react-icons/gi";
 import { GrUserManager } from "react-icons/gr";
 import { IoStar } from "react-icons/io5";
+import ButtonPages from "./ButtonPages";
 
 const CourseDetails = () => {
   return (
@@ -40,6 +41,7 @@ const CourseDetails = () => {
         <div className="text-textPrimary mt-4">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti ipsa eum ratione laudantium corporis atque eligendi dignissimos error. Eligendi, optio placeat. Quos dicta dolore ea ratione? Sunt, ex dolorum.</p>
         </div>
+        <ButtonPages />
       </div>
     </DashboardCard>
   );

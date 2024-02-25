@@ -34,8 +34,11 @@ const DashboardContent = () => {
       <DashboardCard title="Overview">
         <div className=" grid grid-cols-12 gap-5">
           {data.map((item, index) => (
-            <div className=" bg-bgPrimary/15 py-[30px] px-[30px] mb-[20px] rounded-[20px] shadow-md xl:col-span-4 lg:col-span-5 col-span-12 border-[1px] border-bgPrimary/50">
-              <div className=" mb-0 flex items-center" key={index}>
+            <div
+              className=" bg-bgPrimary/15 py-[30px] px-[30px] mb-[20px] rounded-[20px] shadow-md xl:col-span-4 lg:col-span-5 col-span-12 border-[1px] border-bgPrimary/50"
+              key={index}
+            >
+              <div className=" mb-0 flex items-center">
                 {/* ------img----- */}
                 <div className=" mr-[16px]">
                   <span className=" text-[65px] text-error/85">

@@ -1,12 +1,27 @@
-import { ProfileData } from "../../dummyData/DummyData";
-import Button from "../Button/Button";
+import { useUserStore } from "../../Store/UserStore";
 import DashboardCard from "./DashboardCard";
 
+import Loading from "../Loading/Loading";
+
 const Profile = () => {
+  const { user, isLoading } = useUserStore((state) => state);
+
+  const userData = {
+    name: `${user?.name} ${user?.lastname}` || "",
+    email: user?.email || "Not Available",
+    isVerified: user?.isVerified ? "Verified" : "Not Verified",
+    role: user?.role || "Not Available",
+    UserName: user?.UserName || "Not Available",
+    displayName: user?.displayName || "Not Available",
+    PhoneNumber: user?.PhoneNumber || "Not Available",
+    ExpartIn: user?.ExpartIn || "Not Available",
+    Biography: user?.Biography || "Not Available",
+  };
+  if (isLoading) return <Loading title="Loading.." />;
   return (
     <DashboardCard title="Profile">
       <>
-        {Object.entries(ProfileData[0]).map((data, index) => {
+        {Object.entries(userData).map((data, index) => {
           return (
             <div
               key={index}
@@ -22,13 +37,6 @@ const Profile = () => {
           );
         })}
       </>
-      <Button
-        className=" text-white w-full mt-4 !py-4 bg-gradient-to-r from-rgbTo to-rgbFrom
-        
-      "
-      >
-        Edit Profile
-      </Button>
     </DashboardCard>
   );
 };

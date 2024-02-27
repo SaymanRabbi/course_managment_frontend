@@ -384,7 +384,7 @@ export const notices: noticesinterface[] = [
     img: "../../public/images/notice/notice.png",
     des: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, recusandae atque? Consectetur repellendus quibusdam, cupiditate tenetur similique nobis dicta id!",
   },
-  
+]
 
 interface SidebarInterface {
   name: string;
@@ -427,6 +427,41 @@ export const SideBaritem: SidebarInterface[] = [
     name: "My Assignments",
     icon: <MdAssignment />,
     link: "/dashboard/assignments",
+  },
+  {
+    name: "admin-dashboard",
+    icon: <RxDashboard />,
+    link: "/dashboard/admin-dashboard",
+  },
+  {
+    name: "Admin-Message",
+    icon: <FaRegMessage />,
+    link: "/dashboard/admin-message",
+  },
+  {
+    name: "Popular-Instructor",
+    icon: <FaRegMessage />,
+    link: "/dashboard/popular-instructor",
+  },
+  {
+    name: "Notice-Board",
+    icon: <FaRegMessage />,
+    link: "/dashboard/notice-board",
+  },
+  {
+    name: "Notifications",
+    icon: <FaRegMessage />,
+    link: "/dashboard/notifications",
+  },
+  {
+    name: "Manage-Role",
+    icon: <FaRegMessage />,
+    link: "/dashboard/manageRole",
+  },
+  {
+    name: "Course-Details",
+    icon: <FaRegMessage />,
+    link: "/dashboard/admin-courses",
   },
   {
     name: "Settings",

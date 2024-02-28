@@ -17,7 +17,7 @@ const CourseDetails = () => {
               Complete Web Development Course
             </h2>
           </DynamicHedding>
-          <div className="text-textPrimary flex items-center gap-8">
+          <div className="text-textPrimary md:flex items-center gap-8">
             <div className="flex items-center gap-2">
               <GiBuyCard className="" />
               <p>700 students</p>

@@ -459,6 +459,11 @@ export const SideBaritem: SidebarInterface[] = [
     link: "/dashboard/manageRole",
   },
   {
+    name: "Add Module",
+    icon: <FaRegMessage />,
+    link: "/dashboard/add-module",
+  },
+  {
     name: "Course-Details",
     icon: <FaRegMessage />,
     link: "/dashboard/admin-courses",
@@ -938,5 +943,40 @@ export const manageroles: managerolesinterface[] = [
     img: "../../public/images/message/teacher.png",
     name: "Mr. Harby",
     designation: "Instructor",
+  },
+];
+
+interface courseInfointerface {
+  id: number;
+  moduleNo:number;
+  title:string;
+  videos: string;
+  assignment: string;
+  quizes: string;
+}
+export const courseInfo: courseInfointerface[] = [
+  {
+    id: 1,
+    moduleNo:1,
+    title:"Module-1",
+    videos: "3 videos",
+    assignment: "1 Assignment",
+    quizes: "10 Quizes",
+  },
+  {
+    id: 2,
+    moduleNo:2,
+    title:"Module-2",
+    videos: "3 videos",
+    assignment: "1 Assignment",
+    quizes: "10 Quizes",
+  },
+  {
+    id: 3,
+    moduleNo:3,
+    title:"Module-3",
+    videos: "3 videos",
+    assignment: "1 Assignment",
+    quizes: "10 Quizes",
   },
 ];

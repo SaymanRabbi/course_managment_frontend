@@ -35,6 +35,7 @@ import { useEffect, useState } from "react";
 import RequireAuth from "./Components/RequreAuth";
 import NotFound from "./Page/NotFound";
 import Unauthorized from "./Page/Unauthorized";
+import AddModule from "./Components/Dashboard/AdminDashboard/AddModule";
 
 function App() {
   const { getUserByToken, getCourses } = useUserStore((state) => state);
@@ -91,6 +92,7 @@ function App() {
             <Route path="/dashboard/reviews" element={<Reviews />} />
             <Route path="/dashboard/quiz" element={<QuizAttempts />} />
             <Route path="/dashboard/assignments" element={<Assignments />} />
+            <Route path="/dashboard/add-module" element={<AddModule />} />
             <Route path="/dashboard/setting" element={<Setting />} />
             <Route path="/dashboard" element={<Setting />} />
             {/* ------quiz-------- */}

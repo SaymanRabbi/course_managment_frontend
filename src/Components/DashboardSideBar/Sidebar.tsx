@@ -1,17 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-
-import { MdQuiz } from "react-icons/md";
-import { MdAssignment } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
-import { FiLogOut } from "react-icons/fi";
-import { GrNotification, GrUserManager } from "react-icons/gr";
-import { RiNotificationBadgeFill } from "react-icons/ri";
-
-import { SideBaritem } from "../../dummyData/DummyData";
 import { useUserStore } from "../../Store/UserStore";
 import { useState } from "react";
 import HotToast from "../../utils/HotToast";
-
+import { SideBaritem } from "../../dummyData/DummyData";
 
 const Sidebar = () => {
   const [toast, setToast] = useState({
@@ -21,74 +12,7 @@ const Sidebar = () => {
   });
   const location = useLocation().pathname;
   const { logout } = useUserStore((state) => state);
-
-
-    {
-      name: "Reviews",
-      icon: <FaRegStar />,
-      link: "/dashboard/reviews",
-    },
-    {
-      name: "My Quiz Attempts",
-      icon: <MdQuiz />,
-      link: "/dashboard/quiz",
-    },
-    {
-      name: "My Assignments",
-      icon: <MdAssignment />,
-      link: "/dashboard/assignments",
-    },
-    {
-      name: "Settings",
-      icon: <IoSettingsOutline />,
-      link: "/settings",
-    },
-    {
-      name: "Logout",
-      icon: <FiLogOut />,
-      link: "/logout",
-    },
-    {
-      name: "AdminDashboard",
-      icon: <RxDashboard />,
-      link: "/dashboard/admin-dashboard",
-    },
-    {
-      name: "AdminProfile",
-      icon: <LuUser />,
-      link: "/dashboard/admin-profile",
-    },
-    {
-      name: "AdminMessage",
-      icon: <FaRegMessage />,
-      link: "/dashboard/message",
-    },
-    {
-      name: "AdminCourses",
-      icon: <FaRegBookmark />,
-      link: "/dashboard/admin-courses",
-    },
-    {
-      name: "PopularInstructors",
-      icon: <GrUserManager />,
-      link: "/dashboard/popular-instructor",
-    },
-    {
-      name: "NoticeBoard",
-      icon: <RiNotificationBadgeFill />,
-      link: "/dashboard/notice-board",
-    },
-    {
-      name: "Notifications",
-      icon: <GrNotification />,
-      link: "/dashboard/notifications",
-    },
-    {
-      name: "Manage-Role",
-      icon: <GrNotification />,
-      link: "/dashboard/manageRole",
-    },
-  ];
+  
 
   const logoutFunc = () => {
     logout();

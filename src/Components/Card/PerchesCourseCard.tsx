@@ -1,27 +1,33 @@
 // import React from "react";
 import { Link } from "react-router-dom";
-import img from "../../../public/images/card/card1.jpg";
+import { useUserStore } from "../../Store/UserStore";
 import Button from "../Button/Button";
 // interface Props {}
 const PerchesCourseCard = () => {
+  const { courses } = useUserStore((state: any) => state);
   return (
-    <div className="p-[18px] rounded-[12px] shadow-lg bg-bgPrimary/10 md:col-span-12 col-span-12">
+    <Link
+      to={`/dashboard/module/video/${courses[0]._id}`}
+      className="p-[10px] rounded-[12px] shadow-lg bg-bgPrimary/10 md:col-span-12 col-span-12"
+    >
       <div className=" flex flex-wrap m-[-8px] md:flex-row flex-col">
         {/* -----image---- */}
 
         <div className=" p-[8px] flex-grow-0 md:max-w-[41%] max-w-[100%] md:basis-[41%] basis-[100%] m-0">
           <img
-            src={img}
+            src={courses[0].image}
             alt=""
-            className=" w-[100%] object-contain aspect-[3/2] rounded-[20px] "
+            className=" w-[100%] object-contain aspect-[3/2] rounded-[20px] h-auto"
           />
         </div>
         {/* -----image---- */}
         <div className=" p-[20px] flex-grow-0 md:max-w-[59%] max-w-[100%] md:basis-[59%] basis-[100%] m-0 text-textPrimary flex flex-col justify-center">
           {/* ----tittle--- */}
-          <div className=" text-[20px] font-[700]">
-            <h2>Python 100 Days</h2>
-            <h2>Sayman Rabbi</h2>
+          <div className=" text-[20px] ">
+            <h2 className=" font-[700]">{courses[0].title}</h2>
+            <span className=" text-[14px] leading-2">
+              {courses[0].description}
+            </span>
           </div>
           {/* ----tittle--- */}
           {/* -----percentense */}
@@ -31,22 +37,17 @@ const PerchesCourseCard = () => {
           </div>
           {/* -----percentense */}
           {/* ----Button--- */}
-          <div className=" flex gap-x-4">
-            <Link to={`/dashboard/module/video/${10}`}>
-              <Button className=" bg-gradient-to-r from-rgbFrom to-rgbTo text-textSecondary !py-3 w-full mt-4 ">
+          <div className=" w-[80%]">
+            <Link to={`/dashboard/module/video/${courses[0]._id}`}>
+              <Button className=" bg-gradient-to-r from-rgbFrom to-rgbTo text-textSecondary !py-2 w-full mt-4 ">
                 Start Learning
-              </Button>
-            </Link>
-            <Link to={`/dashboard/module/video/${10}`}>
-              <Button className=" bg-bgPrimary/20 text-textSecondary !py-3 w-full mt-4">
-                Outline
               </Button>
             </Link>
           </div>
           {/* ----Button--- */}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

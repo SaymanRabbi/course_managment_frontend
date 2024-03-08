@@ -2,7 +2,7 @@ import ReactPlayer from "react-player";
 import Container from "../Container/Container";
 import { BiSearch } from "react-icons/bi";
 import { CiVideoOn } from "react-icons/ci";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MdOutlineQuestionAnswer } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useUserStore } from "../../Store/UserStore";
@@ -20,7 +20,6 @@ const VideoPlayer = () => {
     JSON.parse(localStorage.getItem("ind") || "{}").videoindex || 0
   );
   const { courses, getCourses } = useUserStore((state) => state);
-
   const [video, setVideo] = useState(
     courses[0]?.modules[moduleIndex].lessons[index].url
   );
@@ -30,7 +29,7 @@ const VideoPlayer = () => {
         courses[0]?.modules[moduleIndex]?.lessons[index]?.url;
       setVideo(currentVideo);
     }
-  }, [moduleIndex, index, courses]);
+  }, [moduleIndex, index]);
   useEffect(() => {
     if (activeModuleRef.current && parentDivRef.current) {
       activeModuleRef.current.scrollIntoView({
@@ -53,17 +52,36 @@ const VideoPlayer = () => {
       await getCourses();
     };
     getCourse();
-  }, [video, setVideo, search, courses]);
-  useEffect(() => {
+  }, [video, setVideo, search]);
+  // func to prev and next video
+
+  const filteredModules = useMemo(() => {
     if (search) {
-      const filterData = courses?.modules?.filter((data: any) =>
-        data.title.toLowerCase().includes(search.toLowerCase())
+      console.log(courses[0]?.modules, "hello bahir");
+      return (
+        courses[0]?.modules
+          ?.map(
+            (data: any) => (
+              console.log(data?.lessons, "hello"),
+              {
+                ...data,
+                modules: data?.modules?.filter((module: any) =>
+                  module?.title?.toLowerCase()?.includes(search.toLowerCase())
+                ),
+              }
+            )
+          )
+          .filter((data: any) => data?.modules?.length > 0) || []
       );
-      setFilterModule(filterData);
     } else {
-      setFilterModule(courses);
+      return courses;
     }
   }, [search, courses]);
+  console.log(filterModule);
+  useEffect(() => {
+    setFilterModule(filteredModules);
+  }, [filteredModules]);
+
   // useEffect to load the video where the user left off after window refresh
   return (
     <Container>
@@ -76,7 +94,7 @@ const VideoPlayer = () => {
             url={video}
             controls
             width="100%"
-            height="100%"
+            height="93%"
             config={{
               file: {
                 attributes: {
@@ -85,6 +103,9 @@ const VideoPlayer = () => {
               },
             }}
           />
+          {/* button for next and previous video */}
+
+          {/* button for next and previous video */}
         </div>
         {/* -------module name---- */}
         <div className="lg:col-span-5 col-span-12 mt-6 md:mt-0">
@@ -100,7 +121,7 @@ const VideoPlayer = () => {
           {/* Module Name----- */}
           <div className=" w-[100%] px-3 mt-3 overflow-y-auto max-h-[550px] h-[100%]  rounded-md p-3">
             {/* -----search--- */}
-            <div className=" w-[100%] bg-bgPrimary rounded relative">
+            <div className=" w-[100%] bg-bgPrimary rounded sticky top-[-3%]">
               <BiSearch className=" absolute top-1/2 left-2 transform -translate-y-1/2 text-textPrimary  font-bold" />
               <input
                 type="text"
@@ -115,7 +136,7 @@ const VideoPlayer = () => {
             {/* -----search--- */}
             {/* ----module list---- */}
             {filterModule?.map((data: any) =>
-              data.modules.map((data: any, ind: any) => (
+              data?.modules?.map((data: any, ind: any) => (
                 <div
                   className=" bg-bgPrimary p-3 rounded mt-4 w-[100%] overflow-hidden"
                   key={ind}

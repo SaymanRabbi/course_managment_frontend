@@ -33,6 +33,7 @@ interface UserStoreState {
   ) => Promise<void>;
   updateUserProfile: (token: any, data: any) => Promise<void>;
   getUserByToken: () => Promise<void>;
+  updateProfileProgress: (lessonId: any, title: any) => Promise<void>;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   user: localStorage.getItem("user")
@@ -335,6 +336,32 @@ export const useUserStore = create<UserStoreState>((set) => ({
       if (data) {
         set({
           user: data.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  updateProfileProgress: async (lessonId, title) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const token = localStorage.getItem("token");
+      const url = `http://localhost:5000/api/v1/user/profile/progress`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ lessonId, title }),
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
           isLoading: false,
           success: data?.status,
           messages: data.message,

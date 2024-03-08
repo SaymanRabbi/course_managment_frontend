@@ -4,7 +4,7 @@ import { useUserStore } from "../../Store/UserStore";
 import Button from "../Button/Button";
 // interface Props {}
 const PerchesCourseCard = () => {
-  const { courses } = useUserStore((state: any) => state);
+  const { courses, user } = useUserStore((state: any) => state);
   return (
     <Link
       to={`/dashboard/module/video/${courses[0]._id}`}
@@ -32,8 +32,22 @@ const PerchesCourseCard = () => {
           {/* ----tittle--- */}
           {/* -----percentense */}
           <div className=" flex gap-x-6 mt-3 items-center">
-            <div className="bg-gradient-to-r from-rgbFrom to-rgbTo w-[80%] h-[10px] rounded-[20px]"></div>
-            <h2 className=" text-[18px] font-[700]">80%</h2>
+            <div className=" w-[100%] bg-gray-50 rounded-[20px]">
+              <div
+                className={`bg-gradient-to-r from-rgbFrom to-rgbTo h-[10px] rounded-[20px]`}
+                style={{
+                  width: `${
+                    user?.prfileProgress
+                      ? `${parseInt(user?.prfileProgress)}%`
+                      : "0%"
+                  }`,
+                }}
+              ></div>
+            </div>
+            <h2 className=" text-[18px] font-[700] flex items-center gap-x-1">
+              {user?.prfileProgress ? parseInt(user?.prfileProgress) : 0}%
+              <span className=" text-[12px]">Completed</span>
+            </h2>
           </div>
           {/* -----percentense */}
           {/* ----Button--- */}

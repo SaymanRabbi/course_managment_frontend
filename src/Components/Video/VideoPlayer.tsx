@@ -1,12 +1,11 @@
-import ReactPlayer from "react-player";
-import Container from "../Container/Container";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { CiVideoOn } from "react-icons/ci";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { MdOutlineQuestionAnswer } from "react-icons/md";
+import { MdAssignment, MdOutlineQuestionAnswer } from "react-icons/md";
+import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import { useUserStore } from "../../Store/UserStore";
-import { MdAssignment } from "react-icons/md";
+import Container from "../Container/Container";
 
 const VideoPlayer = () => {
   const activeModuleRef = useRef<HTMLDivElement>(null);
@@ -19,7 +18,10 @@ const VideoPlayer = () => {
   const [index, setIndex] = useState(
     JSON.parse(localStorage.getItem("ind") || "{}").videoindex || 0
   );
-  const { courses, getCourses } = useUserStore((state) => state);
+  const { courses, getCourses, updateProfileProgress } = useUserStore(
+    (state) => state
+  );
+
   const [video, setVideo] = useState(
     courses[0]?.modules[moduleIndex].lessons[index].url
   );
@@ -38,8 +40,16 @@ const VideoPlayer = () => {
       });
     }
   }, [moduleIndex, index]);
-  const ChangesVideoUrl = (module: any, ind: any, videoIndx: number) => {
-    setVideo(module.url);
+  const ChangesVideoUrl = async (
+    module: any,
+    ind: any,
+    videoIndx: number,
+    data: any
+  ) => {
+    const lessonId = data._id;
+
+    const title = module.title;
+    await updateProfileProgress(lessonId, title);
     setIndex(videoIndx);
     setmoduleIndex(ind);
     localStorage.setItem(
@@ -57,27 +67,20 @@ const VideoPlayer = () => {
 
   const filteredModules = useMemo(() => {
     if (search) {
-      console.log(courses[0]?.modules, "hello bahir");
       return (
         courses[0]?.modules
-          ?.map(
-            (data: any) => (
-              console.log(data?.lessons, "hello"),
-              {
-                ...data,
-                modules: data?.modules?.filter((module: any) =>
-                  module?.title?.toLowerCase()?.includes(search.toLowerCase())
-                ),
-              }
-            )
-          )
+          ?.map((data: any) => ({
+            ...data,
+            modules: data?.modules?.filter((module: any) =>
+              module?.title?.toLowerCase()?.includes(search.toLowerCase())
+            ),
+          }))
           .filter((data: any) => data?.modules?.length > 0) || []
       );
     } else {
       return courses;
     }
   }, [search, courses]);
-  console.log(filterModule);
   useEffect(() => {
     setFilterModule(filteredModules);
   }, [filteredModules]);
@@ -159,7 +162,7 @@ const VideoPlayer = () => {
                             : null
                         }
                         key={i}
-                        onClick={() => ChangesVideoUrl(module, ind, i)}
+                        onClick={() => ChangesVideoUrl(module, ind, i, data)}
                       >
                         <CiVideoOn
                           className={` text-[30px] w-[10%] font-[600] ${

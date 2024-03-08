@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 interface CourseAvailabilityTimerProps {
   startDate: Date;
   deadline: Date;
+  setAvilabel: (value: boolean) => void;
 }
 
 const CourseAvailabilityTimer: React.FC<CourseAvailabilityTimerProps> = ({
   startDate,
   deadline,
+  setAvilabel,
 }) => {
   const [remainingTime, setRemainingTime] = useState<number>(() =>
     calculateRemainingTime(deadline)
@@ -24,6 +26,13 @@ const CourseAvailabilityTimer: React.FC<CourseAvailabilityTimerProps> = ({
       setRemainingTime((prevRemainingTime) => {
         const newRemainingTime = Math.max(0, prevRemainingTime - 1);
         localStorage.setItem("remainingTime", String(newRemainingTime));
+        // Check if the course is still available
+        if (newRemainingTime > 0) {
+          // Update the availability status using setAvilabel
+          setAvilabel(true);
+        } else {
+          setAvilabel(false);
+        }
         return newRemainingTime;
       });
     }, 1000);

@@ -1,12 +1,10 @@
-import { MdQuiz } from "react-icons/md";
-import { MdAssignment } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
-import { FiLogOut } from "react-icons/fi";
-import { RxDashboard } from "react-icons/rx";
-import { LuUser } from "react-icons/lu";
-import { FaRegMessage } from "react-icons/fa6";
-import { FaRegBookmark } from "react-icons/fa6";
 import { FaRegStar } from "react-icons/fa";
+import { FaRegBookmark, FaRegMessage } from "react-icons/fa6";
+import { FiLogOut } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
+import { LuUser } from "react-icons/lu";
+import { MdAssignment, MdQuiz } from "react-icons/md";
+import { RxDashboard } from "react-icons/rx";
 interface DContentinterface {
   id: number;
   name: string;
@@ -298,6 +296,93 @@ export const AssignmentsData: AssignmentsDataInterface[] = [
     submit: 4,
   },
 ];
+
+interface popularInstructorsinterface {
+  id: number;
+  img: string;
+  name: string;
+  students: number;
+  courses: number;
+  reviews: number;
+}
+export const popularInstructors: popularInstructorsinterface[] = [
+  {
+    id: 1,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses: 5,
+    reviews: 5000,
+  },
+  {
+    id: 2,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses: 5,
+    reviews: 5000,
+  },
+  {
+    id: 3,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses: 5,
+    reviews: 5000,
+  },
+  {
+    id: 4,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses: 5,
+    reviews: 5000,
+  },
+  {
+    id: 5,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses: 5,
+    reviews: 5000,
+  },
+  {
+    id: 6,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    students: 600,
+    courses: 5,
+    reviews: 5000,
+  },
+];
+interface noticesinterface {
+  id: number;
+  img: string;
+  des: string;
+}
+export const notices: noticesinterface[] = [
+  {
+    id: 1,
+    img: "../../public/images/notice/notice.png",
+    des: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, recusandae atque? Consectetur repellendus quibusdam, cupiditate tenetur similique nobis dicta id!",
+  },
+  {
+    id: 2,
+    img: "../../public/images/notice/notice.png",
+    des: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, recusandae atque? Consectetur repellendus quibusdam, cupiditate tenetur similique nobis dicta id!",
+  },
+  {
+    id: 3,
+    img: "../../public/images/notice/notice.png",
+    des: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, recusandae atque? Consectetur repellendus quibusdam, cupiditate tenetur similique nobis dicta id!",
+  },
+  {
+    id: 4,
+    img: "../../public/images/notice/notice.png",
+    des: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, recusandae atque? Consectetur repellendus quibusdam, cupiditate tenetur similique nobis dicta id!",
+  },
+];
+
 interface SidebarInterface {
   name: string;
   icon: JSX.Element;
@@ -339,6 +424,41 @@ export const SideBaritem: SidebarInterface[] = [
     name: "My Assignments",
     icon: <MdAssignment />,
     link: "/dashboard/assignments",
+  },
+  {
+    name: "admin-dashboard",
+    icon: <RxDashboard />,
+    link: "/dashboard/admin-dashboard",
+  },
+  {
+    name: "Admin-Message",
+    icon: <FaRegMessage />,
+    link: "/dashboard/admin-message",
+  },
+  {
+    name: "Popular-Instructor",
+    icon: <FaRegMessage />,
+    link: "/dashboard/popular-instructor",
+  },
+  {
+    name: "Notice-Board",
+    icon: <FaRegMessage />,
+    link: "/dashboard/notice-board",
+  },
+  {
+    name: "Notifications",
+    icon: <FaRegMessage />,
+    link: "/dashboard/notifications",
+  },
+  {
+    name: "Manage-Role",
+    icon: <FaRegMessage />,
+    link: "/dashboard/manageRole",
+  },
+  {
+    name: "Add Module",
+    icon: <FaRegMessage />,
+    link: "/dashboard/add-module",
   },
   {
     name: "Settings",
@@ -659,4 +779,192 @@ export const quizData: EcosystemQuestion[][] = [
       ],
     },
   ],
+];
+interface recentCoursesinterface {
+  id: number;
+  img: string;
+  courseName: string;
+  insName: string;
+  duration: string;
+  Lesson: string;
+}
+export const recentCourses: recentCoursesinterface[] = [
+  {
+    id: 1,
+    img: "../../public/images/notice/notice.png",
+    courseName: "Complte Web Development Course",
+    insName: "John Roe",
+    Lesson: "3",
+    duration: "3 hr 13 min",
+  },
+  {
+    id: 2,
+    img: "../../public/images/notice/notice.png",
+    courseName: "Complte Web Development Course",
+    insName: "John Roe",
+    Lesson: "3",
+    duration: "3 hr 13 min",
+  },
+  {
+    id: 3,
+    img: "../../public/images/notice/notice.png",
+    courseName: "Complte Web Development Course",
+    insName: "John Roe",
+    Lesson: "3",
+    duration: "3 hr 13 min",
+  },
+  {
+    id: 4,
+    img: "../../public/images/notice/notice.png",
+    courseName: "Complte Web Development Course",
+    insName: "John Roe",
+    Lesson: "3",
+    duration: "3 hr 13 min",
+  },
+];
+
+interface notificationsinterface {
+  id: number;
+  title: string;
+  time: string;
+}
+export const notifications: notificationsinterface[] = [
+  {
+    id: 1,
+    title: "Password has been changed two times",
+    time: "50 min ago",
+  },
+  {
+    id: 2,
+    title: "Password has been changed two times",
+    time: "50 min ago",
+  },
+  {
+    id: 3,
+    title: "Password has been changed two times",
+    time: "50 min ago",
+  },
+  {
+    id: 4,
+    title: "Password has been changed two times",
+    time: "50 min ago",
+  },
+];
+
+interface quizAdmininterface {
+  id: number;
+  img: string;
+  courseName: string;
+  insName: string;
+  purchase: number;
+}
+export const quizAdmin: quizAdmininterface[] = [
+  {
+    id: 1,
+    img: "../../public/images/notice/notice.png",
+    courseName: "Complte Web Development Course",
+    insName: "John Roe",
+    purchase: 5000,
+  },
+  {
+    id: 2,
+    img: "../../public/images/notice/notice.png",
+    courseName: "Complte Web Development Course",
+    insName: "John Roe",
+    purchase: 5000,
+  },
+  {
+    id: 3,
+    img: "../../public/images/notice/notice.png",
+    courseName: "Complte Web Development Course",
+    insName: "John Roe",
+    purchase: 5000,
+  },
+  {
+    id: 4,
+    img: "../../public/images/notice/notice.png",
+    courseName: "Complte Web Development Course",
+    insName: "John Roe",
+    purchase: 5000,
+  },
+];
+
+interface managerolesinterface {
+  id: number;
+  img: string;
+  name: string;
+  designation: string;
+}
+export const manageroles: managerolesinterface[] = [
+  {
+    id: 1,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Instructor",
+  },
+  {
+    id: 2,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Student",
+  },
+  {
+    id: 3,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Student",
+  },
+  {
+    id: 4,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Instructor",
+  },
+  {
+    id: 5,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Instructor",
+  },
+  {
+    id: 6,
+    img: "../../public/images/message/teacher.png",
+    name: "Mr. Harby",
+    designation: "Instructor",
+  },
+];
+
+interface courseInfointerface {
+  id: number;
+  moduleNo: number;
+  title: string;
+  videos: string;
+  assignment: string;
+  quizes: string;
+}
+export const courseInfo: courseInfointerface[] = [
+  {
+    id: 1,
+    moduleNo: 1,
+    title: "Module-1",
+    videos: "3 videos",
+    assignment: "1 Assignment",
+    quizes: "10 Quizes",
+  },
+  {
+    id: 2,
+    moduleNo: 2,
+    title: "Module-2",
+    videos: "3 videos",
+    assignment: "1 Assignment",
+    quizes: "10 Quizes",
+  },
+  {
+    id: 3,
+    moduleNo: 3,
+    title: "Module-3",
+    videos: "3 videos",
+    assignment: "1 Assignment",
+    quizes: "10 Quizes",
+  },
 ];

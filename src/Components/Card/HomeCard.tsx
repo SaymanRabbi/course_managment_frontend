@@ -1,11 +1,15 @@
-import { FiVideo } from "react-icons/fi";
+import { useState } from "react";
 import { AiTwotoneExclamationCircle } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
+import { FiVideo } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { useUserStore } from "../../Store/UserStore";
 import CourseAvailabilityTimer from "../../utils/Timer";
 
 const HomeCard = () => {
   const { courses } = useUserStore((state) => state);
+  const [avilabel, setAvilabel] = useState(false);
+
   return (
     <>
       {courses.map((item: any, index: any) => {
@@ -19,6 +23,7 @@ const HomeCard = () => {
               <CourseAvailabilityTimer
                 startDate={new Date(item?.startDate)}
                 deadline={new Date(item?.deadline)}
+                setAvilabel={setAvilabel}
               />
             </div>
             {/* timer---- */}
@@ -42,17 +47,26 @@ const HomeCard = () => {
               <div className="w-full space-y-4 text-center">
                 <div className=" xl:flex-row flex-col justify-center gap-4 flex">
                   {/* -------flex---- */}
-                  <button className="text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out bg-gradient-to-r from-rgbFrom to-rgbTo font-bold items-center">
+                  <button
+                    className={`text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out bg-gradient-to-r font-bold items-center ${
+                      !avilabel
+                        ? "cursor-not-allowed bg-gray-400"
+                        : "from-rgbFrom to-rgbTo"
+                    }`}
+                    disabled={!avilabel}
+                  >
                     <CiClock2 className="text-2xl" />
                     {item.price > 0 ? `${item.price * 120} Tk` : "Free"}
                     <span>|</span>
-                    Enroll Now
+                    {!avilabel ? "Not Available" : "Available"}
                   </button>
                   {/* -------flex---- */}
-                  <button className=" text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out">
-                    <FiVideo className="text-2xl" />
-                    Course Details
-                  </button>
+                  <Link to={`/course-details/${item._id}`}>
+                    <button className=" text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out">
+                      <FiVideo className="text-2xl" />
+                      Course Details
+                    </button>
+                  </Link>
                 </div>
                 <div className="mt-3 flex w-full justify-center">
                   {/* show some text is that available or not */}

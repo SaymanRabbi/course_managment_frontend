@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { SideBaritem } from "../../dummyData/DummyData";
 import { useUserStore } from "../../Store/UserStore";
 import { useState } from "react";
 import HotToast from "../../utils/HotToast";
+import { SideBaritem } from "../../dummyData/DummyData";
 
 const Sidebar = () => {
   const [toast, setToast] = useState({
@@ -12,6 +12,7 @@ const Sidebar = () => {
   });
   const location = useLocation().pathname;
   const { logout } = useUserStore((state) => state);
+  
 
   const logoutFunc = () => {
     logout();
@@ -22,6 +23,7 @@ const Sidebar = () => {
       duration: 2000,
     });
   };
+
   return (
     <div className=" pt-[20px] pr-[30px] pb-[30px] pl-[15px] shadow-lg rounded-[10px] bg-bgPrimary/10">
       <div className=" mb-[10px] mt-[20px]">

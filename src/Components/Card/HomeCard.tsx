@@ -1,6 +1,7 @@
-import { FiVideo } from "react-icons/fi";
 import { AiTwotoneExclamationCircle } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
+import { FiVideo } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { useUserStore } from "../../Store/UserStore";
 import CourseAvailabilityTimer from "../../utils/Timer";
 
@@ -49,10 +50,12 @@ const HomeCard = () => {
                     Enroll Now
                   </button>
                   {/* -------flex---- */}
-                  <button className=" text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out">
-                    <FiVideo className="text-2xl" />
-                    Course Details
-                  </button>
+                  <Link to={`/course-details/${item._id}`}>
+                    <button className=" text-textSecondary flex border-[.5px] border-bgPrimary rounded-[30px] px-[20px] py-[10px] gap-x-3 hover:bg-bgPrimary/80 transition duration-700 ease-in-out">
+                      <FiVideo className="text-2xl" />
+                      Course Details
+                    </button>
+                  </Link>
                 </div>
                 <div className="mt-3 flex w-full justify-center">
                   {/* show some text is that available or not */}

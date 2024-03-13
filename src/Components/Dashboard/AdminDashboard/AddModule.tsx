@@ -1,11 +1,13 @@
+import axios from "axios";
 import { useState } from "react";
-
 // import { FormData } from "../../../Types";
 import toast from "react-hot-toast";
+import { useUserStore } from "../../../Store/UserStore";
 import { Video } from "../../../Types";
 import Button from "../../Button/Button";
 import DashboardCard from "../DashboardCard";
 const AddModule = () => {
+  const { addModule } = useUserStore((state) => state);
   const [formChange, setFormChange] = useState(0);
   const [title, setTitle] = useState("");
   const [video, setVideo] = useState<Video[]>([]);
@@ -25,7 +27,7 @@ const AddModule = () => {
   });
   const [quizIndex, setQuizIndex] = useState(1);
   const [nextQuestion, setNextQuestion] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const addQuiz = (e: any) => {
     e.preventDefault();
     const questionTitle = e.target.questionTitle.value;
@@ -70,6 +72,7 @@ const AddModule = () => {
       ...prev,
       quizDetails: {
         ...prev?.quizDetails,
+        title: prev.title,
         questions: [
           ...prev?.quizDetails?.questions,
           {
@@ -85,15 +88,17 @@ const AddModule = () => {
     setQuizIndex((prev) => prev + 1);
   };
   // ------AddVideo Function------- //
-  const addVideo = (e: any) => {
+  const [secure_url, setSecureUrl] = useState("");
+  const addVideo = async (e: any) => {
+    const dataform = new FormData();
     e.preventDefault();
     const videoTitle = e.target.videoTitle.value;
     const videoUrl = e.target.videoUrl.files[0];
     // check file type
-    const fileType = videoUrl.name.split(".").pop();
-    if (fileType !== "mp4") {
-      return toast.error("Please upload a valid video file");
-    }
+    // const fileType = videoUrl.name.split(".").pop();
+    // if (fileType !== "mp4") {
+    //   return toast.error("Please upload a valid video file");
+    // }
     if (videoTitle === "" || videoTitle.length < 10) {
       return toast.error(
         "Please fill all the fields and title length should be greater than 10 characters"
@@ -102,10 +107,30 @@ const AddModule = () => {
     if (videoUrl === "") {
       return toast.error("Please Add Video File");
     }
-    setVideo((prev) => [
-      ...prev,
-      { title: videoTitle, url: videoUrl, type: "video", isWatched: false },
-    ]);
+    dataform.append("file", e.target.videoUrl.files[0]);
+    try {
+      setLoading(true);
+      const api = "https://api.cloudinary.com/v1_1/dnr5u3jpb/video/upload";
+      const uploadPreset = "byni9vwa";
+      const res = await axios.post(api, dataform, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        params: {
+          upload_preset: uploadPreset,
+        },
+      });
+      const { secure_url } = res?.data;
+      setVideo((prev) => [
+        ...prev,
+        { title: videoTitle, url: secure_url, type: "video", isWatched: false },
+      ]);
+      setSecureUrl(secure_url);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+
     e.target.reset();
   };
   // ------AddVideo Function------- //
@@ -149,13 +174,14 @@ const AddModule = () => {
       },
     });
     const data = {
-      ...video,
-      ...quiz,
-      ...assignment,
+      title,
+      lessons: [...video, quiz, assignment],
     };
     console.log(data);
+    await addModule(data);
     // e.target.reset();
   };
+
   // assignment
   return (
     <DashboardCard title="Add Module">
@@ -199,7 +225,7 @@ const AddModule = () => {
 
             <input
               type="file"
-              placeholder="Video URL"
+              placeholder="Upload Video File"
               className="primary_input"
               name="videoUrl"
               accept="video/mp4"
@@ -208,12 +234,18 @@ const AddModule = () => {
               <Button
                 className="bg-gradient-to-r from-rgbFrom to-rgbTo"
                 type="submit"
+                disabled={loading}
               >
-                Add More Video
+                {loading ? "Uploading..." : "Add More Video"}
               </Button>
               <Button
-                className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                className={`${
+                  loading
+                    ? "bg-gray-400"
+                    : "bg-gradient-to-r from-rgbFrom to-rgbTo"
+                }`}
                 onClick={() => setFormChange((prev) => prev - 1)}
+                disabled={loading}
               >
                 Previous
               </Button>
@@ -685,8 +717,13 @@ const AddModule = () => {
 
             <div className=" flex gap-x-6">
               <Button
-                className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                className={`${
+                  quiz.quizDetails.questions.length === 0
+                    ? "bg-gray-400"
+                    : "bg-gradient-to-r from-rgbFrom to-rgbTo"
+                }`}
                 onClick={() => setFormChange(8)}
+                disabled={quiz.quizDetails.questions.length === 0}
               >
                 Add Assignment
               </Button>

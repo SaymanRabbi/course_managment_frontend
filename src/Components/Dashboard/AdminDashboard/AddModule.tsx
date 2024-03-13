@@ -1,239 +1,560 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import DashboardCard from "../DashboardCard";
-import Button from "../../Button/Button";
 import { useState } from "react";
 
-interface VideoFormData {
-  title: string;
-  url: string;
-  description: string;
-  quizeOne: string;
-  quizeTwo: string;
-  quizeThree: string;
-  quizeFour: string;
-  isWatched: boolean;
-}
-
-const AddModule: React.FC = () => {
-  const [quize, setQuize] = useState(false);
-  const [assignment, setAssignment] = useState(false);
-  const [fileInputs, setFileInputs] = useState([]);
-  
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<VideoFormData>();
-  const addFileInput = () => {
-    // Add a new file input field
-    setFileInputs((prevInputs) => [...prevInputs, {}]);
-  };
-
-  const onSubmit: SubmitHandler<VideoFormData> = (data) => {
-    console.log(data);
-    // Handle form submission logic here
-  };
+// import { FormData } from "../../../Types";
+import Button from "../../Button/Button";
+import DashboardCard from "../DashboardCard";
+const AddModule = () => {
+  const [formChange, setFormChange] = useState(0);
+  const [title, setTitle] = useState("");
+  const [video, setVideo] = useState({
+    title: "",
+    url: "",
+    type: "video",
+    isWatched: false,
+  });
+  const [quiz, setQuiz] = useState({
+    title: "",
+    type: "quiz",
+    isWatched: false,
+    quizDetails: {
+      questions: [
+        {
+          id: Number,
+          title: String,
+          options: [],
+        },
+      ],
+    },
+  });
+  const [quizIndex, setQuizIndex] = useState(1);
+  const [checked, setChecked] = useState(false);
 
   return (
     <DashboardCard title="Add Module">
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className=" grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="mb-4">
-              <label htmlFor="title" className="text-textPrimary">
-                Module Title
-              </label>
-              <input
-                type="text"
-                id="title"
-                {...register("title", { required: "Title is required" })}
-                className="profile_input"
-                placeholder="Add Title"
-              />
-              {errors.title && (
-                <span className="text-red-500">{errors.title.message}</span>
-              )}
-            </div>
-            <div className="mb-4">
-              <label htmlFor="url" className="text-textPrimary">
-                Video URL
-              </label>
-              <input
-                type="file"
-                id="url"
-                {...register("url", {
-                  required: "URL is required",
-                  pattern: {
-                    value: /^(ftp|http|https):\/\/[^ "]+$/,
-                    message: "Enter a valid URL",
-                  },
-                })}
-                className="profile_input"
-                placeholder="Video URl"
-              />
-              {errors.url && (
-                <span className="text-red-500">{errors.url.message}</span>
-              )}
-              <button
-                onClick={addFileInput}
-                className="text-textPrimary border border-textPrimary px-4 py-1 rounded-md my-4 block"
-              >
-                Add
-              </button>
-            </div>
-            {/* Render additional file input fields */}
-            {fileInputs.map((input, index) => (
-            <div key={index} className="mb-4">
-              <label htmlFor={`url${index + 2}`} className="text-textPrimary">
-                Additional Video URL {index + 2}
-              </label>
-              <input
-                type="file"
-                id={`url${index + 2}`}
-                {...register(`url${index + 2}`, {
-                  required: "URL is required",
-                  pattern: {
-                    value: /^(ftp|http|https):\/\/[^ "]+$/,
-                    message: "Enter a valid URL",
-                  },
-                })}
-                className="profile_input"
-                placeholder={`Video URL ${index + 2}`}
-              />
-              {errors[`url${index + 2}`] && (
-                <span className="text-red-500">{errors[`url${index + 2}`].message}</span>
-              )}
-            </div>
-          ))}
-          </div>
-          {/* Assignments */}
-          <div>
-            <div className="col-span-12">
-              <button
-                onClick={() => setAssignment(!assignment)}
-                className="text-textPrimary border border-textPrimary px-2 py-1 rounded-md my-4"
-              >
-                Assignment
-              </button>
-              {assignment && (
-                <textarea
-                  id="bio"
-                  className="profile_input resize-none"
-                  placeholder="provide assignment"
-                  cols={30}
-                  rows={8}
-                  {...register("description", {
-                    required: "Assignment was Required",
-                    minLength: {
-                      value: 20,
-                      message: "Biography should be 20 characters long",
-                    },
-                  })}
-                />
-              )}
-            </div>
-          </div>
-          {/* All Quizes */}
-          <div>
-            <button
-              className="text-textPrimary border border-textPrimary px-2 py-1 rounded-md my-4"
-              onClick={() => setQuize(!quize)}
-            >
-              Add Quize
-            </button>
+      <div className="bg-bgPrimary md:px-[40px] py-[40px] rounded-[20px] px-[20px]">
+        {/* module tittle */}
+        {formChange === 0 && (
+          <form>
+            <input
+              type="text"
+              placeholder="Module Tittle"
+              className="primary_input"
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
 
-            {quize && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <div className="mb-4">
-                    <label htmlFor="quizetitle" className="text-textPrimary">
-                      Quize Title
-                    </label>
-                    <input
-                      type="text"
-                      id="title"
-                      placeholder="Add Quize Title"
-                      {...register("title", {
-                        required: "Title is required",
-                      })}
-                      className="profile_input"
-                    />
-                    {errors.title && (
-                      <span className="text-red-500">
-                        {errors.title.message}
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="FirstOption" className="text-textPrimary">
-                    Quiz-1
-                  </label>
+            <Button
+              className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+              onClick={() => setFormChange(1)}
+            >
+              Next
+            </Button>
+          </form>
+        )}
+        {/* module tittle */}
+        {/* ------module video------- */}
+        {formChange === 1 && (
+          <form>
+            <input
+              type="text"
+              placeholder="Video Title"
+              className="primary_input"
+              onChange={(e) => {
+                setVideo((prev) => ({ ...prev, title: e.target.value }));
+              }}
+            />
+
+            <input
+              type="file"
+              placeholder="Video URL"
+              className="primary_input"
+              onChange={(e) => {
+                setVideo((prev) => ({ ...prev, url: e.target.value }));
+              }}
+            />
+            <div className=" flex gap-x-6">
+              <Button className="bg-gradient-to-r from-rgbFrom to-rgbTo">
+                Add More Video
+              </Button>
+              <Button
+                className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                onClick={() => setFormChange((prev) => prev - 1)}
+              >
+                Previous
+              </Button>
+              <Button
+                className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                onClick={() => setFormChange(2)}
+              >
+                Add Quiz
+              </Button>
+            </div>
+          </form>
+        )}
+        {/* ------module video------- */}
+        {/* -----quiz section------- */}
+        {formChange === 2 && (
+          <form>
+            <input
+              type="text"
+              placeholder="Quiz Title"
+              className="primary_input"
+              onChange={(e) => {
+                setQuiz((prev) => ({ ...prev, title: e.target.value }));
+              }}
+            />
+
+            <div className=" flex gap-x-6">
+              <Button
+                className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                onClick={() => setFormChange((prev) => prev - 1)}
+              >
+                Skip
+              </Button>
+              <Button
+                className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                onClick={() => setFormChange(3)}
+              >
+                Quiz Question
+              </Button>
+            </div>
+          </form>
+        )}
+        {/* -----quiz section------- */}
+        {/* quiz question */}
+        {formChange === 3 && (
+          <form>
+            <input
+              type="text"
+              placeholder="Question Title"
+              className="primary_input"
+              onChange={(e) => {
+                setQuiz((prev: any) => ({
+                  ...prev,
+                  quizDetails: {
+                    ...prev.quizDetails,
+                    questions: prev.quizDetails.questions.map(
+                      (question: any, index: any) =>
+                        index === quizIndex - 1
+                          ? {
+                              ...question,
+                              title: e.target.value,
+                              id: quizIndex,
+                            }
+                          : question
+                    ),
+                  },
+                }));
+              }}
+            />
+            {/* ------option part --------- */}
+            <div className=" w-[100%]">
+              <div className=" flex gap-x-4">
+                <div className=" flex items-center gap-x-4  md:w-[50%] w-[100%]">
+                  <input
+                    type="checkbox"
+                    disabled={checked}
+                    className=" h-[20px] w-[20px]"
+                    onChange={(e) => {
+                      setQuiz((prev: any) => ({
+                        ...prev,
+                        quizDetails: {
+                          ...prev.quizDetails,
+                          questions: prev.quizDetails.questions.map(
+                            (question: any, index: any) =>
+                              index === quizIndex - 1
+                                ? {
+                                    ...question,
+                                    options:
+                                      question.options.length === 0 // Check if options are empty
+                                        ? [
+                                            {
+                                              id: 1,
+                                              text: "",
+                                              answer: e.target.checked,
+                                            },
+                                            { id: 2, text: "", answer: false },
+                                            { id: 3, text: "", answer: false },
+                                            {
+                                              id: 4,
+                                              text: "",
+                                              answer: false,
+                                            },
+                                          ]
+                                        : question.options.map(
+                                            (option: any, optionIndex: any) =>
+                                              optionIndex === 0 // Update the third option
+                                                ? {
+                                                    ...option,
+                                                    answer: e.target.checked,
+                                                  }
+                                                : option
+                                          ),
+                                  }
+                                : question
+                          ),
+                        },
+                      }));
+                    }}
+                  />
                   <input
                     type="text"
-                    id="optionOne"
-                    className="profile_input"
-                    placeholder="Add option one"
-                    {...register("quizeOne", {
-                      required: "quize required",
-                    })}
+                    placeholder="Option"
+                    className="primary_input"
+                    onChange={(e) => {
+                      setQuiz((prev: any) => ({
+                        ...prev,
+                        quizDetails: {
+                          ...prev.quizDetails,
+                          questions: prev.quizDetails.questions.map(
+                            (question: any, index: any) =>
+                              index === quizIndex - 1
+                                ? {
+                                    ...question,
+                                    options:
+                                      question.options.length === 0 // Check if options are empty
+                                        ? [
+                                            {
+                                              id: 1,
+                                              text: e.target.value,
+                                              answer: false,
+                                            },
+                                            { id: 2, text: "", answer: false },
+                                            { id: 3, text: "", answer: false },
+                                            {
+                                              id: 4,
+                                              text: "",
+                                              answer: false,
+                                            },
+                                          ]
+                                        : question.options.map(
+                                            (option: any, optionIndex: any) =>
+                                              optionIndex === 0 // Update the third option
+                                                ? {
+                                                    ...option,
+                                                    text: e.target.value,
+                                                  }
+                                                : option
+                                          ),
+                                  }
+                                : question
+                          ),
+                        },
+                      }));
+                    }}
                   />
                 </div>
-                <div>
-                  <label htmlFor="SecondOption" className="text-textPrimary">
-                    Quiz-2
-                  </label>
+                <div className=" flex items-center gap-x-4 md:w-[50%] w-[100%]">
                   <input
-                    type="text"
-                    id="optionTwo"
-                    className="profile_input"
-                    placeholder="Add option two"
-                    {...register("quizeTwo", {
-                      required: "quize required",
-                    })}
+                    type="checkbox"
+                    disabled={checked}
+                    className=" h-[20px] w-[20px]"
+                    onChange={(e) => {
+                      setQuiz((prev: any) => ({
+                        ...prev,
+                        quizDetails: {
+                          ...prev.quizDetails,
+                          questions: prev.quizDetails.questions.map(
+                            (question: any, index: any) =>
+                              index === quizIndex - 1
+                                ? {
+                                    ...question,
+                                    options:
+                                      question.options.length === 0 // Check if options are empty
+                                        ? [
+                                            {
+                                              id: 1,
+                                              text: "",
+                                              answer: false,
+                                            },
+                                            {
+                                              id: 2,
+                                              text: "",
+                                              answer: e.target.checked,
+                                            },
+                                            { id: 3, text: "", answer: false },
+                                            {
+                                              id: 4,
+                                              text: "",
+                                              answer: false,
+                                            },
+                                          ]
+                                        : question.options.map(
+                                            (option: any, optionIndex: any) =>
+                                              optionIndex === 1 // Update the third option
+                                                ? {
+                                                    ...option,
+                                                    answer: e.target.checked,
+                                                  }
+                                                : option
+                                          ),
+                                  }
+                                : question
+                          ),
+                        },
+                      }));
+                    }}
                   />
-                </div>
-                <div>
-                  <label htmlFor="ThirdOption" className="text-textPrimary">
-                    Quiz-3
-                  </label>
                   <input
                     type="text"
-                    id="optionThree"
-                    className="profile_input"
-                    placeholder="Add option Three"
-                    {...register("quizeThree", {
-                      required: "quize required",
-                    })}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="FourthOption" className="text-textPrimary">
-                    Quiz-4
-                  </label>
-                  <input
-                    type="text"
-                    id="optionFour"
-                    className="profile_input"
-                    placeholder="Add option Four"
-                    {...register("quizeFour", {
-                      required: "quize required",
-                    })}
+                    placeholder="Option"
+                    className="primary_input"
+                    onChange={(e) => {
+                      setQuiz((prev: any) => ({
+                        ...prev,
+                        quizDetails: {
+                          ...prev.quizDetails,
+                          questions: prev.quizDetails.questions.map(
+                            (question: any, index: any) =>
+                              index === quizIndex - 1
+                                ? {
+                                    ...question,
+                                    options:
+                                      question.options.length === 0 // Check if options are empty
+                                        ? [
+                                            { id: 1, text: "", answer: false },
+                                            {
+                                              id: 2,
+                                              text: e.target.value,
+                                              answer: false,
+                                            },
+                                            { id: 3, text: "", answer: false },
+                                            { id: 4, text: "", answer: false },
+                                          ]
+                                        : question.options.map(
+                                            (option: any, optionIndex: any) =>
+                                              optionIndex === 1 // Update the third option
+                                                ? {
+                                                    ...option,
+                                                    text: e.target.value,
+                                                  }
+                                                : option
+                                          ),
+                                  }
+                                : question
+                          ),
+                        },
+                      }));
+                    }}
                   />
                 </div>
               </div>
-            )}
-          </div>
-          {/* Submit Button */}
-          <div className="flex justify-end mt-8 w-[150px]">
-            <Button
-              className=" !py-3 bg-gradient-to-r from-rgbFrom to-rgbTo"
-              type="submit"
-            >
-              Submit
-            </Button>
-          </div>
-        </form>
+              <div className=" flex gap-x-4">
+                <div className=" flex items-center gap-x-4  md:w-[50%] w-[100%]">
+                  <input
+                    type="checkbox"
+                    disabled={checked}
+                    className=" h-[20px] w-[20px]"
+                    onChange={(e) => {
+                      setQuiz((prev: any) => ({
+                        ...prev,
+                        quizDetails: {
+                          ...prev.quizDetails,
+                          questions: prev.quizDetails.questions.map(
+                            (question: any, index: any) =>
+                              index === quizIndex - 1
+                                ? {
+                                    ...question,
+                                    options:
+                                      question.options.length === 0 // Check if options are empty
+                                        ? [
+                                            {
+                                              id: 1,
+                                              text: "",
+                                              answer: false,
+                                            },
+                                            { id: 2, text: "", answer: false },
+                                            {
+                                              id: 3,
+                                              text: "",
+                                              answer: e.target.checked,
+                                            },
+                                            {
+                                              id: 4,
+                                              text: "",
+                                              answer: false,
+                                            },
+                                          ]
+                                        : question.options.map(
+                                            (option: any, optionIndex: any) =>
+                                              optionIndex === 2 // Update the third option
+                                                ? {
+                                                    ...option,
+                                                    answer: e.target.checked,
+                                                  }
+                                                : option
+                                          ),
+                                  }
+                                : question
+                          ),
+                        },
+                      }));
+                    }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Option"
+                    className="primary_input"
+                    onChange={(e) => {
+                      setQuiz((prev: any) => ({
+                        ...prev,
+                        quizDetails: {
+                          ...prev.quizDetails,
+                          questions: prev.quizDetails.questions.map(
+                            (question: any, index: any) =>
+                              index === quizIndex - 1
+                                ? {
+                                    ...question,
+                                    options:
+                                      question.options.length === 0 // Check if options are empty
+                                        ? [
+                                            {
+                                              id: 1,
+                                              text: "",
+                                              answer: false,
+                                            },
+                                            { id: 2, text: "", answer: false },
+                                            {
+                                              id: 3,
+                                              text: e.target.value,
+                                              answer: false,
+                                            },
+                                            { id: 4, text: "", answer: false },
+                                          ]
+                                        : question.options.map(
+                                            (option: any, optionIndex: any) =>
+                                              optionIndex === 2 // Update the third option
+                                                ? {
+                                                    ...option,
+                                                    text: e.target.value,
+                                                  }
+                                                : option
+                                          ),
+                                  }
+                                : question
+                          ),
+                        },
+                      }));
+                    }}
+                  />
+                </div>
+                {/* option four */}
+                <div className="flex items-center gap-x-4  md:w-[50%] w-[100%]">
+                  <input
+                    type="checkbox"
+                    disabled={checked}
+                    className=" h-[20px] w-[20px]"
+                    onChange={(e) => {
+                      setQuiz((prev: any) => ({
+                        ...prev,
+                        quizDetails: {
+                          ...prev.quizDetails,
+                          questions: prev.quizDetails.questions.map(
+                            (question: any, index: any) =>
+                              index === quizIndex - 1
+                                ? {
+                                    ...question,
+                                    options:
+                                      question.options.length === 0 // Check if options are empty
+                                        ? [
+                                            {
+                                              id: 1,
+                                              text: "",
+                                              answer: false,
+                                            },
+                                            { id: 2, text: "", answer: false },
+                                            { id: 3, text: "", answer: false },
+                                            {
+                                              id: 4,
+                                              text: "",
+                                              answer: e.target.checked,
+                                            },
+                                          ]
+                                        : question.options.map(
+                                            (option: any, optionIndex: any) =>
+                                              optionIndex === 3 // Update the third option
+                                                ? {
+                                                    ...option,
+                                                    answer: e.target.checked,
+                                                  }
+                                                : option
+                                          ),
+                                  }
+                                : question
+                          ),
+                        },
+                      }));
+                    }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Option"
+                    className="primary_input"
+                    onChange={(e) => {
+                      setQuiz((prev: any) => ({
+                        ...prev,
+                        quizDetails: {
+                          ...prev.quizDetails,
+                          questions: prev.quizDetails.questions.map(
+                            (question: any, index: any) =>
+                              index === quizIndex - 1
+                                ? {
+                                    ...question,
+                                    options:
+                                      question.options.length === 0 // Check if options are empty
+                                        ? [
+                                            {
+                                              id: 1,
+                                              text: "",
+                                              answer: false,
+                                            },
+                                            { id: 2, text: "", answer: false },
+                                            { id: 3, text: "", answer: false },
+                                            {
+                                              id: 4,
+                                              text: e.target.value,
+                                              answer: false,
+                                            },
+                                          ]
+                                        : question.options.map(
+                                            (option: any, optionIndex: any) =>
+                                              optionIndex === 3 // Update the third option
+                                                ? {
+                                                    ...option,
+                                                    text: e.target.value,
+                                                  }
+                                                : option
+                                          ),
+                                  }
+                                : question
+                          ),
+                        },
+                      }));
+                    }}
+                  />
+                </div>
+                {/* option four */}
+              </div>
+            </div>
+            {/* ------option part --------- */}
+
+            <div className=" flex gap-x-6">
+              <Button
+                className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                onClick={() => setFormChange((prev) => prev - 1)}
+              >
+                Previous
+              </Button>
+              <Button
+                className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                onClick={() => setFormChange(4)}
+              >
+                Add More Question
+              </Button>
+            </div>
+          </form>
+        )}
       </div>
     </DashboardCard>
   );

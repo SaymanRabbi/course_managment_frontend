@@ -17,8 +17,15 @@ const AddModule = () => {
       questions: [],
     },
   });
+  const [assignment, setAssignment] = useState({
+    title: "",
+    type: "assignment",
+    isWatched: false,
+    assignmentDetails: {},
+  });
   const [quizIndex, setQuizIndex] = useState(1);
   const [nextQuestion, setNextQuestion] = useState(false);
+
   const addQuiz = (e: any) => {
     e.preventDefault();
     const questionTitle = e.target.questionTitle.value;
@@ -81,9 +88,9 @@ const AddModule = () => {
   const addVideo = (e: any) => {
     e.preventDefault();
     const videoTitle = e.target.videoTitle.value;
-    const videoUrl = e.target.videoUrl.value;
+    const videoUrl = e.target.videoUrl.files[0];
     // check file type
-    const fileType = videoUrl.split(".").pop();
+    const fileType = videoUrl.name.split(".").pop();
     if (fileType !== "mp4") {
       return toast.error("Please upload a valid video file");
     }
@@ -102,24 +109,74 @@ const AddModule = () => {
     e.target.reset();
   };
   // ------AddVideo Function------- //
+  // module titel
+  const moduleTitle = (e: any) => {
+    e.preventDefault();
+    const title = e.target.moduleTitle.value;
+    if (title === "" || title.length < 10) {
+      return toast.error(
+        "Please fill all the fields and title length should be greater than 10 characters"
+      );
+    }
+    setTitle(title);
+    setFormChange(1);
+  };
+  // module titel
+  // assignment
+  const [textArea, setTextArea] = useState("");
+  const addAssignment = async (e: any) => {
+    e.preventDefault();
+    const assignmentTitle = e.target.assignmentTitle.value;
+    const assignmentDeadLine = e.target.assignmentDeadLine.value;
+    const instructions = textArea;
+    if (assignmentTitle === "" || assignmentTitle.length < 10) {
+      return toast.error(
+        "Please fill all the fields and title length should be greater than 10 characters"
+      );
+    }
+    if (instructions === "") {
+      return toast.error("Please Add Assignment instructions");
+    }
+    if (assignmentDeadLine === "") {
+      return toast.error("Please Add Assignment Deadline");
+    }
+    setAssignment({
+      ...assignment,
+      title: assignmentTitle,
+      assignmentDetails: {
+        instructions: instructions,
+        deadLine: assignmentDeadLine,
+      },
+    });
+    const data = {
+      ...video,
+      ...quiz,
+      ...assignment,
+    };
+    console.log(data);
+    // e.target.reset();
+  };
+  // assignment
   return (
     <DashboardCard title="Add Module">
       <div className="bg-bgPrimary md:px-[40px] py-[40px] rounded-[20px] px-[20px]">
         {/* module tittle */}
         {formChange === 0 && (
-          <form>
+          <form
+            onSubmit={(e) => {
+              moduleTitle(e);
+            }}
+          >
             <input
               type="text"
               placeholder="Module Tittle"
               className="primary_input"
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
+              name="moduleTitle"
             />
 
             <Button
               className="bg-gradient-to-r from-rgbFrom to-rgbTo"
-              onClick={() => setFormChange(1)}
+              type="submit"
             >
               Next
             </Button>
@@ -161,8 +218,13 @@ const AddModule = () => {
                 Previous
               </Button>
               <Button
-                className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                className={`${
+                  video.length === 0
+                    ? "bg-gray-400"
+                    : "bg-gradient-to-r from-rgbFrom to-rgbTo"
+                }`}
                 onClick={() => setFormChange(2)}
+                disabled={video.length === 0}
               >
                 Add Quiz
               </Button>
@@ -624,16 +686,12 @@ const AddModule = () => {
             <div className=" flex gap-x-6">
               <Button
                 className="bg-gradient-to-r from-rgbFrom to-rgbTo"
-                onClick={() => setFormChange((prev) => prev - 1)}
+                onClick={() => setFormChange(8)}
               >
-                Previous
+                Add Assignment
               </Button>
               <Button
-                className={` ${
-                  !nextQuestion
-                    ? "bg-gray-400"
-                    : "bg-gradient-to-r from-rgbFrom to-rgbTo"
-                }`}
+                className={` ${"bg-gradient-to-r from-rgbFrom to-rgbTo"}`}
                 type="submit"
                 // disabled={!nextQuestion}
               >
@@ -642,6 +700,44 @@ const AddModule = () => {
             </div>
           </form>
         )}
+        {
+          //  assignment
+          formChange === 8 && (
+            <form
+              onSubmit={(e) => {
+                addAssignment(e);
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Assignment Title"
+                className="primary_input"
+                name="assignmentTitle"
+              />
+              <textarea
+                placeholder="Assignment Instructions"
+                className="primary_input"
+                onChange={(e) => setTextArea(e.target.value)}
+              />
+              <input
+                type="datetime-local"
+                placeholder="Assignment File"
+                className="primary_input"
+                name="assignmentDeadLine"
+              />
+              <div className=" flex gap-x-6">
+                <Button
+                  className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                  type="submit"
+                >
+                  Submit Module
+                </Button>
+              </div>
+            </form>
+          )
+
+          //  assignment
+        }
       </div>
     </DashboardCard>
   );

@@ -107,6 +107,7 @@ function App() {
             {/* ------quiz-------- */}
           </Route>
         </Route>
+        <Route element={<RequireAuth allowedRoles={["student"]} />}></Route>
         <Route path="/dashboard/module/video/:id" element={<VideoPlayer />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />

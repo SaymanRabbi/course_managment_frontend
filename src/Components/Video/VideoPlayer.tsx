@@ -6,7 +6,7 @@ import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import { useUserStore } from "../../Store/UserStore";
 import Container from "../Container/Container";
-import AssignmentModal from "../../utils/AssignmentModal";
+import Modal from "./Modal";
 
 const VideoPlayer = () => {
   const activeModuleRef = useRef<HTMLDivElement>(null);
@@ -200,10 +200,10 @@ const VideoPlayer = () => {
                         </Link>
                       </div>
                     ) : module.type === "assignment" ? (
-                      <Link
+                      <div
                         /* to={`/dashboard/assignment/${data._id}`} */
-                        className={`mt-2 flex w-[100%] cursor-pointer rounded py-2 
-                  `}
+                        className={` flex w-[100%] cursor-pointer rounded py-2 
+                        `}
                       >
                         <MdAssignment
                           className={` text-[30px] w-[10%] font-[600] ${
@@ -213,41 +213,22 @@ const VideoPlayer = () => {
                           }`}
                         />
 
-                        <h2
-                          onClick={() => setOpen(true)}
+                        <div
                           className=" text-textPrimary ml-2 w-[80%]"
+                          onClick={() => setOpen(true)}
                         >
                           {module.title}{" "}
-                          <AssignmentModal
-                            open={open}
-                            onClose={() => setOpen(false)}
-                          >
-                            <span className=" text-rgbTo font-bold">
-                              {" "}
-                              "Assignment"{" "}
-                            </span>
-                            <div>
-                              <form action="/action_page.php">
-                                <p>
-                                  <label for="w3review">
-                                    Submit Your Assignment:
-                                  </label>
-                                </p>
-                                <textarea
-                                className="primary_input"
-                                  id="w3review"
-                                  name="w3review"
-                                  rows="4"
-                                  cols="50"
-                                >
-                                </textarea>
-                                <b />
-                                <input type="submit" value="Submit" />
-                              </form>
-                            </div>
-                          </AssignmentModal>
-                        </h2>
-                      </Link>
+                          {open ? (
+                            <Modal>
+                              {/* tittel */}
+                              <h2>{module.title} </h2>
+                              {/* tittel */}
+                            </Modal>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </div>
                     ) : (
                       ""
                     )

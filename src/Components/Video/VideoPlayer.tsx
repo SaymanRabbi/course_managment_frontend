@@ -6,6 +6,7 @@ import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import { useUserStore } from "../../Store/UserStore";
 import Container from "../Container/Container";
+import AssignmentModal from "../../utils/AssignmentModal";
 
 const VideoPlayer = () => {
   const activeModuleRef = useRef<HTMLDivElement>(null);
@@ -13,6 +14,7 @@ const VideoPlayer = () => {
   const [moduleIndex, setmoduleIndex] = useState(
     JSON.parse(localStorage.getItem("ind") || "{}").moduleIndex || 0
   );
+  const [open, setOpen] = useState<boolean>(false);
   const [search, setSearch] = useState("");
   const [filterModule, setFilterModule] = useState([] as any);
   const [index, setIndex] = useState(
@@ -199,7 +201,7 @@ const VideoPlayer = () => {
                       </div>
                     ) : module.type === "assignment" ? (
                       <Link
-                        to={`/dashboard/assignment/${data._id}`}
+                        /* to={`/dashboard/assignment/${data._id}`} */
                         className={`mt-2 flex w-[100%] cursor-pointer rounded py-2 
                   `}
                       >
@@ -210,12 +212,40 @@ const VideoPlayer = () => {
                               : " text-textSecondary"
                           }`}
                         />
-                        <h2 className=" text-textPrimary ml-2 w-[80%]">
+
+                        <h2
+                          onClick={() => setOpen(true)}
+                          className=" text-textPrimary ml-2 w-[80%]"
+                        >
                           {module.title}{" "}
-                          <span className=" text-rgbTo font-bold">
-                            {" "}
-                            "Assignment"{" "}
-                          </span>
+                          <AssignmentModal
+                            open={open}
+                            onClose={() => setOpen(false)}
+                          >
+                            <span className=" text-rgbTo font-bold">
+                              {" "}
+                              "Assignment"{" "}
+                            </span>
+                            <div>
+                              <form action="/action_page.php">
+                                <p>
+                                  <label for="w3review">
+                                    Submit Your Assignment:
+                                  </label>
+                                </p>
+                                <textarea
+                                className="primary_input"
+                                  id="w3review"
+                                  name="w3review"
+                                  rows="4"
+                                  cols="50"
+                                >
+                                </textarea>
+                                <b />
+                                <input type="submit" value="Submit" />
+                              </form>
+                            </div>
+                          </AssignmentModal>
                         </h2>
                       </Link>
                     ) : (

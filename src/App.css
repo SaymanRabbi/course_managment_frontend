@@ -50,5 +50,7 @@ body {
     transform: translateX(100%);
   }
 }
-
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
 /* grid item-------- */

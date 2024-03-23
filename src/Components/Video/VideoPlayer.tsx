@@ -15,6 +15,8 @@ const VideoPlayer = () => {
     JSON.parse(localStorage.getItem("ind") || "{}").moduleIndex || 0
   );
   const [open, setOpen] = useState<boolean>(false);
+  const [modalIndex, setModalIndex] = useState<number>(2);
+  const [assignment, setAssignment] = useState<any>({});
   const [search, setSearch] = useState("");
   const [filterModule, setFilterModule] = useState([] as any);
   const [index, setIndex] = useState(
@@ -88,6 +90,12 @@ const VideoPlayer = () => {
   }, [filteredModules]);
 
   // useEffect to load the video where the user left off after window refresh
+  const ModalIndex = (i: any, module: any) => {
+    console.log(i);
+    setOpen(true);
+    setModalIndex(i);
+    setAssignment(module);
+  };
   return (
     <Container>
       <div className=" pt-[200px] w-[95%] lg:w-[90%] mx-auto grid-cols-12 grid gap-x-6 ">
@@ -200,33 +208,25 @@ const VideoPlayer = () => {
                         </Link>
                       </div>
                     ) : module.type === "assignment" ? (
-                      <div
-                        /* to={`/dashboard/assignment/${data._id}`} */
-                        className={` flex w-[100%] cursor-pointer rounded py-2 
-                        `}
-                      >
-                        <MdAssignment
-                          className={` text-[30px] w-[10%] font-[600] ${
-                            index === i && moduleIndex === ind
-                              ? "text-bgPrimary"
-                              : " text-textSecondary"
-                          }`}
-                        />
-
+                      <div>
                         <div
-                          className=" text-textPrimary ml-2 w-[80%]"
-                          onClick={() => setOpen(true)}
+                          /* to={`/dashboard/assignment/${data._id}`} */
+                          className={` flex w-[100%] cursor-pointer rounded py-2 
+                        `}
                         >
-                          {module.title}{" "}
-                          {open ? (
-                            <Modal>
-                              {/* tittel */}
-                              <h2>{module.title} </h2>
-                              {/* tittel */}
-                            </Modal>
-                          ) : (
-                            ""
-                          )}
+                          <MdAssignment
+                            className={` text-[30px] w-[10%] font-[600] ${
+                              index === i && moduleIndex === ind
+                                ? "text-bgPrimary"
+                                : " text-textSecondary"
+                            }`}
+                          />
+                          <div
+                            className=" text-textPrimary ml-2 w-[80%]"
+                            onClick={() => ModalIndex(i, module)}
+                          >
+                            {module.title}{" "}
+                          </div>
                         </div>
                       </div>
                     ) : (
@@ -243,6 +243,11 @@ const VideoPlayer = () => {
         </div>
         {/* -------module name---- */}
       </div>
+      {open && assignment ? (
+        <Modal modals={assignment} setOpen={setOpen} />
+      ) : (
+        ""
+      )}
     </Container>
   );
 };

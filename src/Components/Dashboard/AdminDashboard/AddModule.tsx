@@ -177,8 +177,10 @@ const AddModule = () => {
       title,
       lessons: [...video, quiz, assignment],
     };
-    console.log(data);
-    await addModule(data);
+    setTimeout(async () => {
+      await addModule(data);
+    }, 300);
+
     // e.target.reset();
   };
 

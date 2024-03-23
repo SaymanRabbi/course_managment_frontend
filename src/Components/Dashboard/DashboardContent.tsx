@@ -1,30 +1,32 @@
-import DashboardTittle from "./DashboardTittle";
 import { FaAward } from "react-icons/fa";
-import { PiStudentBold } from "react-icons/pi";
 import { FcReading } from "react-icons/fc";
 import { IoStar } from "react-icons/io5";
+import { PiStudentBold } from "react-icons/pi";
+import { useUserStore } from "../../Store/UserStore";
 import { feedbackData } from "../../dummyData/DummyData";
 import DashboardCard from "./DashboardCard";
+import DashboardTittle from "./DashboardTittle";
 interface Data {
   name: string;
   value: number;
   icon: JSX.Element;
 }
 const DashboardContent = () => {
+  const { user } = useUserStore((state) => state);
   const data: Data[] = [
     {
       name: "Enrolled Courses",
-      value: 27,
+      value: 1,
       icon: <FaAward />,
     },
     {
-      name: "Active Courses",
-      value: 8,
+      name: "Quiz Attemped",
+      value: user?.quizs?.length || 0,
       icon: <PiStudentBold />,
     },
     {
-      name: "Completed Courses",
-      value: 12,
+      name: "Submit Assignment",
+      value: 0,
       icon: <FcReading />,
     },
   ];
@@ -49,7 +51,7 @@ const DashboardContent = () => {
                 {/* ------content----- */}
                 <div>
                   <div className=" font-[700] text-[34px] leading-relaxed text-textPrimary">
-                    <span>{item.value}</span>+
+                    <span>{item.value}</span>
                   </div>
                   <p className=" font-[500] text-[16px] leading-relaxed text-textPrimary">
                     {item.name}

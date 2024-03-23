@@ -6,7 +6,7 @@ import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
 import { useUserStore } from "../../Store/UserStore";
 import Container from "../Container/Container";
-import AssignmentModal from "../../utils/AssignmentModal";
+import Modal from "./Modal";
 
 const VideoPlayer = () => {
   const activeModuleRef = useRef<HTMLDivElement>(null);
@@ -15,6 +15,8 @@ const VideoPlayer = () => {
     JSON.parse(localStorage.getItem("ind") || "{}").moduleIndex || 0
   );
   const [open, setOpen] = useState<boolean>(false);
+  const [modalIndex, setModalIndex] = useState<number>(2);
+  const [assignment, setAssignment] = useState<any>({});
   const [search, setSearch] = useState("");
   const [filterModule, setFilterModule] = useState([] as any);
   const [index, setIndex] = useState(
@@ -88,6 +90,12 @@ const VideoPlayer = () => {
   }, [filteredModules]);
 
   // useEffect to load the video where the user left off after window refresh
+  const ModalIndex = (i: any, module: any) => {
+    console.log(i);
+    setOpen(true);
+    setModalIndex(i);
+    setAssignment(module);
+  };
   return (
     <Container>
       <div className=" pt-[200px] w-[95%] lg:w-[90%] mx-auto grid-cols-12 grid gap-x-6 ">
@@ -177,7 +185,7 @@ const VideoPlayer = () => {
                           {module.title}
                         </h2>
                       </div>
-                    ) : module.type === "quiz" ? (
+                    ) : module.type === "quiz" && module?.quizDetails?.title ? (
                       <div>
                         <Link
                           to={`/dashboard/quiz/${data._id}`}
@@ -199,55 +207,29 @@ const VideoPlayer = () => {
                           </h2>
                         </Link>
                       </div>
-                    ) : module.type === "assignment" ? (
-                      <Link
-                        /* to={`/dashboard/assignment/${data._id}`} */
-                        className={`mt-2 flex w-[100%] cursor-pointer rounded py-2 
-                  `}
-                      >
-                        <MdAssignment
-                          className={` text-[30px] w-[10%] font-[600] ${
-                            index === i && moduleIndex === ind
-                              ? "text-bgPrimary"
-                              : " text-textSecondary"
-                          }`}
-                        />
-
-                        <h2
-                          onClick={() => setOpen(true)}
-                          className=" text-textPrimary ml-2 w-[80%]"
+                    ) : module.type === "assignment" &&
+                      module?.assignmentDetails?.instructions ? (
+                      <div>
+                        <div
+                          /* to={`/dashboard/assignment/${data._id}`} */
+                          className={` flex w-[100%] cursor-pointer rounded py-2 
+                        `}
                         >
-                          {module.title}{" "}
-                          <AssignmentModal
-                            open={open}
-                            onClose={() => setOpen(false)}
+                          <MdAssignment
+                            className={` text-[30px] w-[10%] font-[600] ${
+                              index === i && moduleIndex === ind
+                                ? "text-bgPrimary"
+                                : " text-textSecondary"
+                            }`}
+                          />
+                          <div
+                            className=" text-textPrimary ml-2 w-[80%]"
+                            onClick={() => ModalIndex(i, module)}
                           >
-                            <span className=" text-rgbTo font-bold">
-                              {" "}
-                              "Assignment"{" "}
-                            </span>
-                            <div>
-                              <form action="/action_page.php">
-                                <p>
-                                  <label for="w3review">
-                                    Submit Your Assignment:
-                                  </label>
-                                </p>
-                                <textarea
-                                className="primary_input"
-                                  id="w3review"
-                                  name="w3review"
-                                  rows="4"
-                                  cols="50"
-                                >
-                                </textarea>
-                                <b />
-                                <input type="submit" value="Submit" />
-                              </form>
-                            </div>
-                          </AssignmentModal>
-                        </h2>
-                      </Link>
+                            {module.title}{" "}
+                          </div>
+                        </div>
+                      </div>
                     ) : (
                       ""
                     )
@@ -262,6 +244,11 @@ const VideoPlayer = () => {
         </div>
         {/* -------module name---- */}
       </div>
+      {open && assignment ? (
+        <Modal modals={assignment} setOpen={setOpen} />
+      ) : (
+        ""
+      )}
     </Container>
   );
 };

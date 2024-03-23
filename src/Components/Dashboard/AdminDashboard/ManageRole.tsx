@@ -1,8 +1,26 @@
+import { useEffect, useState } from "react";
 import { HiUsers } from "react-icons/hi2";
-import { manageroles } from "../../../dummyData/DummyData";
+import { useUserStore } from "../../../Store/UserStore";
 import DashboardCard from "../DashboardCard";
 
 const ManageRole = () => {
+  const { getAllUsers, allusers, makeAdmin } = useUserStore((state) => state);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const getAllUser = async () => {
+      await getAllUsers();
+    };
+    getAllUser();
+  }, []);
+  const makeAdminFunc = async (id: any) => {
+    setLoading(true);
+    await makeAdmin(id);
+    allusers.filter((item: any) =>
+      item._id === id ? (item.role = "student") : item
+    );
+    await getAllUsers();
+    setLoading(false);
+  };
   return (
     <DashboardCard title="Manage Roles">
       <div className=" grid grid-cols-12">
@@ -12,7 +30,7 @@ const ManageRole = () => {
               <thead className=" font-bold text-textPrimary text-[16px]">
                 <tr>
                   <th scope="col" className="px-6 py-3 rounded-s-lg">
-                    image
+                    Email
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Name
@@ -20,29 +38,44 @@ const ManageRole = () => {
                   <th scope="col" className="px-6 py-3 rounded-e-lg">
                     Designation
                   </th>
-                  <th scope="col" className="px-6 py-3 rounded-e-lg">Role Change</th>
+                  <th scope="col" className="px-6 py-3 rounded-e-lg">
+                    Role Change
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {manageroles.map((item, index) => (
+                {allusers.map((item: any, index: any) => (
                   <tr className="text-textPrimary" key={index}>
                     <td className="px-6 py-4">
-                      <img className="h-12" src={item.img} alt="" />
+                      <p>{item?.email}</p>
                     </td>
                     <td className="px-6 py-4">
-                      <p>{item.name}</p>
+                      <p>{item?.name}</p>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <HiUsers />
-                        <p>{item.designation}</p>
+                        <p>{item?.role}</p>
                       </div>
                     </td>
                     <td className="px-6 py-4">
                       <div className=" ">
-                        <button className="flex items-center gap-2 bg-gradient-to-r from-rgbFrom to-rgbTo px-10 py-2 rounded-md my-2">
-                          <span>Make Admin</span>
-                        </button>
+                        {item?.role === "admin" ? (
+                          <button
+                            className="flex items-center gap-2 px-10 py-2 rounded-md my-2 bg-gray-400 cursor-not-allowed"
+                            disabled={true}
+                          >
+                            <span>Admin</span>
+                          </button>
+                        ) : (
+                          <button
+                            className="flex items-center gap-2 bg-gradient-to-r from-rgbFrom to-rgbTo px-10 py-2 rounded-md my-2"
+                            onClick={() => makeAdminFunc(item._id)}
+                            disabled={loading}
+                          >
+                            <span>{loading ? "Loading..." : "Make Admin"}</span>
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>

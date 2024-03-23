@@ -40,7 +40,9 @@ import AddModule from "./Components/Dashboard/AdminDashboard/AddModule";
 import CourseDetails from "./Components/Dashboard/AdminDashboard/CourseDetails";
 
 function App() {
-  const { getUserByToken, getCourses } = useUserStore((state: any) => state);
+  const { getUserByToken, getCourses, getAllUsers } = useUserStore(
+    (state: any) => state
+  );
   const [previousRoute, setPreviousRoute] = useState("");
   const route = useLocation().pathname;
   useEffect(() => {
@@ -48,6 +50,7 @@ function App() {
     if (route !== previousRoute) {
       getUserByToken();
       getCourses();
+      getAllUsers();
       setPreviousRoute(route); // Update the previous route after the function call
     }
   }, [route]);

@@ -185,7 +185,7 @@ const VideoPlayer = () => {
                           {module.title}
                         </h2>
                       </div>
-                    ) : module.type === "quiz" ? (
+                    ) : module.type === "quiz" && module?.quizDetails?.title ? (
                       <div>
                         <Link
                           to={`/dashboard/quiz/${data._id}`}
@@ -207,7 +207,8 @@ const VideoPlayer = () => {
                           </h2>
                         </Link>
                       </div>
-                    ) : module.type === "assignment" ? (
+                    ) : module.type === "assignment" &&
+                      module?.assignmentDetails?.instructions ? (
                       <div>
                         <div
                           /* to={`/dashboard/assignment/${data._id}`} */

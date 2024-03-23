@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { User } from "../Types";
 
 interface UserStoreState {
+  allusers: any;
   user: User | null;
   setUserData: (user: User) => void;
   isLoading: boolean;
@@ -35,8 +36,11 @@ interface UserStoreState {
   getUserByToken: () => Promise<void>;
   updateProfileProgress: (lessonId: any, title: any) => Promise<void>;
   addModule: (module: any) => void;
+  getAllUsers: () => Promise<void>;
+  makeAdmin: (id: any) => Promise<void>;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
+  allusers: [],
   user: localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user") || "")
     : null,
@@ -385,6 +389,55 @@ export const useUserStore = create<UserStoreState>((set) => ({
         body: JSON.stringify(ModuleData),
       });
       const data = await response.json();
+      if (data) {
+        set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getAllUsers: async () => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/getallusers`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          allusers: data.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  makeAdmin: async (id) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/update/${id}`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await resp.json();
       if (data) {
         set({
           isLoading: false,

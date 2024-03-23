@@ -26,7 +26,7 @@ const AddModule = () => {
     assignmentDetails: {},
   });
   const [quizIndex, setQuizIndex] = useState(1);
-  const [nextQuestion, setNextQuestion] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const addQuiz = (e: any) => {
     e.preventDefault();
@@ -84,21 +84,17 @@ const AddModule = () => {
       },
     }));
     e.target.reset();
-    setNextQuestion(true);
+
     setQuizIndex((prev) => prev + 1);
   };
   // ------AddVideo Function------- //
-  const [secure_url, setSecureUrl] = useState("");
+
   const addVideo = async (e: any) => {
     const dataform = new FormData();
     e.preventDefault();
     const videoTitle = e.target.videoTitle.value;
     const videoUrl = e.target.videoUrl.files[0];
-    // check file type
-    // const fileType = videoUrl.name.split(".").pop();
-    // if (fileType !== "mp4") {
-    //   return toast.error("Please upload a valid video file");
-    // }
+
     if (videoTitle === "" || videoTitle.length < 10) {
       return toast.error(
         "Please fill all the fields and title length should be greater than 10 characters"
@@ -125,14 +121,14 @@ const AddModule = () => {
         ...prev,
         { title: videoTitle, url: secure_url, type: "video", isWatched: false },
       ]);
-      setSecureUrl(secure_url);
+
       setLoading(false);
     } catch (error) {
       console.log(error);
     }
-
     e.target.reset();
   };
+
   // ------AddVideo Function------- //
   // module titel
   const moduleTitle = (e: any) => {
@@ -148,12 +144,12 @@ const AddModule = () => {
   };
   // module titel
   // assignment
-  const [textArea, setTextArea] = useState("");
+
   const addAssignment = async (e: any) => {
     e.preventDefault();
     const assignmentTitle = e.target.assignmentTitle.value;
     const assignmentDeadLine = e.target.assignmentDeadLine.value;
-    const instructions = textArea;
+    const instructions = e.target.assignmentInstructions.value;
     if (assignmentTitle === "" || assignmentTitle.length < 10) {
       return toast.error(
         "Please fill all the fields and title length should be greater than 10 characters"
@@ -165,25 +161,20 @@ const AddModule = () => {
     if (assignmentDeadLine === "") {
       return toast.error("Please Add Assignment Deadline");
     }
-    setAssignment({
-      ...assignment,
-      title: assignmentTitle,
-      assignmentDetails: {
-        instructions: instructions,
-        deadLine: assignmentDeadLine,
-      },
-    });
+
+    setFormChange(9);
+    // e.target.reset();
+  };
+  const PublishModule = async () => {
+    setLoading(true);
     const data = {
       title,
       lessons: [...video, quiz, assignment],
     };
-    setTimeout(async () => {
-      await addModule(data);
-    }, 300);
-
-    // e.target.reset();
+    await addModule(data);
+    setLoading(false);
+    toast.success("Module Added Successfully");
   };
-
   // assignment
   return (
     <DashboardCard title="Add Module">
@@ -240,17 +231,7 @@ const AddModule = () => {
               >
                 {loading ? "Uploading..." : "Add More Video"}
               </Button>
-              <Button
-                className={`${
-                  loading
-                    ? "bg-gray-400"
-                    : "bg-gradient-to-r from-rgbFrom to-rgbTo"
-                }`}
-                onClick={() => setFormChange((prev) => prev - 1)}
-                disabled={loading}
-              >
-                Previous
-              </Button>
+
               <Button
                 className={`${
                   video.length === 0
@@ -281,7 +262,7 @@ const AddModule = () => {
             <div className=" flex gap-x-6">
               <Button
                 className="bg-gradient-to-r from-rgbFrom to-rgbTo"
-                onClick={() => setFormChange((prev) => prev - 1)}
+                onClick={() => setFormChange(8)}
               >
                 Skip
               </Button>
@@ -752,24 +733,54 @@ const AddModule = () => {
                 placeholder="Assignment Title"
                 className="primary_input"
                 name="assignmentTitle"
+                onChange={(e) => {
+                  setAssignment((prev) => ({
+                    ...prev,
+                    title: e.target.value,
+                  }));
+                }}
               />
               <textarea
                 placeholder="Assignment Instructions"
                 className="primary_input"
-                onChange={(e) => setTextArea(e.target.value)}
+                onChange={(e) => {
+                  setAssignment((prev) => ({
+                    ...prev,
+                    assignmentDetails: {
+                      ...prev.assignmentDetails,
+                      instructions: e.target.value,
+                    },
+                  }));
+                }}
+                name="assignmentInstructions"
               />
               <input
                 type="datetime-local"
                 placeholder="Assignment File"
                 className="primary_input"
                 name="assignmentDeadLine"
+                onChange={(e) => {
+                  setAssignment((prev) => ({
+                    ...prev,
+                    assignmentDetails: {
+                      ...prev.assignmentDetails,
+                      deadline: e.target.value,
+                    },
+                  }));
+                }}
               />
               <div className=" flex gap-x-6">
                 <Button
                   className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+                  onClick={() => setFormChange(9)}
+                >
+                  Skip
+                </Button>
+                <Button
+                  className="bg-gradient-to-r from-rgbFrom to-rgbTo"
                   type="submit"
                 >
-                  Submit Module
+                  Save
                 </Button>
               </div>
             </form>
@@ -777,6 +788,15 @@ const AddModule = () => {
 
           //  assignment
         }
+        {formChange === 9 && (
+          <Button
+            className="bg-gradient-to-r from-rgbFrom to-rgbTo"
+            onClick={() => PublishModule()}
+            disabled={loading}
+          >
+            {loading ? "Publishing..." : "Publish"}
+          </Button>
+        )}
       </div>
     </DashboardCard>
   );

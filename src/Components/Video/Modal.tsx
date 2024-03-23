@@ -18,7 +18,9 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen }) => {
         {/* instruction */}
         <div>
           <span>
-            <strong>{modals?.assignmentDetails?.instructions}</strong>
+            <strong className=" text-[13px] font-[400]">
+              {modals?.assignmentDetails?.instructions}
+            </strong>
           </span>
         </div>
         {/* ----submit assignment */}

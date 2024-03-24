@@ -1,23 +1,32 @@
-import { notifications } from "../../../dummyData/DummyData";
-import DashboardCard from "../DashboardCard";
+import { useEffect } from "react";
 import { IoNotificationsSharp } from "react-icons/io5";
+import { useUserStore } from "../../../Store/UserStore";
+import DashboardCard from "../DashboardCard";
 
 const Notifications = () => {
+  const { getNotification, Notification } = useUserStore((state) => state);
+
+  useEffect(() => {
+    const fetchNotification = async () => {
+      await getNotification();
+    };
+    fetchNotification();
+  }, []);
   return (
     <DashboardCard title="Recent Courses">
-      <div>
-        {notifications.map((item) => {
+      <div className=" max-h-[500px] overflow-y-auto">
+        {Notification.map((item: any) => {
           return (
             <div className="mt-6">
               <div className="flex items-center gap-4">
                 <IoNotificationsSharp size={30} className="text-pink-700" />
                 <div className="text-textPrimary mt-3 md:mt-0">
                   <div>
-                    <p className="font-bold">{item.title}</p>
+                    <p className="font-bold">{item?.message}</p>
                   </div>
                   <div className="flex items-center gap-10 mt-2">
                     <div className="md:flex items-center gap-2">
-                      <p>{item.time}</p>
+                      <p>{new Date(item?.createdAt)?.toLocaleDateString()}</p>
                     </div>
                   </div>
                 </div>

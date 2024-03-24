@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { FiAlignLeft, FiAlignRight } from "react-icons/fi";
-import Container from "../Container/Container";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUserStore } from "../../Store/UserStore";
 import useAuth from "../../hooks/useAuth";
+import Container from "../Container/Container";
 interface Route {
   name: string;
   link: string;
@@ -85,8 +85,12 @@ const Navbar = () => {
               );
             })}
             {user ? (
-              <div className=" w-[50px] h-[50px] rounded-full bg-gradient-to-r to-rgbFrom  from-rgbTo flex items-center justify-center text-textPrimary">
-                user
+              <div className=" w-[50px] h-[50px] rounded-full bg-gradient-to-r to-rgbFrom  from-rgbTo flex items-center justify-center text-textPrimary p-[1px]">
+                <img
+                  src={user?.ProfileImage}
+                  className=" w-full h-full rounded-full"
+                  alt=""
+                />
               </div>
             ) : (
               ""

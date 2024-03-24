@@ -29,6 +29,7 @@ const VideoPlayer = () => {
   const [video, setVideo] = useState(
     courses[0]?.modules[moduleIndex].lessons[index].url
   );
+  const [assignmentId, setAssignmentId] = useState("");
   useEffect(() => {
     if (moduleIndex !== undefined && index !== undefined) {
       const currentVideo =
@@ -90,8 +91,8 @@ const VideoPlayer = () => {
   }, [filteredModules]);
 
   // useEffect to load the video where the user left off after window refresh
-  const ModalIndex = (i: any, module: any) => {
-    console.log(i);
+  const ModalIndex = (i: any, module: any, id: any) => {
+    setAssignmentId(id);
     setOpen(true);
     setModalIndex(i);
     setAssignment(module);
@@ -224,7 +225,7 @@ const VideoPlayer = () => {
                           />
                           <div
                             className=" text-textPrimary ml-2 w-[80%]"
-                            onClick={() => ModalIndex(i, module)}
+                            onClick={() => ModalIndex(i, module, data._id)}
                           >
                             {module.title}{" "}
                           </div>
@@ -245,7 +246,7 @@ const VideoPlayer = () => {
         {/* -------module name---- */}
       </div>
       {open && assignment ? (
-        <Modal modals={assignment} setOpen={setOpen} />
+        <Modal modals={assignment} setOpen={setOpen} id={assignmentId} />
       ) : (
         ""
       )}

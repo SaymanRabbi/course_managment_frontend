@@ -29,7 +29,7 @@ const QuizAttempts = () => {
                 </tr>
               </thead>
               <tbody>
-                {user?.quizs?.length &&
+                {user?.quizs?.length ? (
                   user?.quizs.map((item, index) => (
                     <tr className=" text-textPrimary" key={index}>
                       <td className="px-6 py-4">
@@ -49,7 +49,12 @@ const QuizAttempts = () => {
                         )}
                       </td>
                     </tr>
-                  ))}
+                  ))
+                ) : (
+                  <p className="text-error font-[700]  text-[16px]">
+                    No Quiz Attempted
+                  </p>
+                )}
               </tbody>
             </table>
           </div>

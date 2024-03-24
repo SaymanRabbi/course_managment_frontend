@@ -41,6 +41,7 @@ interface UserStoreState {
   changeImage: (image: any) => void;
   Notification: [];
   getNotification: () => Promise<void>;
+  addAssignment: (assignment: any) => void;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
@@ -496,6 +497,31 @@ export const useUserStore = create<UserStoreState>((set) => ({
       if (data) {
         set({
           Notification: data.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  addAssignment: async (assignment) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/assignment`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(assignment),
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
           isLoading: false,
           success: data?.status,
           messages: data.message,

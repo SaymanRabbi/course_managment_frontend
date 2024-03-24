@@ -23,7 +23,7 @@ export interface User {
   Biography?: string;
   displayName?: string;
   ProfileImage?: string;
-  assignments?: [
+  assignment?: [
     {
       assignmentId: String;
       totalMarks: Number;

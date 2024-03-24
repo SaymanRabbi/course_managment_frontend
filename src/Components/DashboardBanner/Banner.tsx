@@ -4,6 +4,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { IoMdBook } from "react-icons/io";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { LuAward } from "react-icons/lu";
+import { MdAssignment } from "react-icons/md";
 import { useUserStore } from "../../Store/UserStore";
 import Button from "../Button/Button";
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
   certificate: number;
   buttonTitle: string;
   children?: ReactNode;
+  assignment?: number;
 }
 const Banner: React.FC<Props> = ({
   className,
@@ -21,6 +23,7 @@ const Banner: React.FC<Props> = ({
   certificate,
   buttonTitle,
   children,
+  assignment,
 }) => {
   const { changeImage, user } = useUserStore((state) => state);
   const ref = useRef<HTMLInputElement>(null);
@@ -30,7 +33,7 @@ const Banner: React.FC<Props> = ({
     ref.current?.click();
   };
   const uploadImageDisplay = async () => {
-    const uploadedfile = ref?.current?.files[0];
+    const uploadedfile = ref?.current?.files[0] as File;
     const catchUrl = URL.createObjectURL(uploadedfile);
     setImage(catchUrl);
     const dataform = new FormData();
@@ -116,6 +119,10 @@ const Banner: React.FC<Props> = ({
                 <li className=" flex items-center gap-x-2 text-textSecondary">
                   <LuAward className=" text-lg" />
                   <span>{certificate} Quiz Attempet</span>
+                </li>
+                <li className=" flex items-center gap-x-2 text-textSecondary">
+                  <MdAssignment className=" text-lg" />
+                  <span>{assignment} Assignment</span>
                 </li>
               </ul>
             </div>

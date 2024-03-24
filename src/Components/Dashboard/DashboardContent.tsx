@@ -26,7 +26,7 @@ const DashboardContent = () => {
     },
     {
       name: "Submit Assignment",
-      value: 0,
+      value: user?.assignment?.length || 0,
       icon: <FcReading />,
     },
   ];

@@ -1,10 +1,11 @@
-import { popularInstructors } from "../../../dummyData/DummyData";
-import DashboardCard from "../DashboardCard";
-import { MdReviews } from "react-icons/md";
 import { BiSolidVideos } from "react-icons/bi";
 import { HiUsers } from "react-icons/hi2";
+import { MdReviews } from "react-icons/md";
+import { useUserStore } from "../../../Store/UserStore";
+import DashboardCard from "../DashboardCard";
 
 const PopularInstructor = () => {
+  const { allusers } = useUserStore((state) => state);
   return (
     <DashboardCard title="Popular Instructors">
       <div className=" grid grid-cols-12">
@@ -32,48 +33,42 @@ const PopularInstructor = () => {
                 </tr>
               </thead>
               <tbody>
-                {popularInstructors.map((item, index) => (
-                  <tr className="text-textPrimary" key={index}>
-                    <td className="px-6 py-4">
-                      <img className="h-12" src={item.img} alt="" />
-                    </td>
-                    <td className="px-6 py-4">
-                      <p>{item.name}</p>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <HiUsers />
-                        <p>{item.students}</p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <BiSolidVideos />
-                        <p>{item.courses}</p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <MdReviews />
-                        <p>{item.reviews}</p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className=" ">
-                        <button className="flex items-center gap-2 bg-gradient-to-r from-rgbFrom to-rgbTo px-10 py-2 rounded-md my-2">
-                          <span>Button</span>
-                        </button>
-                      </div>
-                    </td>
-                    <td>
-                      <div className=" ">
-                        <button className="flex items-center gap-2 bg-pink-700 px-9 py-2 rounded-md">
-                          <span>Button</span>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                {allusers.map((item: any, index: any) =>
+                  item?.role === "admin" ? (
+                    <tr className="text-textPrimary" key={index}>
+                      <td className="px-6 py-4">
+                        <img
+                          className="h-[50px] w-[50px] rounded-full object-cover"
+                          src={item?.ProfileImage}
+                          alt=""
+                        />
+                      </td>
+                      <td className="px-6 py-4">
+                        <p>{item.name}</p>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-2">
+                          <HiUsers />
+                          <p>{item.students || 0}</p>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-2">
+                          <BiSolidVideos />
+                          <p>{1}</p>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-2">
+                          <MdReviews />
+                          <p>{item.reviews || 0}</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    ""
+                  )
+                )}
               </tbody>
             </table>
           </div>

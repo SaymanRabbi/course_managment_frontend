@@ -24,6 +24,7 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
       assignmentId: id,
       totalMarks: 1,
       submitAnswerobg,
+      title: modals?.title,
     };
     addAssignment(data);
     setTimeout(() => {

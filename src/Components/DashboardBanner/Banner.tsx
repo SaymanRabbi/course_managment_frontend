@@ -4,6 +4,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { IoMdBook } from "react-icons/io";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { LuAward } from "react-icons/lu";
+import { useUserStore } from "../../Store/UserStore";
 import Button from "../Button/Button";
 interface Props {
   className?: string;
@@ -21,20 +22,20 @@ const Banner: React.FC<Props> = ({
   buttonTitle,
   children,
 }) => {
+  const { changeImage, user } = useUserStore((state) => state);
   const ref = useRef<HTMLInputElement>(null);
-  const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [image, setImage] = useState<string | null>(
-    file ? URL.createObjectURL(file) : null
-  );
+  const [image, setImage] = useState("");
   const uploadImage = async () => {
-    if (!file) {
-      return;
-    }
+    ref.current?.click();
+  };
+  const uploadImageDisplay = async () => {
+    const uploadedfile = ref?.current?.files[0];
+    const catchUrl = URL.createObjectURL(uploadedfile);
+    setImage(catchUrl);
     const dataform = new FormData();
-    dataform.append("file", file);
+    dataform.append("file", uploadedfile);
     try {
-      setLoading(true);
       const api = "https://api.cloudinary.com/v1_1/dnr5u3jpb/image/upload";
       const uploadPreset = "byni9vwa";
       // image upload
@@ -48,6 +49,7 @@ const Banner: React.FC<Props> = ({
       });
       const { secure_url } = res?.data;
       setImage(secure_url);
+      await changeImage(secure_url);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -64,26 +66,40 @@ const Banner: React.FC<Props> = ({
               {loading ? (
                 "Loading..."
               ) : (
-                <>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    uploadImage();
+                  }}
+                >
                   <img
-                    src={image ? image : "https://i.ibb.co/4Z6nJvR/Group-1.png"}
+                    src={
+                      user?.ProfileImage
+                        ? user?.ProfileImage
+                        : image
+                        ? image
+                        : "https://i.ibb.co/4Z6nJvR/Group-1.png"
+                    }
                     alt=""
-                    className=" w-full h-full object-cover border-[2px] rounded-full p-[4px] border-gray-50"
+                    className=" w-[120px] h-[120px] mr-[20px] object-cover border-[2px] rounded-full p-[4px] border-gray-50"
                   />
-                  <div
-                    className=" absolute bottom-[5%] right-[36%] bg-bgPrimary/50 p-1 rounded-full"
-                    onClick={() => {
-                      ref.current?.click();
-                    }}
-                  >
-                    <FaCloudUploadAlt
-                      className=" text-textPrimary text-[25px] cursor-pointer"
-                      onClick={() => {
-                        uploadImage();
-                      }}
-                    />
+                  <div className=" absolute bottom-[5%] right-[36%] bg-bgPrimary/50 p-1 rounded-full">
+                    <button
+                      className=" w-[30px] h-[30px] flex items-center rounded-full justify-center"
+                      type="submit"
+                    >
+                      <FaCloudUploadAlt className=" text-textPrimary text-[25px] cursor-pointer" />
+                    </button>
                   </div>
-                </>
+                  <input
+                    type="file"
+                    className="hidden"
+                    ref={ref}
+                    onChange={uploadImageDisplay}
+                    accept="image/*"
+                    hidden
+                  />
+                </form>
               )}
             </div>
             {/* ------dashboard left img----- */}
@@ -114,17 +130,7 @@ const Banner: React.FC<Props> = ({
           </div>
         </div>
       </div>
-      <input
-        type="file"
-        className="hidden"
-        ref={ref}
-        onChange={(e) => {
-          if (e.target.files) {
-            setFile(e.target.files[0]);
-          }
-        }}
-        accept="image/*"
-      />
+
       {children}
     </div>
   );

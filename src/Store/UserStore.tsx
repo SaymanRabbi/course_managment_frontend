@@ -38,6 +38,9 @@ interface UserStoreState {
   addModule: (module: any) => void;
   getAllUsers: () => Promise<void>;
   makeAdmin: (id: any) => Promise<void>;
+  changeImage: (image: any) => void;
+  Notification: [];
+  getNotification: () => Promise<void>;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
@@ -50,6 +53,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   messages: "",
   courses: [],
   code: "",
+  Notification: [],
   token: localStorage.getItem("token") || "",
   courseId: "",
   quiz: [],
@@ -440,6 +444,58 @@ export const useUserStore = create<UserStoreState>((set) => ({
       const data = await resp.json();
       if (data) {
         set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  changeImage: async (imageUrl) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/updateImgurl`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ imageUrl }),
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          user: data.data.user,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+        localStorage.setItem("user", JSON.stringify(data.data));
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getNotification: async () => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/getNotification`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          Notification: data.data,
           isLoading: false,
           success: data?.status,
           messages: data.message,

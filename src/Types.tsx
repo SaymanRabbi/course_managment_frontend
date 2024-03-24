@@ -22,6 +22,14 @@ export interface User {
   ExpartIn?: string;
   Biography?: string;
   displayName?: string;
+  ProfileImage?: string;
+  assignments?: [
+    {
+      assignmentId: String;
+      totalMarks: Number;
+      submitAnswerobg: String;
+    }
+  ];
 }
 export interface Video {
   title: string;

@@ -5,7 +5,6 @@ interface ModalProps {
   setOpen: void | any;
 }
 const Modal: React.FC<ModalProps> = ({ modals, setOpen }) => {
-  console.log(modals);
   return (
     <div className="absolute w-[70%]  mx-auto top-[30%] left-0 right-0 bg-white rounded-md p-6 text-black overflow-hidden ">
       <div className=" relative">

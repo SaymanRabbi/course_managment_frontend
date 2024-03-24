@@ -11,8 +11,8 @@ const Dashboard = () => {
     <Container className=" pt-[130px] xl:!px-[60px] px-[30px]">
       <Banner
         name={user?.name || "User"}
-        ernolledCourses={12}
-        certificate={8}
+        ernolledCourses={user?.courses?.length || 1}
+        certificate={user?.quizs?.length || 0}
         buttonTitle="Enroll New Course"
       />
       {/* main part include sidebar and content */}

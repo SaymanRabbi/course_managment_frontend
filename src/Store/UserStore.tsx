@@ -384,7 +384,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   },
   addModule: async (ModuleData) => {
     try {
-      const url = `http://localhost:5000/api/v1/course/updateCourse/65ce20de5906eb59d99f2feb`;
+      const url = `http://localhost:5000/api/v1/course/updateCourse/660064f53d5fc7b5c8a5267a`;
       const response = await fetch(url, {
         method: "PUT",
         headers: {

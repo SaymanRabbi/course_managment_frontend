@@ -7,7 +7,7 @@ interface RequireAuthProps {
 }
 const RequireAuth: React.FC<RequireAuthProps> = ({ allowedRoles }) => {
   const { auth } = useAuth();
-  console.log(auth?.role);
+
   const location = useLocation();
   const { getUserByToken } = useUserStore((state) => state);
   useEffect(() => {

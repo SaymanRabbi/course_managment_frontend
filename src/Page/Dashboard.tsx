@@ -13,6 +13,7 @@ const Dashboard = () => {
         name={user?.name || "User"}
         ernolledCourses={user?.courses?.length || 1}
         certificate={user?.quizs?.length || 0}
+        assignment={user?.assignment?.length || 0}
         buttonTitle="Enroll New Course"
       />
       {/* main part include sidebar and content */}

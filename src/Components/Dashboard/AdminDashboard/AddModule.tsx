@@ -123,9 +123,7 @@ const AddModule = () => {
       ]);
 
       setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
     e.target.reset();
   };
 

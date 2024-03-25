@@ -1,9 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import DeatilsInstructors from "./DetailsInfo/DeatilsInstructors";
 import DetailsDes from "./DetailsInfo/DetailsDes";
 import DetailsReviews from "./DetailsInfo/DetailsReviews";
-import DeatilsInstructors from "./DetailsInfo/DeatilsInstructors";
-
-const ButtonPages = () => {
+interface ButtonPagesProps {
+  insTructor: any;
+}
+const ButtonPages: React.FC<ButtonPagesProps> = ({ insTructor }) => {
   const [active, setActive] = useState("detailsdescription");
   return (
     <>
@@ -30,7 +32,9 @@ const ButtonPages = () => {
       <div>
         {active === "detailsdescription" && <DetailsDes />}
         {active === "detailsreviews" && <DetailsReviews />}
-        {active === "detailsinstructors" && <DeatilsInstructors />}
+        {active === "detailsinstructors" && (
+          <DeatilsInstructors insTructor={insTructor} />
+        )}
       </div>
     </>
   );

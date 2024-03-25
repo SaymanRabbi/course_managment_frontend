@@ -42,6 +42,8 @@ interface UserStoreState {
   Notification: [];
   getNotification: () => Promise<void>;
   addAssignment: (assignment: any) => void;
+  insTructor: any;
+  getInstructor: (id: any) => Promise<void>;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
@@ -58,6 +60,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   token: localStorage.getItem("token") || "",
   courseId: "",
   quiz: [],
+  insTructor: [],
   updateQuiz: async (
     token,
     quizID,
@@ -522,6 +525,32 @@ export const useUserStore = create<UserStoreState>((set) => ({
       const data = await resp.json();
       if (data) {
         set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+
+  getInstructor: async (id) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/instructorInfo/${id}`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await resp.json();
+      console.log(data);
+      if (data) {
+        set({
+          insTructor: data.data,
           isLoading: false,
           success: data?.status,
           messages: data.message,

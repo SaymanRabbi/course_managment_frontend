@@ -69,11 +69,21 @@ const ManageRole = () => {
                           </button>
                         ) : (
                           <button
-                            className="flex items-center gap-2 bg-gradient-to-r from-rgbFrom to-rgbTo px-10 py-2 rounded-md my-2"
+                            className={`flex items-center gap-2 bg-gradient-to-r px-10 py-2 rounded-md my-2 ${
+                              item?.role === "admin"
+                                ? "bg-gray-400"
+                                : "from-rgbFrom to-rgbTo"
+                            }`}
                             onClick={() => makeAdminFunc(item._id)}
-                            disabled={loading}
+                            disabled={loading || item?.role === "admin"}
                           >
-                            <span>{loading ? "Loading..." : "Make Admin"}</span>
+                            <span>
+                              {loading
+                                ? "Loading..."
+                                : item.role === "admin"
+                                ? "No Permission"
+                                : "Make Admin"}
+                            </span>
                           </button>
                         )}
                       </div>

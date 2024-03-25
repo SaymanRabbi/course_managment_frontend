@@ -246,7 +246,9 @@ const VideoPlayer = () => {
         {/* -------module name---- */}
       </div>
       {open && assignment ? (
-        <Modal modals={assignment} setOpen={setOpen} id={assignmentId} />
+        <div className=" fixed top-0 bottom-0 right-0 left-0  z-[100000] bg-black/20">
+          <Modal modals={assignment} setOpen={setOpen} id={assignmentId} />
+        </div>
       ) : (
         ""
       )}

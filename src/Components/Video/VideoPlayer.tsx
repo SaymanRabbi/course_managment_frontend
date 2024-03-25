@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { CiVideoOn } from "react-icons/ci";
@@ -12,7 +13,7 @@ const VideoPlayer = () => {
   const activeModuleRef = useRef<HTMLDivElement>(null);
   const parentDivRef = useRef<HTMLDivElement>(null);
   const [moduleIndex, setmoduleIndex] = useState(
-    JSON.parse(localStorage.getItem("ind") || "{}").moduleIndex || 0
+    Cookies.get("ind") ? JSON.parse(Cookies.get("ind") || "{}").moduleIndex : 0
   );
   const [open, setOpen] = useState<boolean>(false);
   const [modalIndex, setModalIndex] = useState<number>(2);
@@ -20,7 +21,7 @@ const VideoPlayer = () => {
   const [search, setSearch] = useState("");
   const [filterModule, setFilterModule] = useState([] as any);
   const [index, setIndex] = useState(
-    JSON.parse(localStorage.getItem("ind") || "{}").videoindex || 0
+    Cookies.get("ind") ? JSON.parse(Cookies.get("ind") || "{}").videoindex : 0
   );
   const { courses, getCourses, updateProfileProgress } = useUserStore(
     (state) => state
@@ -57,7 +58,7 @@ const VideoPlayer = () => {
     await updateProfileProgress(lessonId, title);
     setIndex(videoIndx);
     setmoduleIndex(ind);
-    localStorage.setItem(
+    Cookies.set(
       "ind",
       JSON.stringify({ moduleIndex: ind, videoindex: videoIndx })
     );

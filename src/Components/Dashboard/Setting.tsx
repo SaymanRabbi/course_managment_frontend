@@ -1,9 +1,10 @@
-import DashboardCard from "./DashboardCard";
-import Button from "../Button/Button";
-import { useForm } from "react-hook-form";
-import HotToast from "../../utils/HotToast";
+import Cookies from "js-cookie";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useUserStore } from "../../Store/UserStore";
+import HotToast from "../../utils/HotToast";
+import Button from "../Button/Button";
+import DashboardCard from "./DashboardCard";
 interface FormData {
   name: string;
   lastname: string;
@@ -30,7 +31,8 @@ const Setting = () => {
     formState: { errors },
   } = useForm<FormData>();
   const onSubmit = async (data: FormData) => {
-    await updateUserProfile(localStorage.getItem("token"), data);
+    await updateUserProfile(Cookies.get("token"), data);
+
     if (success) {
       setToast({ message: "Profile Updated", type: "success", duration: 5000 });
       reset();

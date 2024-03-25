@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { FiAlignLeft, FiAlignRight } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -28,13 +29,15 @@ const Navbar = () => {
       link: "/login",
     },
   ];
-  const Logout = () => {
+  const Logout = async () => {
     logout();
+    Cookies.remove("user");
     setAuth({ user: false, token: "", role: "" });
-    localStorage.removeItem("token");
-    localStorage.removeItem("auth");
+    Cookies.remove("auth");
+    Cookies.remove("token");
     navigation("/login");
   };
+
   return (
     <nav className=" flex flex-col w-[100%] shrink-0 fixed z-[1100] top-0 left-auto right-0 bg-transparent backdrop-blur-[9px] text-white shadow-sm sm:px-0 px-4">
       {/* conatiner */}

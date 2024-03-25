@@ -54,7 +54,7 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
         </div>
       ) : (
         <form
-          className="absolute w-[70%]  mx-auto top-[30%] left-0 right-0 bg-white rounded-md p-6 text-black overflow-hidden "
+          className="absolute w-[70%]  mx-auto top-[20%] left-0 right-0 bg-white rounded-md p-6 text-black overflow-hidden "
           onSubmit={(e) => submitAssignment(e)}
         >
           <div className=" relative">
@@ -73,11 +73,13 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
               </span>
             </div>
             {/* ----submit assignment */}
-            <div className=" px-3 mt-4">
+            <div className=" mt-4">
               <textarea
-                className=" primary_input bg-gray-500 resize-none"
+                className=" primary_input bg-gray-400  text-black resize-none"
                 name="answer"
-              ></textarea>
+                rows={10}
+                placeholder="Write Your Answer Here..."
+              />
             </div>
             <div>
               <Button

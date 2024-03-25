@@ -1,12 +1,12 @@
+import Cookies from "js-cookie";
 import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
   createContext,
   useEffect,
   useState,
-  ReactNode,
-  Dispatch,
-  SetStateAction,
 } from "react";
-
 interface AuthData {
   role: any;
   user: any;
@@ -27,11 +27,13 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const storedAuth = JSON.parse(localStorage.getItem("auth") as string) || null;
+  const storedAuth = Cookies.get("auth")
+    ? JSON.parse(Cookies.get("auth") as string)
+    : null;
   const [auth, setAuth] = useState<AuthData | null>(storedAuth);
 
   useEffect(() => {
-    localStorage.setItem("auth", JSON.stringify(auth));
+    Cookies.set("auth", JSON.stringify(auth));
   }, [auth]);
 
   return (

@@ -1,5 +1,5 @@
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-
 interface CourseAvailabilityTimerProps {
   startDate: Date;
   deadline: Date;
@@ -7,7 +7,6 @@ interface CourseAvailabilityTimerProps {
 }
 
 const CourseAvailabilityTimer: React.FC<CourseAvailabilityTimerProps> = ({
-  startDate,
   deadline,
   setAvilabel,
 }) => {
@@ -16,7 +15,7 @@ const CourseAvailabilityTimer: React.FC<CourseAvailabilityTimerProps> = ({
   );
 
   useEffect(() => {
-    const storedRemainingTime = localStorage.getItem("remainingTime");
+    const storedRemainingTime = Cookies.get("remainingTime");
 
     if (storedRemainingTime) {
       setRemainingTime(Number(storedRemainingTime));
@@ -25,7 +24,8 @@ const CourseAvailabilityTimer: React.FC<CourseAvailabilityTimerProps> = ({
     const interval = setInterval(() => {
       setRemainingTime((prevRemainingTime) => {
         const newRemainingTime = Math.max(0, prevRemainingTime - 1);
-        localStorage.setItem("remainingTime", String(newRemainingTime));
+        Cookies.set("remainingTime", String(newRemainingTime));
+
         // Check if the course is still available
         if (newRemainingTime > 0) {
           // Update the availability status using setAvilabel

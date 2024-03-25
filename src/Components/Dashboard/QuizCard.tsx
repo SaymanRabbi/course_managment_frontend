@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
+import Cookies from "js-cookie";
 import { FaCheck } from "react-icons/fa6";
-
-import Button from "../Button/Button";
-import { useUserStore } from "../../Store/UserStore";
 import { useParams } from "react-router-dom";
+import { useUserStore } from "../../Store/UserStore";
+import Button from "../Button/Button";
 interface Props {
   id: any;
 }
@@ -24,16 +24,12 @@ const HeroIq: React.FC<Props> = () => {
   }, [id, courseId, getQuiz, token]);
   const [click, setClick] = useState<any>({});
   const [index, setIndex] = useState<any>(
-    localStorage.getItem("index")
-      ? JSON.parse(localStorage.getItem("index") as string)
-      : {}
+    Cookies.get("index") ? JSON.parse(Cookies.get("index") as string) : {}
   );
   const [score, setScore] = useState<number>(0);
   const [yourAnswer, setYourAnswer] = useState<number>();
   const [finish, setFinish] = useState<boolean>(
-    localStorage.getItem("finish")
-      ? JSON.parse(localStorage.getItem("finish") as string)
-      : false
+    Cookies.get("finish") ? JSON.parse(Cookies.get("finish") as string) : false
   );
   const [nextIndex, setNextIndex] = useState(0);
   useEffect(() => {

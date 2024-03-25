@@ -1,27 +1,28 @@
-import { Link, useLocation } from "react-router-dom";
-import { useUserStore } from "../../Store/UserStore";
+import Cookies from "js-cookie";
 import { useState } from "react";
-import HotToast from "../../utils/HotToast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useUserStore } from "../../Store/UserStore";
 import { SideBaritem } from "../../dummyData/DummyData";
-
+import useAuth from "../../hooks/useAuth";
+import HotToast from "../../utils/HotToast";
 const Sidebar = () => {
-  const [toast, setToast] = useState({
+  const { setAuth } = useAuth();
+  const navigation = useNavigate();
+  const [toast] = useState({
     message: "",
     type: null as "success" | "error" | "warning" | "loading" | null,
     duration: 0,
   });
   const location = useLocation().pathname;
   const { logout } = useUserStore((state) => state);
-  
 
   const logoutFunc = () => {
     logout();
-
-    setToast({
-      message: "You have been logged out",
-      type: "success",
-      duration: 2000,
-    });
+    Cookies.remove("user");
+    setAuth({ user: false, token: "", role: "" });
+    Cookies.remove("auth");
+    Cookies.remove("token");
+    navigation("/login");
   };
 
   return (

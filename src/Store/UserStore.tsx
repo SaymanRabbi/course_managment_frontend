@@ -1,6 +1,6 @@
+import Cookies from "js-cookie";
 import { create } from "zustand";
 import { User } from "../Types";
-
 interface UserStoreState {
   allusers: any;
   user: User | null;
@@ -47,9 +47,8 @@ interface UserStoreState {
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
-  user: localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user") || "")
-    : null,
+
+  user: Cookies.get("user") ? JSON.parse(Cookies.get("user") as string) : null,
   isLoading: false,
   serverError: null,
   success: null,
@@ -57,7 +56,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
   courses: [],
   code: "",
   Notification: [],
-  token: localStorage.getItem("token") || "",
+
+  token: Cookies.get("token") || "",
   courseId: "",
   quiz: [],
   insTructor: [],
@@ -95,7 +95,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
           messages: data.message,
           serverError: null,
         });
-        localStorage.setItem("quiz", JSON.stringify(data.data));
+        Cookies.set("quiz", JSON.stringify(data.data));
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });
@@ -147,7 +147,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
           serverError: null,
           token: data.token,
         });
-        localStorage.setItem("token", data.token);
+        Cookies.set("token", data.token);
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });
@@ -298,7 +298,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
           messages: data.message,
           serverError: null,
         });
-        localStorage.setItem("quiz", JSON.stringify(data.data));
+        Cookies.set("quiz", JSON.stringify(data.data));
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });
@@ -326,7 +326,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
           messages: res.message,
           serverError: null,
         });
-        localStorage.setItem("user", JSON.stringify(res.data));
+        Cookies.set("user", JSON.stringify(res.data));
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });
@@ -335,14 +335,16 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getUserByToken: async () => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const token = localStorage.getItem("token");
+
+      const token = Cookies.get("token");
       if (!token) return set({ isLoading: false });
       const url = `http://localhost:5000/api/v1/user/login/token`;
       const resp = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
       });
       const data = await resp.json();
@@ -362,7 +364,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
   updateProfileProgress: async (lessonId, title) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const token = localStorage.getItem("token");
+
+      const token = Cookies.get("token");
       const url = `http://localhost:5000/api/v1/user/profile/progress`;
       const resp = await fetch(url, {
         method: "PUT",
@@ -392,7 +395,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
         body: JSON.stringify(ModuleData),
       });
@@ -417,7 +421,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
       });
       const data = await resp.json();
@@ -442,7 +447,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
       });
       const data = await resp.json();
@@ -466,7 +472,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
         body: JSON.stringify({ imageUrl }),
       });
@@ -479,7 +486,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
           messages: data.message,
           serverError: null,
         });
-        localStorage.setItem("user", JSON.stringify(data.data));
+        Cookies.set("user", JSON.stringify(data.data));
       }
     } catch (error: any) {
       set({ serverError: error?.message, isLoading: false });
@@ -493,7 +500,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
       });
       const data = await resp.json();
@@ -518,7 +526,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
         body: JSON.stringify(assignment),
       });

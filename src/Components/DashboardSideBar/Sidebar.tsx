@@ -14,7 +14,7 @@ const Sidebar = () => {
     duration: 0,
   });
   const location = useLocation().pathname;
-  const { logout } = useUserStore((state) => state);
+  const { logout, user } = useUserStore((state) => state);
 
   const logoutFunc = () => {
     logout();
@@ -29,9 +29,9 @@ const Sidebar = () => {
     <div className=" pt-[20px] pr-[30px] pb-[30px] pl-[15px] shadow-lg rounded-[10px] bg-bgPrimary/10">
       <div className=" mb-[10px] mt-[20px]">
         {/* ---tittle---- */}
-        <h6 className=" text-[14px] font-[500] uppercase mb-0 px-[10px] pt-[10px] pb-[7px] text-textPrimary tracking-wider">
-          Welcome Sayman Rabbi
-        </h6>
+        <h2 className=" text-[14px] font-[500] uppercase mb-0 px-[10px] pt-[10px] pb-[7px] text-textPrimary tracking-wider">
+          {user?.name}
+        </h2>
         {/* ---tittle---- */}
       </div>
       {/* ------nav item */}

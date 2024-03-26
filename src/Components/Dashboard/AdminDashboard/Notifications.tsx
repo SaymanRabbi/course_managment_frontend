@@ -17,7 +17,7 @@ const Notifications = () => {
       <div className=" max-h-[500px] overflow-y-auto">
         {Notification.map((item: any) => {
           return (
-            <div className="mt-6">
+            <div className="mt-6" key={item?._id}>
               <div className="flex items-center gap-4">
                 <IoNotificationsSharp size={30} className="text-pink-700" />
                 <div className="text-textPrimary mt-3 md:mt-0">

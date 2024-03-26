@@ -44,6 +44,7 @@ interface UserStoreState {
   addAssignment: (assignment: any) => void;
   insTructor: any;
   getInstructor: (id: any) => Promise<void>;
+  createNotification: (text: any) => void;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
@@ -560,6 +561,33 @@ export const useUserStore = create<UserStoreState>((set) => ({
       if (data) {
         set({
           insTructor: data.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  createNotification: async (text) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/newNotification`;
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+        body: JSON.stringify({ text }),
+      });
+      const data = await resp.json();
+      console.log(data);
+      if (data) {
+        set({
           isLoading: false,
           success: data?.status,
           messages: data.message,

@@ -19,7 +19,6 @@ import AdminMessage from "./Components/Dashboard/AdminDashboard/AdminMessage";
 import AdminProfile from "./Components/Dashboard/AdminDashboard/AdminProfile";
 import Courses from "./Components/Dashboard/AdminDashboard/Courses";
 import ManageRole from "./Components/Dashboard/AdminDashboard/ManageRole";
-import NoticeBoard from "./Components/Dashboard/AdminDashboard/NoticeBoard";
 import Notifications from "./Components/Dashboard/AdminDashboard/Notifications";
 import PopularInstructor from "./Components/Dashboard/AdminDashboard/PopularInstructor";
 
@@ -38,6 +37,7 @@ import { useUserStore } from "./Store/UserStore";
 
 import AddModule from "./Components/Dashboard/AdminDashboard/AddModule";
 import CourseDetails from "./Components/Dashboard/AdminDashboard/CourseDetails";
+import NoticeBoard from "./Components/Dashboard/AdminDashboard/NoticeBoard";
 
 function App() {
   const { getUserByToken, getCourses, getAllUsers } = useUserStore(
@@ -65,11 +65,7 @@ function App() {
         <Route path="/forgot_pass" element={<ForgotPass />} />
         <Route path="/forgotpasscode/:id" element={<ForgotPassCode />} />
         <Route path="course-details/:id" element={<CourseDetails />} />
-        <Route
-          element={
-            <RequireAuth allowedRoles={["admin", "teacher", "student"]} />
-          }
-        >
+        <Route element={<RequireAuth allowedRoles={["admin", "student"]} />}>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard" element={<DashboardContent />} />
             <Route path="/dashboard/profile" element={<Profile />} />
@@ -88,12 +84,11 @@ function App() {
               path="/dashboard/popular-instructor"
               element={<PopularInstructor />}
             />
-            <Route path="/dashboard/notice-board" element={<NoticeBoard />} />
+
             <Route
               path="/dashboard/notifications"
               element={<Notifications />}
             />
-            <Route path="/dashboard/manageRole" element={<ManageRole />} />
 
             <Route
               path="/dashboard/enrolled-courses"
@@ -102,7 +97,7 @@ function App() {
             <Route path="/dashboard/reviews" element={<Reviews />} />
             <Route path="/dashboard/quiz" element={<QuizAttempts />} />
             <Route path="/dashboard/assignments" element={<Assignments />} />
-            <Route path="/dashboard/add-module" element={<AddModule />} />
+
             <Route path="/dashboard/setting" element={<Setting />} />
             <Route path="/dashboard" element={<Setting />} />
             {/* ------quiz-------- */}
@@ -110,6 +105,15 @@ function App() {
             {/* ------quiz-------- */}
           </Route>
         </Route>
+        {/* Admin only */}
+        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="/dashboard/add-module" element={<AddModule />} />
+            <Route path="/dashboard/manageRole" element={<ManageRole />} />
+            <Route path="/dashboard/notice-board" element={<NoticeBoard />} />
+          </Route>
+        </Route>
+        {/* Admin only  */}
         <Route element={<RequireAuth allowedRoles={["student"]} />}></Route>
         <Route path="/dashboard/module/video/:id" element={<VideoPlayer />} />
         <Route path="/unauthorized" element={<Unauthorized />} />

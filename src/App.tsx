@@ -36,6 +36,8 @@ import VerifyToken from "./Page/VerifyToken";
 import { useUserStore } from "./Store/UserStore";
 
 import AddModule from "./Components/Dashboard/AdminDashboard/AddModule";
+import AllAssignment from "./Components/Dashboard/AdminDashboard/AllAssignment";
+import AssignmentDetails from "./Components/Dashboard/AdminDashboard/AssignmentDetails";
 import CourseDetails from "./Components/Dashboard/AdminDashboard/CourseDetails";
 import NoticeBoard from "./Components/Dashboard/AdminDashboard/NoticeBoard";
 
@@ -111,6 +113,14 @@ function App() {
             <Route path="/dashboard/add-module" element={<AddModule />} />
             <Route path="/dashboard/manageRole" element={<ManageRole />} />
             <Route path="/dashboard/notice-board" element={<NoticeBoard />} />
+            <Route
+              path="/dashboard/allAssignment"
+              element={<AllAssignment />}
+            />
+            <Route
+              path="/dashboard/assignment-details/:id"
+              element={<AssignmentDetails />}
+            />
           </Route>
         </Route>
         {/* Admin only  */}

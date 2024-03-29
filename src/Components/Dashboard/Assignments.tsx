@@ -1,8 +1,16 @@
+import { useEffect } from "react";
 import { useUserStore } from "../../Store/UserStore";
 import DashboardCard from "./DashboardCard";
 
 const Assignments = () => {
-  const { user } = useUserStore((state) => state);
+  const { getAssignmentswithID, assignments } = useUserStore((state) => state);
+
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      await getAssignmentswithID();
+    };
+    fetchAssignments();
+  }, []);
   return (
     <DashboardCard title="Assignments">
       <div className=" grid grid-cols-12">
@@ -24,10 +32,10 @@ const Assignments = () => {
                 </tr>
               </thead>
               <tbody>
-                {user?.assignment?.map((item: any, index: any) => (
+                {assignments?.map((item: any, index: any) => (
                   <tr className=" text-textPrimary" key={index}>
                     <td className="px-6 py-4">
-                      <p className="font-semibold">{item.title}</p>
+                      <p className="font-semibold">{item?.AssignmentName}</p>
                     </td>
                     {!item?.adminSeen ? (
                       <>
@@ -36,8 +44,8 @@ const Assignments = () => {
                       </>
                     ) : (
                       <>
-                        <td className="px-6 py-4">{item?.marks}</td>
-                        <td className="px-6 py-4">{item?.submit}</td>
+                        <td className="px-6 py-4">60</td>
+                        <td className="px-6 py-4">{item?.AssignmentMarks}</td>
                       </>
                     )}
                   </tr>

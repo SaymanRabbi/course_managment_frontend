@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useUserStore } from "../../Store/UserStore";
 import Button from "../Button/Button";
@@ -8,23 +8,27 @@ interface ModalProps {
   id: string;
 }
 const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
-  const { addAssignment, user } = useUserStore((state) => state);
-
+  const { addAssignment, user, getAssignmentswithID, assignments } =
+    useUserStore((state) => state);
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      await getAssignmentswithID();
+    };
+    fetchAssignments();
+  }, []);
   const submitAssignment = async (e: any) => {
     e.preventDefault();
-    const submitAnswerobg = e.target.answer.value;
-    if (
-      !submitAnswerobg ||
-      submitAnswerobg === "" ||
-      submitAnswerobg.length < 1
-    ) {
+    const AssignmentFile = e.target.answer.value;
+    if (!AssignmentFile || AssignmentFile === "" || AssignmentFile.length < 1) {
       return toast.error("Please Write Something");
     }
     const data = {
-      assignmentId: id,
-      totalMarks: 1,
-      submitAnswerobg,
-      title: modals?.title,
+      moduleId: id,
+      AssignmentMarks: 1,
+      AssignmentFile,
+      AssignmentName: modals?.title,
+      AssignmentDescription: modals?.assignmentDetails?.instructions,
+      AssignmentDeadline: modals?.assignmentDetails?.deadline,
     };
     addAssignment(data);
     setTimeout(() => {
@@ -35,10 +39,8 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
 
   return (
     <>
-      {user?.assignment?.find(
-        (assignment: any) => assignment.assignmentId === id
-      ) ? (
-        <div className="absolute w-[70%]  mx-auto top-[40%] left-0 right-0 bg-white rounded-md p-6 text-black overflow-hidden ">
+      {assignments?.find((assignment: any) => assignment?.moduleId === id) ? (
+        <div className="absolute w-[30%]  mx-auto top-[40%] left-0 right-0 bg-white rounded-md p-6 text-black overflow-hidden ">
           <span>
             <strong className=" text-success">
               Already Submitted The Assignment Wait For Result

@@ -390,88 +390,108 @@ interface SidebarInterface {
   name: string;
   icon: JSX.Element;
   link: string;
+  admin?: boolean;
+  student?: boolean;
 }
 export const SideBaritem: SidebarInterface[] = [
   {
     name: "Dashboard",
     icon: <RxDashboard />,
     link: "/dashboard",
+    student: true,
+  },
+  {
+    name: "admin-dashboard",
+    icon: <RxDashboard />,
+    link: "/dashboard/admin-dashboard",
+    admin: true,
   },
   {
     name: "Profile",
     icon: <LuUser />,
     link: "/dashboard/profile",
+    student: true,
+    admin: true,
   },
   {
     name: "Message",
     icon: <FaRegMessage />,
     link: "/dashboard/message",
+    student: true,
+    admin: true,
   },
   {
     name: "Enrolled Courses",
     icon: <FaRegBookmark />,
     link: "/dashboard/enrolled-courses",
+    student: true,
+    admin: true,
   },
 
   {
     name: "Reviews",
     icon: <FaRegStar />,
     link: "/dashboard/reviews",
+    student: true,
+    admin: true,
   },
   {
     name: "My Quiz Attempts",
     icon: <MdQuiz />,
     link: "/dashboard/quiz",
+    student: true,
+    admin: true,
   },
   {
     name: "My Assignments",
     icon: <MdAssignment />,
     link: "/dashboard/assignments",
+    student: true,
+    admin: true,
   },
-  {
-    name: "admin-dashboard",
-    icon: <RxDashboard />,
-    link: "/dashboard/admin-dashboard",
-  },
-  {
-    name: "Admin-Message",
-    icon: <FaRegMessage />,
-    link: "/dashboard/admin-message",
-  },
+
   {
     name: "Popular-Instructor",
     icon: <GiTeacher />,
     link: "/dashboard/popular-instructor",
+    admin: true,
   },
   {
     name: "Notice-Board",
     icon: <FaClipboard />,
     link: "/dashboard/notice-board",
+    admin: true,
   },
   {
     name: "Notifications",
     icon: <IoIosNotifications />,
     link: "/dashboard/notifications",
+    student: true,
   },
   {
     name: "Manage-Role",
     icon: <MdManageAccounts />,
     link: "/dashboard/manageRole",
+    admin: true,
   },
   {
     name: "All-Assignment",
     icon: <MdAssignment />,
     link: "/dashboard/allAssignment",
+    admin: true,
   },
   {
     name: "Add Module",
     icon: <VscFileSubmodule />,
     link: "/dashboard/add-module",
+    admin: true,
   },
   {
     name: "Settings",
     icon: <IoSettingsOutline />,
     link: "/dashboard/setting",
+    admin: true,
+    student: true,
   },
   {
     name: "Logout",

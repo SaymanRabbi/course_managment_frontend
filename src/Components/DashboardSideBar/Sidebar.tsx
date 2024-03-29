@@ -56,7 +56,7 @@ const Sidebar = () => {
                   {item.name}
                 </Link>
               </li>
-            ) : (
+            ) : item.admin && user?.role === "admin" ? (
               <li
                 className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%] relative list-none text-[16px] border-bgPrimary/70 flex  items-center gap-1 hover:text-rgbFrom/100 transition-all duration-300 ease-in-out pl-2 ${
                   location === item.link
@@ -74,6 +74,44 @@ const Sidebar = () => {
                   {item.name}
                 </Link>
               </li>
+            ) : item.student && user?.role === "student" ? (
+              <li
+                className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%] relative list-none text-[16px] border-bgPrimary/70 flex  items-center gap-1 hover:text-rgbFrom/100 transition-all duration-300 ease-in-out pl-2 ${
+                  location === item.link
+                    ? "text-rgbFrom/90"
+                    : "text-textPrimary"
+                }`}
+                key={i}
+                onClick={logout}
+              >
+                {item.icon}
+                <Link
+                  to={item.link}
+                  className=" flex items-center gap-4 px-[10px]"
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ) : item.admin && item.student ? (
+              <li
+                className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%] relative list-none text-[16px] border-bgPrimary/70 flex  items-center gap-1 hover:text-rgbFrom/100 transition-all duration-300 ease-in-out pl-2 ${
+                  location === item.link
+                    ? "text-rgbFrom/90"
+                    : "text-textPrimary"
+                }`}
+                key={i}
+                onClick={logout}
+              >
+                {item.icon}
+                <Link
+                  to={item.link}
+                  className=" flex items-center gap-4 px-[10px]"
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ) : (
+              ""
             )
           )}
         </ul>

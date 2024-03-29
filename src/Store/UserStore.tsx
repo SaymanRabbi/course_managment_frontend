@@ -45,6 +45,11 @@ interface UserStoreState {
   insTructor: any;
   getInstructor: (id: any) => Promise<void>;
   createNotification: (text: any) => void;
+  assignments: any;
+  getAssignmentswithID: () => void;
+  allAssignments: any;
+  getAllAssignments: () => void;
+  updateAssignmentMarks: (assignmentId: any, marks: any) => void;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
@@ -57,7 +62,8 @@ export const useUserStore = create<UserStoreState>((set) => ({
   courses: [],
   code: "",
   Notification: [],
-
+  assignments: [],
+  allAssignments: [],
   token: Cookies.get("token") || "",
   courseId: "",
   quiz: [],
@@ -524,7 +530,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
       set({ isLoading: true, success: null, messages: "", serverError: null });
       const url = `http://localhost:5000/api/v1/course/assignment`;
       const resp = await fetch(url, {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
 
@@ -586,6 +592,84 @@ export const useUserStore = create<UserStoreState>((set) => ({
       });
       const data = await resp.json();
       console.log(data);
+      if (data) {
+        set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getAssignmentswithID: async () => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/getAssignments`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          assignments: data.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getAllAssignments: async () => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/AllAssignments`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          allAssignments: data?.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  updateAssignmentMarks: async (assignmentId, datas) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/updateAssignmentMark/${assignmentId}`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+        body: JSON.stringify({ datas }),
+      });
+      const data = await resp.json();
       if (data) {
         set({
           isLoading: false,

@@ -1,10 +1,13 @@
-import { FaRegStar } from "react-icons/fa";
+import { FaClipboard, FaRegStar } from "react-icons/fa";
 import { FaRegBookmark, FaRegMessage } from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
+import { GiTeacher } from "react-icons/gi";
+import { IoIosNotifications } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuUser } from "react-icons/lu";
-import { MdAssignment, MdQuiz } from "react-icons/md";
+import { MdAssignment, MdManageAccounts, MdQuiz } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
+import { VscFileSubmodule } from "react-icons/vsc";
 interface DContentinterface {
   id: number;
   name: string;
@@ -437,27 +440,32 @@ export const SideBaritem: SidebarInterface[] = [
   },
   {
     name: "Popular-Instructor",
-    icon: <FaRegMessage />,
+    icon: <GiTeacher />,
     link: "/dashboard/popular-instructor",
   },
   {
     name: "Notice-Board",
-    icon: <FaRegMessage />,
+    icon: <FaClipboard />,
     link: "/dashboard/notice-board",
   },
   {
     name: "Notifications",
-    icon: <FaRegMessage />,
+    icon: <IoIosNotifications />,
     link: "/dashboard/notifications",
   },
   {
     name: "Manage-Role",
-    icon: <FaRegMessage />,
+    icon: <MdManageAccounts />,
     link: "/dashboard/manageRole",
   },
   {
+    name: "All-Assignment",
+    icon: <MdAssignment />,
+    link: "/dashboard/allAssignment",
+  },
+  {
     name: "Add Module",
-    icon: <FaRegMessage />,
+    icon: <VscFileSubmodule />,
     link: "/dashboard/add-module",
   },
   {

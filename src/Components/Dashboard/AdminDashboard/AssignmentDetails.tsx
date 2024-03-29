@@ -1,14 +1,22 @@
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useUserStore } from "../../../Store/UserStore";
 import Button from "../../Button/Button";
 import DashboardCard from "../DashboardCard";
 
 const AssignmentDetails = () => {
   const { id } = useParams();
-
-  const { getAllAssignments, allAssignments } = useUserStore((state) => state);
+  const Navigate = useNavigate();
+  const {
+    getAllAssignments,
+    allAssignments,
+    updateAssignmentMarks,
+    success,
+    isLoading,
+    messages,
+  } = useUserStore((state) => state);
+  console.log(messages);
   useEffect(() => {
     const fetchAssignments = async () => {
       await getAllAssignments();
@@ -18,7 +26,9 @@ const AssignmentDetails = () => {
   const submitAssignmentMark = async (e: any, userId: any, moduleId: any) => {
     e.preventDefault();
     const marks = e.target.marks.value;
-    const note = e.target.note.value;
+    if (marks > 60 || marks < 0)
+      return toast.error("Marks should be between 0 to 60");
+    const note = e.target.note.value || "No Feedback Given";
     if (!marks || marks === "" || marks.length < 1) {
       return toast.error("Please Enter Marks");
     }
@@ -26,12 +36,14 @@ const AssignmentDetails = () => {
       AssignmentMarks: marks,
       AssignmentNote: note,
       userId,
-      moduleId,
     };
-
-    setTimeout(() => {
-      toast.success("Assignment Marked Successfully");
-    }, 1000);
+    await updateAssignmentMarks(moduleId, data);
+    if (success) {
+      setTimeout(() => {
+        toast.success("Marks Submitted Successfully");
+        Navigate("/dashboard/allAssignment");
+      }, 400);
+    }
   };
   return (
     <DashboardCard title="Assignment Details">
@@ -41,7 +53,7 @@ const AssignmentDetails = () => {
             key={index}
             className=" bg-bgPrimary/10 md:px-[40px] py-[40px] rounded-[20px] px-[20px] text-white"
             onSubmit={(e) =>
-              submitAssignmentMark(e, item?.userId?._id, item?.moduleId)
+              submitAssignmentMark(e, item?.userId?._id, item?._id)
             }
           >
             <h2 className=" font-bold">
@@ -76,8 +88,9 @@ const AssignmentDetails = () => {
             <Button
               className="bg-gradient-to-r from-rgbFrom to-rgbTo mb-[15px]"
               type="submit"
+              disabled={isLoading}
             >
-              Submit Mark
+              {isLoading ? "Submitting..." : "Submit"}
             </Button>
             {/* admin mark */}
           </form>

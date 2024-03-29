@@ -15,7 +15,7 @@ const Notifications = () => {
   return (
     <DashboardCard title="Recent Courses">
       <div className=" max-h-[500px] overflow-y-auto">
-        {Notification.map((item: any) => {
+        {Notification?.map((item: any) => {
           return (
             <div className="mt-6" key={item?._id}>
               <div className="flex items-center gap-4">

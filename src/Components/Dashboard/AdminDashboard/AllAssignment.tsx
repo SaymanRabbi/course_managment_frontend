@@ -50,11 +50,20 @@ const AllAssignment = () => {
                       <p className="font-semibold">{item?.AssignmentName}</p>
                     </td>
                     <td className="px-6 py-4">
-                      <Link to={`/dashboard/assignment-details/${item?._id}`}>
-                        <button className="bg-gradient-to-r from-rgbFrom to-rgbTo text-[#fff] px-4 py-1 rounded-md">
-                          See Details
+                      {item?.adminSeen ? (
+                        <button
+                          className="bg-gray-500 text-[#fff] px-4 py-1 rounded-md"
+                          disabled
+                        >
+                          Seen
                         </button>
-                      </Link>
+                      ) : (
+                        <Link to={`/dashboard/assignment-details/${item?._id}`}>
+                          <button className="bg-gradient-to-r from-rgbFrom to-rgbTo text-[#fff] px-4 py-1 rounded-md">
+                            See Details
+                          </button>
+                        </Link>
+                      )}
                     </td>
                   </tr>
                 ))}

@@ -49,6 +49,7 @@ interface UserStoreState {
   getAssignmentswithID: () => void;
   allAssignments: any;
   getAllAssignments: () => void;
+  updateAssignmentMarks: (assignmentId: any, marks: any) => void;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
@@ -645,6 +646,32 @@ export const useUserStore = create<UserStoreState>((set) => ({
       if (data) {
         set({
           allAssignments: data?.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  updateAssignmentMarks: async (assignmentId, datas) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/course/updateAssignmentMark/${assignmentId}`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+        body: JSON.stringify({ datas }),
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
           isLoading: false,
           success: data?.status,
           messages: data.message,

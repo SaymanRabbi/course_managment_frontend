@@ -26,7 +26,7 @@ const Banner: React.FC<Props> = ({
   assignment,
 }) => {
   const { changeImage, user } = useUserStore((state) => state);
-  const ref = useRef<HTMLInputElement>(null);
+  const ref = useRef<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [image, setImage] = useState("");
   const uploadImage = async () => {
@@ -52,8 +52,9 @@ const Banner: React.FC<Props> = ({
       });
       const { secure_url } = res?.data;
       setImage(secure_url);
-      await changeImage(secure_url);
+      changeImage(secure_url);
       setLoading(false);
+      window.location.reload();
     } catch (error) {
       setLoading(false);
     }

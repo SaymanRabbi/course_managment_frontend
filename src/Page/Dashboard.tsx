@@ -5,7 +5,7 @@ import Sidebar from "../Components/DashboardSideBar/Sidebar";
 import { useUserStore } from "../Store/UserStore";
 
 const Dashboard = () => {
-  const { user } = useUserStore((state) => state);
+  const { user, assignments } = useUserStore((state) => state);
 
   return (
     <Container className=" pt-[130px] xl:!px-[60px] px-[30px]">
@@ -13,7 +13,7 @@ const Dashboard = () => {
         name={user?.name || "User"}
         ernolledCourses={user?.courses?.length || 1}
         certificate={user?.quizs?.length || 0}
-        assignment={user?.assignment?.length || 0}
+        assignment={assignments?.length || 0}
         buttonTitle="Enroll New Course"
       />
       {/* main part include sidebar and content */}

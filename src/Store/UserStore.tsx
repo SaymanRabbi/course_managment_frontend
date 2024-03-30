@@ -50,10 +50,12 @@ interface UserStoreState {
   allAssignments: any;
   getAllAssignments: () => void;
   updateAssignmentMarks: (assignmentId: any, marks: any) => void;
+  leaderBoard: [];
+  getLeaderBoard: () => void;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
-
+  leaderBoard: [],
   user: Cookies.get("user") ? JSON.parse(Cookies.get("user") as string) : null,
   isLoading: false,
   serverError: null,
@@ -672,6 +674,31 @@ export const useUserStore = create<UserStoreState>((set) => ({
       const data = await resp.json();
       if (data) {
         set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getLeaderBoard: async () => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/leaderboard`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          leaderBoard: data.data,
           isLoading: false,
           success: data?.status,
           messages: data.message,

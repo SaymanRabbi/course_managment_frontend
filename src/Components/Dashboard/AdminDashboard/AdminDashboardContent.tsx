@@ -1,39 +1,35 @@
 import { useEffect } from "react";
-import { FaAward } from "react-icons/fa";
-import { FcReading } from "react-icons/fc";
+import { MdOutlineVideoLibrary } from "react-icons/md";
 import { PiStudentBold } from "react-icons/pi";
-import { useUserStore } from "../../Store/UserStore";
-import DashboardCard from "./DashboardCard";
-import DashboardTittle from "./DashboardTittle";
+import { useUserStore } from "../../../Store/UserStore";
+import DashboardCard from "../DashboardCard";
+import DashboardTittle from "../DashboardTittle";
+
 interface Data {
   name: string;
   value: number;
   icon: JSX.Element;
 }
-const DashboardContent = () => {
-  const { user, assignments, leaderBoard, getLeaderBoard } = useUserStore(
+const AdminDashboardContent = () => {
+  const { allusers, getLeaderBoard, leaderBoard } = useUserStore(
     (state) => state
   );
   const data: Data[] = [
     {
-      name: "Enrolled Courses",
+      name: "Publish Courses",
       value: 1,
-      icon: <FaAward />,
+      icon: <MdOutlineVideoLibrary />,
     },
     {
-      name: "Quiz Attemped",
-      value: user?.quizs?.length || 0,
+      name: "Total Users",
+      value: allusers?.length || 0,
       icon: <PiStudentBold />,
-    },
-    {
-      name: "Submit Assignment",
-      value: assignments?.length || 0,
-      icon: <FcReading />,
     },
   ];
   useEffect(() => {
     getLeaderBoard();
   }, []);
+
   console.log(leaderBoard);
   return (
     <div>
@@ -41,7 +37,7 @@ const DashboardContent = () => {
         <div className=" grid grid-cols-12 gap-5">
           {data.map((item, index) => (
             <div
-              className=" bg-bgPrimary/15 py-[30px] px-[30px] mb-[20px] rounded-[20px] shadow-md xl:col-span-4 lg:col-span-5 col-span-12 border-[1px] border-bgPrimary/50"
+              className=" bg-bgPrimary/15 py-[30px] px-[30px] mb-[20px] rounded-[20px] shadow-md xl:col-span-6 lg:col-span-6 col-span-12 border-[1px] border-bgPrimary/50"
               key={index}
             >
               <div className=" mb-0 flex items-center">
@@ -71,7 +67,7 @@ const DashboardContent = () => {
         <DashboardTittle>
           <div className=" flex justify-between w-[100%] items-center">
             <h4 className=" font-[700] text-textPrimary text-[20px]">
-              LeaderBoard
+              Leaderboard
             </h4>
             <span className=" text-textPrimary font-[600]">See More ....</span>
           </div>
@@ -88,7 +84,7 @@ const DashboardContent = () => {
                   Image
                 </th>
                 <th scope="col" className="px-6 py-3 rounded-e-lg">
-                  Score
+                  Rating
                 </th>
               </tr>
             </thead>
@@ -114,4 +110,4 @@ const DashboardContent = () => {
   );
 };
 
-export default DashboardContent;
+export default AdminDashboardContent;

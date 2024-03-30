@@ -24,13 +24,25 @@ const Sidebar = () => {
     Cookies.remove("token");
     navigation("/login");
   };
+  const currentTime = new Date();
+  const currentHour = currentTime.getHours();
+  let greeting;
 
+  if (currentHour < 12) {
+    greeting = "Good morning";
+  } else if (currentHour < 18) {
+    greeting = "Good afternoon";
+  } else if (currentHour < 22) {
+    greeting = "Good evening";
+  } else {
+    greeting = "Good night";
+  }
   return (
     <div className=" pt-[20px] pr-[30px] pb-[30px] pl-[15px] shadow-lg rounded-[10px] bg-bgPrimary/10">
       <div className=" mb-[10px] mt-[20px]">
         {/* ---tittle---- */}
         <h2 className=" text-[14px] font-[500] uppercase mb-0 px-[10px] pt-[10px] pb-[7px] text-textPrimary tracking-wider">
-          {user?.name}
+          {greeting} {user?.name}
         </h2>
         {/* ---tittle---- */}
       </div>
@@ -56,7 +68,7 @@ const Sidebar = () => {
                   {item.name}
                 </Link>
               </li>
-            ) : (
+            ) : item.admin && user?.role === "admin" ? (
               <li
                 className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%] relative list-none text-[16px] border-bgPrimary/70 flex  items-center gap-1 hover:text-rgbFrom/100 transition-all duration-300 ease-in-out pl-2 ${
                   location === item.link
@@ -74,6 +86,44 @@ const Sidebar = () => {
                   {item.name}
                 </Link>
               </li>
+            ) : item.student && user?.role === "student" ? (
+              <li
+                className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%] relative list-none text-[16px] border-bgPrimary/70 flex  items-center gap-1 hover:text-rgbFrom/100 transition-all duration-300 ease-in-out pl-2 ${
+                  location === item.link
+                    ? "text-rgbFrom/90"
+                    : "text-textPrimary"
+                }`}
+                key={i}
+                onClick={logout}
+              >
+                {item.icon}
+                <Link
+                  to={item.link}
+                  className=" flex items-center gap-4 px-[10px]"
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ) : item.admin && item.student ? (
+              <li
+                className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%] relative list-none text-[16px] border-bgPrimary/70 flex  items-center gap-1 hover:text-rgbFrom/100 transition-all duration-300 ease-in-out pl-2 ${
+                  location === item.link
+                    ? "text-rgbFrom/90"
+                    : "text-textPrimary"
+                }`}
+                key={i}
+                onClick={logout}
+              >
+                {item.icon}
+                <Link
+                  to={item.link}
+                  className=" flex items-center gap-4 px-[10px]"
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ) : (
+              ""
             )
           )}
         </ul>

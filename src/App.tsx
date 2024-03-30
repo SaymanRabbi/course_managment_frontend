@@ -15,9 +15,6 @@ import Home from "./Page/Home";
 import Login from "./Page/Login";
 
 import AdminDashboard from "./Components/Dashboard/AdminDashboard/AdminDashboard";
-import AdminMessage from "./Components/Dashboard/AdminDashboard/AdminMessage";
-import AdminProfile from "./Components/Dashboard/AdminDashboard/AdminProfile";
-import Courses from "./Components/Dashboard/AdminDashboard/Courses";
 import ManageRole from "./Components/Dashboard/AdminDashboard/ManageRole";
 import Notifications from "./Components/Dashboard/AdminDashboard/Notifications";
 import PopularInstructor from "./Components/Dashboard/AdminDashboard/PopularInstructor";
@@ -75,17 +72,6 @@ function App() {
             <Route path="/dashboard/message" element={<Message />} />
 
             {/* Admin Dashboard */}
-            <Route
-              path="/dashboard/admin-dashboard"
-              element={<AdminDashboard />}
-            />
-            <Route path="/dashboard/admin-profile" element={<AdminProfile />} />
-            <Route path="/dashboard/admin-message" element={<AdminMessage />} />
-            <Route path="/dashboard/admin-courses" element={<Courses />} />
-            <Route
-              path="/dashboard/popular-instructor"
-              element={<PopularInstructor />}
-            />
 
             <Route
               path="/dashboard/notifications"
@@ -113,6 +99,15 @@ function App() {
             <Route path="/dashboard/add-module" element={<AddModule />} />
             <Route path="/dashboard/manageRole" element={<ManageRole />} />
             <Route path="/dashboard/notice-board" element={<NoticeBoard />} />
+            <Route
+              path="/dashboard/popular-instructor"
+              element={<PopularInstructor />}
+            />
+
+            <Route
+              path="/dashboard/admin-dashboard"
+              element={<AdminDashboard />}
+            />
             <Route
               path="/dashboard/allAssignment"
               element={<AllAssignment />}

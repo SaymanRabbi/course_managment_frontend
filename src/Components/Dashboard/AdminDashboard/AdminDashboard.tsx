@@ -1,11 +1,11 @@
-import DashboardContent from "../DashboardContent";
+import AdminDashboardContent from "./AdminDashboardContent";
 
 const AdminDashboard = () => {
-    return (
-        <div>
-            <DashboardContent />
-        </div>
-    );
+  return (
+    <div>
+      <AdminDashboardContent />
+    </div>
+  );
 };
 
 export default AdminDashboard;

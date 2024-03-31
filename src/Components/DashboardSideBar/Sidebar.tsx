@@ -14,7 +14,7 @@ const Sidebar = () => {
     duration: 0,
   });
   const location = useLocation().pathname;
-  const { logout, user } = useUserStore((state) => state);
+  const { logout, user, Notification } = useUserStore((state) => state);
 
   const logoutFunc = () => {
     logout();
@@ -67,6 +67,26 @@ const Sidebar = () => {
                 >
                   {item.name}
                 </Link>
+              </li>
+            ) : item.name === "Notifications" ? (
+              <li
+                className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%]  list-none text-[16px] border-bgPrimary/70 flex  items-center gap-1 hover:text-rgbFrom/100 transition-all relative duration-300 ease-in-out pl-2 ${
+                  location === item.link
+                    ? "text-rgbFrom/90"
+                    : "text-textPrimary"
+                }`}
+                key={i}
+              >
+                {item.icon}
+                <Link
+                  to={item.link}
+                  className=" flex items-center gap-4 px-[10px]"
+                >
+                  {item.name}
+                </Link>
+                <span className=" absolute bg-[#BE185D] w-[25px] h-[25px] rounded-full flex items-center justify-center right-[0%] text-white">
+                  {Notification?.length}
+                </span>
               </li>
             ) : item.admin && user?.role === "admin" ? (
               <li

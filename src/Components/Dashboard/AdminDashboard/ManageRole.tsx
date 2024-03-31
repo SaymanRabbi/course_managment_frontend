@@ -12,9 +12,9 @@ const ManageRole = () => {
     };
     getAllUser();
   }, []);
-  const makeAdminFunc = async (id: any) => {
+  const makeAdminFunc = async (id: any, role: string) => {
     setLoading(true);
-    await makeAdmin(id);
+    await makeAdmin(id, role);
     allusers.filter((item: any) =>
       item._id === id ? (item.role = "student") : item
     );
@@ -62,10 +62,11 @@ const ManageRole = () => {
                       <div className=" ">
                         {item?.role === "admin" ? (
                           <button
-                            className="flex items-center gap-2 px-10 py-2 rounded-md my-2 bg-gray-400 cursor-not-allowed"
-                            disabled={true}
+                            className="flex items-center gap-2 px-10 py-2 rounded-md my-2 from-rgbFrom to-rgbTo bg-gradient-to-r cursor-pointer"
+                            onClick={() => makeAdminFunc(item._id, "student")}
+                            disabled={loading}
                           >
-                            <span>Admin</span>
+                            <span>Make Student</span>
                           </button>
                         ) : (
                           <button
@@ -74,7 +75,7 @@ const ManageRole = () => {
                                 ? "bg-gray-400"
                                 : "from-rgbFrom to-rgbTo"
                             }`}
-                            onClick={() => makeAdminFunc(item._id)}
+                            onClick={() => makeAdminFunc(item._id, "admin")}
                             disabled={loading || item?.role === "admin"}
                           >
                             <span>

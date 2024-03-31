@@ -467,6 +467,7 @@ export const SideBaritem: SidebarInterface[] = [
     icon: <IoIosNotifications />,
     link: "/dashboard/notifications",
     student: true,
+    admin: true,
   },
   {
     name: "Manage-Role",

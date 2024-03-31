@@ -37,7 +37,7 @@ interface UserStoreState {
   updateProfileProgress: (lessonId: any, title: any) => Promise<void>;
   addModule: (module: any) => void;
   getAllUsers: () => Promise<void>;
-  makeAdmin: (id: any) => Promise<void>;
+  makeAdmin: (id: any, role: string) => Promise<void>;
   changeImage: (image: any) => void;
   Notification: [];
   getNotification: () => Promise<void>;
@@ -448,7 +448,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
       set({ serverError: error?.message, isLoading: false });
     }
   },
-  makeAdmin: async (id) => {
+  makeAdmin: async (id, role) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
       const url = `http://localhost:5000/api/v1/user/update/${id}`;
@@ -459,6 +459,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
 
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
+        body: JSON.stringify({ role }),
       });
       const data = await resp.json();
       if (data) {

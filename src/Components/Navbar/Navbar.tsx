@@ -22,7 +22,8 @@ const Navbar = () => {
     },
     {
       name: "Dashboard",
-      link: "/dashboard",
+      link:
+        user?.role === "admin" ? "/dashboard/admin-dashboard" : "/dashboard",
     },
     {
       name: "login",

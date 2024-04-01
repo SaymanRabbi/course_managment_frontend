@@ -11,7 +11,7 @@ const DeatilsInstructors: React.FC<DeatilsInstructorsProps> = ({
     <div className="mt-8 text-textPrimary">
       <div className="md:flex gap-8">
         <img
-          className="h-32 w-32 rounded-full"
+          className="h-32 w-32 rounded-full object-cover"
           src={insTructor?.ProfileImage}
           alt=""
         />

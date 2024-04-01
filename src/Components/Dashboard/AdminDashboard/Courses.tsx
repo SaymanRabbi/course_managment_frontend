@@ -1,7 +1,7 @@
-import DashboardCard from "../DashboardCard";
 import { FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { quizAdmin } from "../../../dummyData/DummyData";
+import DashboardCard from "../DashboardCard";
 
 const Courses = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Courses = () => {
             <div className="mt-6">
               <div className="md:flex items-center gap-4 text-textPrimary ">
                 <img
-                  className="w-full md:w-40 md:h-24 rounded-md"
+                  className="w-full md:w-40 md:h-24 rounded-md object-cover"
                   src={item.img}
                   alt=""
                 />

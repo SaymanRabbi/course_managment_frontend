@@ -1,7 +1,7 @@
 import { useState } from "react";
-import DynamicHedding from "../DynamicHedding/DynamicHedding";
 import faqImg from "../../../public/images/svg/peep2.svg";
 import { accordionsContent } from "../../dummyData/DummyData";
+import DynamicHedding from "../DynamicHedding/DynamicHedding";
 
 const Faq = () => {
   const [isOpen, setIsOpen] = useState(null);
@@ -11,7 +11,7 @@ const Faq = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-12">
       <div>
-        <img className="h-40" src={faqImg} alt="" />
+        <img className="h-40 object-cover" src={faqImg} alt="" />
         <DynamicHedding>
           <h2 className="text-2xl lg:text-4xl font-bold text-textPrimary">
             Frequently asked questions

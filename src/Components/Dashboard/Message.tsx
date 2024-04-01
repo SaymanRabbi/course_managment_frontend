@@ -88,9 +88,22 @@ const Message = () => {
           </div>
           <div className="border-b border-bgPrimary mt-4"></div>
           {/* Message Start */}
-          <div className=" min-h-[80%]"></div>
+          <div className=" min-h-[80%] overflow-y-scroll">
+            {/* ----reciver---- */}
+            <div className=" p-8">
+              <div className=" max-w-[45%] bg-gray-600 min-h-[50px] rounded-l-md rounded-tr-md p-4 mb-4">
+                <p className="text-textPrimary font-bold">
+                  Lorem ipsum dolor sit amet consectetu
+                </p>
+              </div>
+              <div className=" max-w-[45%] bg-textPrimary min-h-[50px] rounded-l-md rounded-tr-md p-4 ml-auto">
+                <p className="text-black font-bold">Hello</p>
+              </div>
+            </div>
+            {/* ----reciver---- */}
+          </div>
           {/* Type Message */}
-          <div className="flex items-center bg-[#17093E] rounded-full w-full">
+          <form className="flex items-center bg-[#17093E] rounded-full w-full mt-2">
             <input
               type="text"
               name=""
@@ -98,8 +111,10 @@ const Message = () => {
               className="w-full outline-none rounded-full bg-[#17093E] p-[12px] pl-[15px] text-textPrimary"
               placeholder="Type Message"
             />
-            <IoSend size={20} className="text-gray-500 mr-4 cursor-pointer" />
-          </div>
+            <button>
+              <IoSend size={20} className="text-gray-500 mr-4 cursor-pointer" />
+            </button>
+          </form>
         </div>
       </div>
     </div>

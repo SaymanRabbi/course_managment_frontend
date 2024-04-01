@@ -7,12 +7,52 @@ import { useEffect, useState } from "react";
 import DynamicHedding from "../DynamicHedding/DynamicHedding";
 
 const Message = () => {
-  const { allusers, user } = useUserStore((state) => state);
-  const [loadUser, setLoadUser] = useState(allusers[0]);
-  const [id, setId] = useState(allusers[0]?._id);
+  const {
+    allusers,
+    user,
+    createConversation,
+    getConverSationWithId,
+    sendMessage,
+    conversations,
+    userMessages,
+    getMessages,
+    messages,
+  } = useUserStore((state) => state);
+
+  const [reciver, setReciver] = useState<any>({});
+  console.log(conversations);
+
   useEffect(() => {
-    setLoadUser(allusers.find((item: any) => item._id === id));
-  }, [id, allusers]);
+    getConverSationWithId(user?._id);
+  }, []);
+  const CreateConverSation = async (id: any) => {
+    const data = {
+      senderId: user?._id,
+      receiverId: id,
+    };
+    createConversation(data);
+  };
+  const fetchMessages = async (id: any, user: any) => {
+    getMessages(id);
+    setReciver({
+      reciver: user,
+    });
+  };
+  const sendMessagefunc = async (e: any) => {
+    e.preventDefault();
+    const messagess = {
+      senderId: user?._id,
+      receiverId: conversations[0]?.user?._id,
+      text: e?.target?.message?.value,
+      conversationId: conversations[0]?.conversationId,
+    };
+
+    sendMessage(messagess);
+    if (messages == "Message sent successfully") {
+      e.target.message.value = "";
+    }
+  };
+
   return (
     <div>
       {/* Title */}
@@ -35,17 +75,50 @@ const Message = () => {
             </div>
           </div>
           {/* Message Sidebar Contents */}
-          <div className="h-[500px] overflow-y-scroll">
+          <div className="h-[250px] overflow-y-scroll">
+            {conversations?.length > 0 ? (
+              conversations.map(({ conversationId, user }: any) => {
+                return (
+                  <div
+                    key={user?._id}
+                    className={`px-5 flex justify-between border-t border-bgPrimary mt-3 py-2 cursor-pointer`}
+                    onClick={() => {
+                      fetchMessages(conversationId, user);
+                    }}
+                  >
+                    <div className="flex items-center my-2 text-textPrimary gap-4">
+                      <img
+                        className="h-[40px] rounded-full  w-[40px] bg-cover object-cover"
+                        src={user?.ProfileImage}
+                        alt=""
+                      />
+                      <div>
+                        <p className="font-bold">{user?.name}</p>
+                        <p>{user?.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <p className="text-center text-textPrimary mt-[20px]">
+                No Chat Found
+              </p>
+            )}
+          </div>
+          {/* pepople */}
+          <h2>
+            <p className="bg-textPrimary p-3  font-bold rounded-t-md">People</p>
+          </h2>
+          <div className="h-[350px] overflow-y-scroll">
             {allusers.map((item: any) => {
               return item._id !== user?._id ? (
                 <div
                   key={item._id}
-                  className={`px-5 flex justify-between border-t border-bgPrimary mt-3 py-2 cursor-pointer ${
-                    item._id === id
-                      ? "bg-rgbFrom/70 text-white rounded-[10px]"
-                      : ""
-                  }`}
-                  onClick={() => setId(item._id)}
+                  className={`px-5 flex justify-between border-t border-bgPrimary mt-3 py-2 cursor-pointer `}
+                  onClick={() => {
+                    CreateConverSation(item._id);
+                  }}
                 >
                   <div className="flex items-center my-2 text-textPrimary gap-4">
                     <img
@@ -69,12 +142,14 @@ const Message = () => {
             <div className="flex items-center gap-4">
               <img
                 className="h-[40px] w-[40px] rounded-full object-cover"
-                src={loadUser?.ProfileImage}
+                src={reciver?.reciver?.ProfileImage}
                 alt=""
               />
               <div>
-                <p className="font-bold text-textPrimary">{loadUser?.name}</p>
-                <p className="text-gray-500">{loadUser?.role}</p>
+                <p className="font-bold text-textPrimary">
+                  {reciver?.reciver?.name}
+                </p>
+                <p className="text-gray-500">{reciver?.reciver?.role}</p>
               </div>
             </div>
             <div className="flex items-center gap-4 text-gray-500">
@@ -91,30 +166,48 @@ const Message = () => {
           <div className=" min-h-[80%] overflow-y-scroll">
             {/* ----reciver---- */}
             <div className=" p-8">
-              <div className=" max-w-[45%] bg-gray-600 min-h-[50px] rounded-l-md rounded-tr-md p-4 mb-4">
-                <p className="text-textPrimary font-bold">
-                  Lorem ipsum dolor sit amet consectetu
+              {userMessages.length > 0 ? (
+                userMessages?.map((item: any) =>
+                  item?.user?._id === user?._id ? (
+                    <div className=" max-w-[45%] bg-textPrimary min-h-[50px] rounded-l-md rounded-tr-md p-4 ml-auto">
+                      <p className="text-black font-bold">{item?.message}</p>
+                    </div>
+                  ) : (
+                    <div className=" max-w-[45%] bg-gray-600 min-h-[50px] rounded-l-md rounded-tr-md p-4 mb-4">
+                      <p className="text-textPrimary font-bold">
+                        {item?.message}
+                      </p>
+                    </div>
+                  )
+                )
+              ) : (
+                <p className="text-center text-textPrimary mt-[20px]">
+                  No conversation Found select user to start conversation
                 </p>
-              </div>
-              <div className=" max-w-[45%] bg-textPrimary min-h-[50px] rounded-l-md rounded-tr-md p-4 ml-auto">
-                <p className="text-black font-bold">Hello</p>
-              </div>
+              )}
             </div>
             {/* ----reciver---- */}
           </div>
           {/* Type Message */}
-          <form className="flex items-center bg-[#17093E] rounded-full w-full mt-2">
-            <input
-              type="text"
-              name=""
-              id=""
-              className="w-full outline-none rounded-full bg-[#17093E] p-[12px] pl-[15px] text-textPrimary"
-              placeholder="Type Message"
-            />
-            <button>
-              <IoSend size={20} className="text-gray-500 mr-4 cursor-pointer" />
-            </button>
-          </form>
+          {reciver?.reciver?.name && (
+            <form
+              className="flex items-center bg-[#17093E] rounded-full w-full mt-2"
+              onSubmit={(e) => sendMessagefunc(e)}
+            >
+              <input
+                type="text"
+                className="w-full outline-none rounded-full bg-[#17093E] p-[12px] pl-[15px] text-textPrimary"
+                placeholder="Type Message"
+                name="message"
+              />
+              <button type="submit">
+                <IoSend
+                  size={20}
+                  className="text-gray-500 mr-4 cursor-pointer"
+                />
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </div>

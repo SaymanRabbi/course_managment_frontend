@@ -52,12 +52,20 @@ interface UserStoreState {
   updateAssignmentMarks: (assignmentId: any, marks: any) => void;
   leaderBoard: [];
   getLeaderBoard: () => void;
+  createConversation: (conversation: any) => void;
+  getConverSationWithId: (id: any) => void;
+  sendMessage: (data: any) => void;
+  conversations: any;
+  getMessages: (id: any) => void;
+  userMessages: any;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
+  userMessages: [],
   leaderBoard: [],
   user: Cookies.get("user") ? JSON.parse(Cookies.get("user") as string) : null,
   isLoading: false,
+  conversations: [],
   serverError: null,
   success: null,
   messages: "",
@@ -703,6 +711,115 @@ export const useUserStore = create<UserStoreState>((set) => ({
           isLoading: false,
           success: data?.status,
           messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  createConversation: async (conversation) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/conversation`;
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+        body: JSON.stringify({
+          members: {
+            senderId: conversation.senderId,
+            receiverId: conversation.receiverId,
+          },
+        }),
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getConverSationWithId: async (id) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/conversation/${id}`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+      const data = await resp.json();
+
+      if (data) {
+        set({
+          conversations: data.data,
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  sendMessage: async (data) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/message`;
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+        body: JSON.stringify({
+          data,
+        }),
+      });
+      const res = await resp.json();
+      if (res) {
+        set({
+          isLoading: false,
+          success: res?.status,
+          messages: res.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  getMessages: async (id) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `http://localhost:5000/api/v1/user/message/${id}`;
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+      const data = await resp.json();
+
+      if (data) {
+        set({
+          messages: data.data,
+          isLoading: false,
+          success: data?.status,
+          userMessages: data?.data,
           serverError: null,
         });
       }

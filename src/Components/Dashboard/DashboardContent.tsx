@@ -99,7 +99,7 @@ const DashboardContent = () => {
                   <td className="px-6 py-4">
                     <img
                       src={item?.image}
-                      className=" w-[55px] h-[55px] rounded-full"
+                      className=" w-[55px] h-[55px] rounded-full object-cover"
                     />
                   </td>
                   <td className="px-6 py-4">{item?.totalScore}</td>

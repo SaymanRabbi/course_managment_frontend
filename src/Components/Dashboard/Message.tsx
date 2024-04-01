@@ -1,12 +1,18 @@
-import DynamicHedding from "../DynamicHedding/DynamicHedding";
-import { IoSearch } from "react-icons/io5";
-import { Messages } from "../../dummyData/DummyData";
-import teacher from "../../../public/images/message/teacher.png";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaVideo } from "react-icons/fa6";
-import { IoSend } from "react-icons/io5";
+import { IoSearch, IoSend } from "react-icons/io5";
+import { useUserStore } from "../../Store/UserStore";
+
+import { useEffect, useState } from "react";
+import DynamicHedding from "../DynamicHedding/DynamicHedding";
 
 const Message = () => {
+  const { allusers, user } = useUserStore((state) => state);
+  const [loadUser, setLoadUser] = useState(allusers[0]);
+  const [id, setId] = useState(allusers[0]?._id);
+  useEffect(() => {
+    setLoadUser(allusers.find((item: any) => item._id === id));
+  }, [id, allusers]);
   return (
     <div>
       {/* Title */}
@@ -30,21 +36,30 @@ const Message = () => {
           </div>
           {/* Message Sidebar Contents */}
           <div className="h-[500px] overflow-y-scroll">
-            {Messages.map((item) => {
-              return (
-                <div className="px-5 flex justify-between border-t border-bgPrimary mt-3 py-2 ">
+            {allusers.map((item: any) => {
+              return item._id !== user?._id ? (
+                <div
+                  key={item._id}
+                  className={`px-5 flex justify-between border-t border-bgPrimary mt-3 py-2 cursor-pointer ${
+                    item._id === id
+                      ? "bg-rgbFrom/70 text-white rounded-[10px]"
+                      : ""
+                  }`}
+                  onClick={() => setId(item._id)}
+                >
                   <div className="flex items-center my-2 text-textPrimary gap-4">
-                    <img className="h-10 rounded-full" src={item.img} alt="" />
+                    <img
+                      className="h-[40px] rounded-full  w-[40px] bg-cover object-cover"
+                      src={item?.ProfileImage}
+                      alt=""
+                    />
                     <div>
-                      <p className="font-bold">{item.name}</p>
-                      <p className="text-gray-500">{item.sms}</p>
+                      <p className="font-bold">{item?.name}</p>
+                      <p>{item?.role}</p>
                     </div>
                   </div>
-                  <div className="my-4 py-1 text-gray-500">
-                    <p>{item.time}</p>
-                  </div>
                 </div>
-              );
+              ) : null;
             })}
           </div>
         </div>
@@ -52,10 +67,14 @@ const Message = () => {
         <div className="col-span-6 lg:col-span-8 bg-bgPrimary/10 p-4 rounded-[20px]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <img className="h-12 rounded-full" src={teacher} alt="" />
+              <img
+                className="h-[40px] w-[40px] rounded-full object-cover"
+                src={loadUser?.ProfileImage}
+                alt=""
+              />
               <div>
-                <p className="font-bold text-textPrimary">Mr. Harby</p>
-                <p className="text-gray-500">stay home, stay safe</p>
+                <p className="font-bold text-textPrimary">{loadUser?.name}</p>
+                <p className="text-gray-500">{loadUser?.role}</p>
               </div>
             </div>
             <div className="flex items-center gap-4 text-gray-500">
@@ -69,39 +88,7 @@ const Message = () => {
           </div>
           <div className="border-b border-bgPrimary mt-4"></div>
           {/* Message Start */}
-          <div className="h-[500px] overflow-y-scroll">
-            <div className="flex-row">
-              {/* Left Side User */}
-              <div className="flex justify-start gap-2 pt-[30px] max-w-[415px] relative mr-auto gap-x-4">
-                <img className="h-10 rounded-full" src={teacher} alt="" />
-                <div>
-                  <p className="bg-[#17093E] text-textPrimary rounded-md p-2">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  </p>
-                  <p className="text-gray-500 my-3">4:15 pm</p>
-                  <p className="bg-[#17093E] text-textPrimary p-2 rounded-md my-1 ">
-                    Lorem, ipsum dolor.
-                  </p>
-                  <p className="text-gray-500 my-3">4:15 pm</p>
-                </div>
-              </div>
-              {/* Right Side User */}
-
-              <div className=" flex max-w-[415px] relative ml-auto gap-x-4">
-                <div>
-                  <p className="bg-[#17093E] text-textPrimary text-right p-2 rounded-md ">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  </p>
-                  <p className="text-gray-500 my-1">4:15 pm</p>
-                  <p className="bg-[#17093E] text-textPrimary p-2 rounded-md my-1 w-[80%]">
-                    Lorem, ipsum dolor.
-                  </p>
-                  <p className="text-gray-500 my-3">4:15 pm</p>
-                </div>
-                <img className="h-10 rounded-full" src={teacher} alt="" />
-              </div>
-            </div>
-          </div>
+          <div className=" min-h-[80%]"></div>
           {/* Type Message */}
           <div className="flex items-center bg-[#17093E] rounded-full w-full">
             <input

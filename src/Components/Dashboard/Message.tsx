@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaVideo } from "react-icons/fa6";
 import { IoSearch, IoSend } from "react-icons/io5";
@@ -20,16 +20,18 @@ const Message = () => {
   } = useUserStore((state) => state);
 
   const [reciver, setReciver] = useState<any>({});
-  const [socket, setSocket] = useState<any>(null);
-  console.log(userMessages);
+
+  const socket = useMemo(() => io("http://localhost:8080/"), []);
   useEffect(() => {
-    setSocket(io("http://localhost:8080"));
-  }, []);
-  useEffect(() => {
+    socket?.on("connect", () => {
+      console.log(socket?.id);
+    });
     socket?.emit("addUser", user?._id);
-    socket?.on("getUsers", (users: any) => {});
+    socket?.on("getUsers", (users: any) => {
+      console.log(users);
+    });
     socket?.on("getMessage", (data: any) => {
-      console.log(data);
+      console.log(data, "data");
       setMessages(data, user);
     });
   }, [socket]);
@@ -179,9 +181,9 @@ const Message = () => {
           </div>
           <div className="border-b border-bgPrimary mt-4"></div>
           {/* Message Start */}
-          <div className=" min-h-[80%] overflow-y-scroll">
+          <div className=" min-h-[80%] max-h-[700px] overflow-y-scroll">
             {/* ----reciver---- */}
-            <div className=" p-8">
+            <div className=" p-8 h-[100%]">
               {userMessages.length > 0 ? (
                 userMessages?.map((item: any) =>
                   item?.user?._id === user?._id ? (
@@ -190,7 +192,7 @@ const Message = () => {
                     </div>
                   ) : (
                     <div className=" max-w-[45%] bg-gray-600 min-h-[50px] rounded-r-md rounded-bl-md p-4 mb-4">
-                      <p className="text-textPrimary font-bold">
+                      <p className="text-textPrimary font-bold flex items-center gap-x-2">
                         {item?.message}
                       </p>
                     </div>

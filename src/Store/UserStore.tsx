@@ -58,9 +58,21 @@ interface UserStoreState {
   conversations: any;
   getMessages: (id: any) => void;
   userMessages: any;
+  setMessages: (messages: any, user: any) => void;
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
+  setMessages: (messages, user) =>
+    set((state) => ({
+      ...state,
+      userMessages: [
+        ...state.userMessages,
+        {
+          messages,
+          user,
+        },
+      ],
+    })) as any,
   userMessages: [],
   leaderBoard: [],
   user: Cookies.get("user") ? JSON.parse(Cookies.get("user") as string) : null,
@@ -736,6 +748,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
         }),
       });
       const data = await resp.json();
+      console.log(data?.status);
       if (data) {
         set({
           isLoading: false,

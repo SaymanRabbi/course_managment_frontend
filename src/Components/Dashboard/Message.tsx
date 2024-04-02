@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaVideo } from "react-icons/fa6";
 import { IoSearch, IoSend } from "react-icons/io5";
+import { io } from "socket.io-client";
 import { useUserStore } from "../../Store/UserStore";
-
-import { useEffect, useState } from "react";
 import DynamicHedding from "../DynamicHedding/DynamicHedding";
 
 const Message = () => {
@@ -16,12 +16,23 @@ const Message = () => {
     conversations,
     userMessages,
     getMessages,
-    messages,
+    setMessages,
   } = useUserStore((state) => state);
 
   const [reciver, setReciver] = useState<any>({});
-  console.log(conversations);
-
+  const [socket, setSocket] = useState<any>(null);
+  console.log(userMessages);
+  useEffect(() => {
+    setSocket(io("http://localhost:8080"));
+  }, []);
+  useEffect(() => {
+    socket?.emit("addUser", user?._id);
+    socket?.on("getUsers", (users: any) => {});
+    socket?.on("getMessage", (data: any) => {
+      console.log(data);
+      setMessages(data, user);
+    });
+  }, [socket]);
   useEffect(() => {
     getConverSationWithId(user?._id);
   }, []);
@@ -33,24 +44,29 @@ const Message = () => {
     createConversation(data);
   };
   const fetchMessages = async (id: any, user: any) => {
+    localStorage.setItem("conversationId", id);
     getMessages(id);
     setReciver({
       reciver: user,
     });
   };
   const sendMessagefunc = async (e: any) => {
+    socket?.emit("sendMessage", {
+      senderId: user?._id,
+      receiverId: reciver?.reciver?._id,
+      text: e?.target?.message?.value,
+      conversationId: localStorage.getItem("conversationId"),
+    });
     e.preventDefault();
     const messagess = {
       senderId: user?._id,
       receiverId: conversations[0]?.user?._id,
       text: e?.target?.message?.value,
-      conversationId: conversations[0]?.conversationId,
+      conversationId: localStorage.getItem("conversationId"),
     };
 
     sendMessage(messagess);
-    if (messages == "Message sent successfully") {
-      e.target.message.value = "";
-    }
+    e.target.reset();
   };
 
   return (
@@ -169,11 +185,11 @@ const Message = () => {
               {userMessages.length > 0 ? (
                 userMessages?.map((item: any) =>
                   item?.user?._id === user?._id ? (
-                    <div className=" max-w-[45%] bg-textPrimary min-h-[50px] rounded-l-md rounded-tr-md p-4 ml-auto">
+                    <div className=" max-w-[45%] bg-textPrimary min-h-[50px] rounded-l-md rounded-tr-md p-4 ml-auto mb-4">
                       <p className="text-black font-bold">{item?.message}</p>
                     </div>
                   ) : (
-                    <div className=" max-w-[45%] bg-gray-600 min-h-[50px] rounded-l-md rounded-tr-md p-4 mb-4">
+                    <div className=" max-w-[45%] bg-gray-600 min-h-[50px] rounded-r-md rounded-bl-md p-4 mb-4">
                       <p className="text-textPrimary font-bold">
                         {item?.message}
                       </p>

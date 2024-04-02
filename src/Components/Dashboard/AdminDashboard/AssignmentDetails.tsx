@@ -16,7 +16,7 @@ const AssignmentDetails = () => {
     isLoading,
     messages,
   } = useUserStore((state) => state);
-  console.log(messages);
+
   useEffect(() => {
     const fetchAssignments = async () => {
       await getAllAssignments();

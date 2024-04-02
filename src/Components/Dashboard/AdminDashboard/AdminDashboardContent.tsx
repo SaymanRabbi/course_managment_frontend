@@ -30,7 +30,6 @@ const AdminDashboardContent = () => {
     getLeaderBoard();
   }, []);
 
-  console.log(leaderBoard);
   return (
     <div>
       <DashboardCard title="Overview">

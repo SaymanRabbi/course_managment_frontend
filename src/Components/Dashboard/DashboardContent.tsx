@@ -34,7 +34,7 @@ const DashboardContent = () => {
   useEffect(() => {
     getLeaderBoard();
   }, []);
-  console.log(leaderBoard);
+
   return (
     <div>
       <DashboardCard title="Overview">

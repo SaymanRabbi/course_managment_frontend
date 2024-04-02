@@ -13,7 +13,7 @@ const CourseDetails = () => {
   useEffect(() => {
     getInstructor(courses[0]?.teacherID);
   }, []);
-  console.log(insTructor);
+
   return (
     <div className=" mt-[130px] md:w-[70%] mx-auto px-[20px]">
       <img

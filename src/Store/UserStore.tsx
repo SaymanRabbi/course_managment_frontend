@@ -55,9 +55,12 @@ interface UserStoreState {
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
+
+  userMessages: [],
   leaderBoard: [],
   user: Cookies.get("user") ? JSON.parse(Cookies.get("user") as string) : null,
   isLoading: false,
+  conversations: [],
   serverError: null,
   success: null,
   messages: "",
@@ -566,7 +569,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
         },
       });
       const data = await resp.json();
-      console.log(data);
+
       if (data) {
         set({
           insTructor: data.data,
@@ -594,7 +597,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
         body: JSON.stringify({ text }),
       });
       const data = await resp.json();
-      console.log(data);
+
       if (data) {
         set({
           isLoading: false,

@@ -102,7 +102,6 @@ const ChatBox: React.FC<ChatBoxProps> = ({
                 ? "bg-orange-400 text-white w-[45%] min-h-[50px] rounded-r-[10px] rounded-bl-[15px] mb-4 font-bold"
                 : "p-4  bg-sky-400 text-white w-[45%] min-h-[50px] rounded-l-[10px] rounded-tr-[15px] mb-4 ml-auto font-bold"
             } `}
-            ref={scrollRef}
           >
             {message.senderId !== currentUser ? (
               <>
@@ -125,7 +124,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
       {/* ------chat sender---- */}
       <div className=" flex justify-between items-center">
         <InputEmoji
-          value=""
+          value={newMessage}
           onChange={(text) => handelChange(text)}
           cleanOnEnter
           onEnter={(text) => console.log(text)}

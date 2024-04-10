@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import { useUserStore } from "../../Store/UserStore";
 import { CreateCoversation, userChats } from "../../api/ChatRequest";
@@ -7,7 +7,11 @@ import Conversation from "./Conversation";
 import DashboardCard from "./DashboardCard";
 const Message = () => {
   const { user, getAllUsers, allusers } = useUserStore((state) => state);
-  const socket = io("http://localhost:8800");
+  const socket = useRef(
+    io("ws://localhost:8800", {
+      transports: ["websocket"],
+    })
+  );
   const [chats, setChats] = useState<any[]>([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
@@ -29,12 +33,10 @@ const Message = () => {
   }, [user?._id]);
 
   // Connect to Socket.io
+  // Connect to Socket.io
   useEffect(() => {
-    socket?.on("connect", () => {
-      console.log("connected");
-    });
-    socket.emit("new-user-add", user?._id);
-    socket.on("get-users", (users: any) => {
+    socket.current.emit("new-user-add", user?._id);
+    socket.current.on("get-users", (users: any) => {
       setOnlineUsers(users);
     });
   }, [user]);
@@ -42,13 +44,13 @@ const Message = () => {
   // Send Message to socket server
   useEffect(() => {
     if (sendMessage !== null) {
-      socket?.emit("send-message", sendMessage);
+      socket.current.emit("send-message", sendMessage);
     }
   }, [sendMessage]);
 
   // Get the message from socket server
   useEffect(() => {
-    socket?.on("recieve-message", (data: any) => {
+    socket.current.on("recieve-message", (data: any) => {
       setReceivedMessage(data);
     });
   }, [Message]);

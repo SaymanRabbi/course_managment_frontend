@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import { create } from "zustand";
 import { User } from "../Types";
 interface UserStoreState {
+  tempUser: any;
   allusers: any;
   user: User | null;
   setUserData: (user: User) => void;
@@ -55,7 +56,7 @@ interface UserStoreState {
 }
 export const useUserStore = create<UserStoreState>((set) => ({
   allusers: [],
-
+  tempUser: [],
   userMessages: [],
   leaderBoard: [],
   user: Cookies.get("user") ? JSON.parse(Cookies.get("user") as string) : null,
@@ -228,12 +229,14 @@ export const useUserStore = create<UserStoreState>((set) => ({
       });
       const data = await resp.json();
       if (data) {
+        console.log(data);
         set({
           isLoading: false,
           success: data?.status,
           messages: data.message,
           serverError: null,
           code: data.code,
+          tempUser: data.user,
         });
       }
     } catch (error: any) {

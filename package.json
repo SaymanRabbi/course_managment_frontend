@@ -35,7 +35,7 @@
     "react-loading-skeleton": "^3.4.0",
     "react-player": "^2.14.1",
     "react-router-dom": "^6.21.1",
-    "socket.io-client": "^4.7.5",
+    "socket.io-client": "^4.5.1",
     "timeago.js": "^4.0.2",
     "ua-parser-js": "^1.0.37",
     "yup": "^1.4.0",

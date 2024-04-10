@@ -30,6 +30,9 @@ const Message = () => {
 
   // Connect to Socket.io
   useEffect(() => {
+    socket?.on("connect", () => {
+      console.log("connected");
+    });
     socket.emit("new-user-add", user?._id);
     socket.on("get-users", (users: any) => {
       setOnlineUsers(users);
@@ -51,7 +54,10 @@ const Message = () => {
   }, [Message]);
   const chekOnline = (chat: any) => {
     const ChatMember = chat?.members?.find((id: any) => id !== user?._id);
-    const Online = onlineUsers?.find((id: any) => id === ChatMember);
+    console.log(ChatMember);
+    const Online = onlineUsers?.find((id: any) => {
+      return id?.userId === ChatMember;
+    });
     return Online ? true : false;
   };
   const CreateCoverSations = async (chat: any) => {
@@ -93,7 +99,10 @@ const Message = () => {
             <h2 className="text-[20px] mb-3">All user</h2>
             <div>
               {allusers?.map((users: any) =>
-                users?._id !== user?._id ? (
+                users?._id !== user?._id &&
+                chats?.find((chat: any) =>
+                  chat?.members?.includes(users?._id)
+                ) === undefined ? (
                   <div
                     key={users?._id}
                     className="flex items-center gap-3 mb-3 bg-gray-300/10 p-1 rounded-md px-2 cursor-pointer"

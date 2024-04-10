@@ -13,7 +13,7 @@ const Conversation: React.FC<ConversationProps> = ({
   onlineUsers,
 }) => {
   const [userData, setUserData] = useState<any>();
-
+  console.log(onlineUsers);
   useEffect(() => {
     const userId = data?.members?.find((id: any) => id !== currentUser);
     const getUserData = async () => {

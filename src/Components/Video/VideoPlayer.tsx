@@ -16,7 +16,7 @@ const VideoPlayer = () => {
     Cookies.get("ind") ? JSON.parse(Cookies.get("ind") || "{}").moduleIndex : 0
   );
   const [open, setOpen] = useState<boolean>(false);
-  const [modalIndex, setModalIndex] = useState<number>(2);
+
   const [assignment, setAssignment] = useState<any>({});
   const [search, setSearch] = useState("");
   const [filterModule, setFilterModule] = useState([] as any);
@@ -95,7 +95,7 @@ const VideoPlayer = () => {
   const ModalIndex = (i: any, module: any, id: any) => {
     setAssignmentId(id);
     setOpen(true);
-    setModalIndex(i);
+
     setAssignment(module);
   };
   return (

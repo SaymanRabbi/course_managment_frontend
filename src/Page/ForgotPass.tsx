@@ -14,9 +14,9 @@ const ForgotPass: React.FC = () => {
   const redirect = useNavigate();
   //  ------store user data
   const { passwordReset, clearMessages } = useUserStore((state) => state);
-  const { isLoading, success, messages, serverError, user } = useUserStore(
-    (state) => state
-  );
+  const { isLoading, success, messages, serverError, user, tempUser } =
+    useUserStore((state) => state);
+
   //  ------store user data
   const {
     register,
@@ -38,7 +38,7 @@ const ForgotPass: React.FC = () => {
     setTimeout(() => {
       if (success && messages === "Code sent successfully") {
         clearMessages();
-        redirect(`/forgotpasscode/${user?._id}`);
+        redirect(`/forgotpasscode/${tempUser?._id}`);
       }
       if (!success && messages !== undefined) {
         clearMessages();

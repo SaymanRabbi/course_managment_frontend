@@ -23,6 +23,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   const [messages, setMessages] = useState<any[]>([]);
   const scrollRef = useRef<any>();
   const [newMessage, setNewMessage] = useState<any>("");
+  console.log(chat, recivedMessages, sendMessages);
   useEffect(() => {
     if (recivedMessages !== null && recivedMessages.chatId === chat?._id) {
       setMessages((prev) => [...prev, recivedMessages]);
@@ -94,7 +95,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
         </div>
       </div>
       <hr className=" bg-gray-300 mb-2" />
-      <div className=" h-[470px] overflow-y-auto px-2">
+      <div className=" min-h-[470px] overflow-y-auto px-2">
         {messages?.map((message: any) => (
           <div
             className={` p-4 ${

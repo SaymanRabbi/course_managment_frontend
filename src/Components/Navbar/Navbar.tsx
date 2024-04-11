@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUserStore } from "../../Store/UserStore";
 import useAuth from "../../hooks/useAuth";
 import Container from "../Container/Container";
+import logo from "../../../public/images/logo/logo.png";
 interface Route {
   name: string;
   link: string;
@@ -45,12 +46,13 @@ const Navbar = () => {
       <Container className="pt-4 pb-2 relative">
         <div className=" xl:mx-[40px] min-h-[48px] sm:min-h-[64px] relative pt-[8px] pb-[12px] flex items-center justify-between">
           {/* ------logo */}
-          <a
-            href=""
-            className=" flex justify-center items-center mt-[-6px] cursor-pointer no-underline font-[500] text-[18px] text-primary"
-          >
-            Logo
-          </a>
+          <Link to="/">
+            <img
+              src={logo}
+              className=" flex justify-center items-center mt-[-6px] cursor-pointer w-[120px] object-cover"
+            />
+          </Link>
+
           {/* ------logo */}
           {/* navbar item */}
           <div className=" md:flex items-center hidden">

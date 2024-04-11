@@ -17,7 +17,6 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   sendMessages,
   setSendMessages,
   recivedMessages,
-  onlineUsers,
 }) => {
   const [userData, setUserData] = useState<any>();
   const [messages, setMessages] = useState<any[]>([]);
@@ -95,7 +94,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
         </div>
       </div>
       <hr className=" bg-gray-300 mb-2" />
-      <div className=" min-h-[470px] overflow-y-auto px-2">
+      <div className=" min-h-[470px] overflow-y-auto px-2 max-h-[570px] h-[100%]">
         {messages?.map((message: any) => (
           <div
             className={` p-4 ${

@@ -46,10 +46,12 @@ const Navbar = () => {
       <Container className="pt-4 pb-2 relative">
         <div className=" xl:mx-[40px] min-h-[48px] sm:min-h-[64px] relative pt-[8px] pb-[12px] flex items-center justify-between">
           {/* ------logo */}
-          <img
-            src={logo}
-            className=" flex justify-center items-center mt-[-6px] cursor-pointer w-[120px] object-cover"
-          />
+          <Link to="/">
+            <img
+              src={logo}
+              className=" flex justify-center items-center mt-[-6px] cursor-pointer w-[120px] object-cover"
+            />
+          </Link>
 
           {/* ------logo */}
           {/* navbar item */}

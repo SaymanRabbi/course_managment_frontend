@@ -229,7 +229,6 @@ export const useUserStore = create<UserStoreState>((set) => ({
       });
       const data = await resp.json();
       if (data) {
-        console.log(data);
         set({
           isLoading: false,
           success: data?.status,

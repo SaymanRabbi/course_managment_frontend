@@ -4,7 +4,9 @@ import { useUserStore } from "../../../Store/UserStore";
 import DashboardCard from "../DashboardCard";
 
 const ManageRole = () => {
-  const { getAllUsers, allusers, makeAdmin } = useUserStore((state) => state);
+  const { getAllUsers, allusers, makeAdmin, user } = useUserStore(
+    (state) => state
+  );
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getAllUser = async () => {
@@ -44,53 +46,66 @@ const ManageRole = () => {
                 </tr>
               </thead>
               <tbody>
-                {allusers.map((item: any, index: any) => (
-                  <tr className="text-textPrimary" key={index}>
-                    <td className="px-6 py-4">
-                      <p>{item?.email}</p>
-                    </td>
-                    <td className="px-6 py-4">
-                      <p>{item?.name}</p>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <HiUsers />
-                        <p>{item?.role}</p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className=" ">
-                        {item?.role === "admin" ? (
-                          <button
-                            className="flex items-center gap-2 px-10 py-2 rounded-md my-2 from-rgbFrom to-rgbTo bg-gradient-to-r cursor-pointer"
-                            onClick={() => makeAdminFunc(item._id, "student")}
-                            disabled={loading}
-                          >
-                            <span>Make Student</span>
-                          </button>
-                        ) : (
-                          <button
-                            className={`flex items-center gap-2 bg-gradient-to-r px-10 py-2 rounded-md my-2 ${
-                              item?.role === "admin"
-                                ? "bg-gray-400"
-                                : "from-rgbFrom to-rgbTo"
-                            }`}
-                            onClick={() => makeAdminFunc(item._id, "admin")}
-                            disabled={loading || item?.role === "admin"}
-                          >
-                            <span>
-                              {loading
-                                ? "Loading..."
-                                : item.role === "admin"
-                                ? "No Permission"
-                                : "Make Admin"}
-                            </span>
-                          </button>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                {allusers.map(
+                  (item: any, index: any) =>
+                    item._id !== user?._id && (
+                      <tr className="text-textPrimary" key={index}>
+                        <td className="px-6 py-4">
+                          <p>{item?.email}</p>
+                        </td>
+                        <td className="px-6 py-4">
+                          <p>{item?.name}</p>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-2">
+                            <HiUsers />
+                            <p>{item?.role}</p>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className=" ">
+                            {item?.role === "admin" ? (
+                              <button
+                                className="flex items-center gap-2 px-10 py-2 rounded-md my-2 from-rgbFrom to-rgbTo bg-gradient-to-r cursor-pointer"
+                                onClick={() =>
+                                  makeAdminFunc(item._id, "student")
+                                }
+                                disabled={loading}
+                              >
+                                <span>Make Student</span>
+                              </button>
+                            ) : item?.role === "super-admin" ? (
+                              <button
+                                className="bg-gray-400 flex items-center gap-2 bg-gradient-to-r px-10 py-2 rounded-md my-2
+                               cursor-not-allowed
+                              "
+                              >
+                                No Permission
+                              </button>
+                            ) : (
+                              <button
+                                className={`flex items-center gap-2 bg-gradient-to-r px-10 py-2 rounded-md my-2 ${
+                                  item?.role === "admin"
+                                    ? "bg-gray-400"
+                                    : "from-rgbFrom to-rgbTo"
+                                }`}
+                                onClick={() => makeAdminFunc(item._id, "admin")}
+                                disabled={loading || item?.role === "admin"}
+                              >
+                                <span>
+                                  {loading
+                                    ? "Loading..."
+                                    : item.role === "admin"
+                                    ? "No Permission"
+                                    : "Make Admin"}
+                                </span>
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                )}
               </tbody>
             </table>
           </div>

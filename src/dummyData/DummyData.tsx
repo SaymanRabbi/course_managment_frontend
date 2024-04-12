@@ -1,7 +1,14 @@
+import { BiVideo } from "react-icons/bi";
 import { FaClipboard, FaRegStar } from "react-icons/fa";
-import { FaRegBookmark, FaRegMessage } from "react-icons/fa6";
+import {
+  FaClipboardQuestion,
+  FaRankingStar,
+  FaRegBookmark,
+  FaRegMessage,
+} from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
 import { GiTeacher } from "react-icons/gi";
+import { GrScorecard } from "react-icons/gr";
 import { IoIosNotifications } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuUser } from "react-icons/lu";
@@ -16,54 +23,61 @@ interface DContentinterface {
   borderButtom?: boolean;
   borderRight?: boolean;
   borderSmall?: boolean;
+  icon?: JSX.Element;
 }
 export const DetailsContent: DContentinterface[] = [
   {
     id: 1,
-    name: "150+ videos in 15 modules",
+    name: "Recorded video lectures",
     description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+      "All the lectures are recorded and available for you to watch at your own pace. You can watch them as many times as you want to clear your concepts.",
     isborder: true,
+    icon: <BiVideo />,
   },
   {
     id: 2,
-    name: "151+ videos in 15 modules",
+    name: "Quizzes For Self Test",
     description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+      "Have  quizzes after each module to test your understanding of the topic. Get instant results and feedback to improve your learning.",
     borderRight: true,
     isborder: true,
+    icon: <FaClipboardQuestion />,
   },
   {
     id: 3,
-    name: "150+ videos in 15 modules",
+    name: "Assignments for Practice",
     description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+      "You will get assignments after each module to practice your skills and to improve your understanding of the topic.",
+    icon: <MdAssignment />,
   },
   {
     id: 4,
-    name: "150+ videos in 15 modules",
+    name: "Message option for query",
     description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+      "You can ask your doubts and queries in the message section. You can also interact with other students and teachers in the message section.",
     borderButtom: true,
     borderRight: true,
     isborder: true,
+    icon: <FaRegMessage />,
   },
   {
     id: 5,
-    name: "150+ videos in 15 modules",
+    name: "Assignment Results and Feedback",
     description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+      "You will get detailed feedback on your assignments and quizzes to help you improve your learning. You can also discuss the results with your teachers.",
     borderButtom: true,
     isborder: true,
+    icon: <GrScorecard />,
   },
   {
     id: 6,
-    name: "150+ videos in 15 modules",
+    name: "Leaderboard and Ranking",
     description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis, rem facilis! Dolor nam quaerat nemo asperiores blanditiis non, corporis commodi.",
+      "You can see your ranking and compare it with other students. You can also see the leaderboard to see who is performing the best in the course.",
     borderButtom: true,
     borderRight: true,
     borderSmall: true,
+    icon: <FaRankingStar />,
   },
 ];
 interface AccordionInterface {
@@ -73,24 +87,24 @@ interface AccordionInterface {
 
 export const accordionsContent: AccordionInterface[] = [
   {
-    title: "What people want to know?",
+    title: "How do I access the prerecorded video lectures?",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat porro, temporibus aliquid dolor nam ullam, maxime quas nulla enim reprehenderit consequuntur dolorem nesciunt, amet itaque ad?",
+      "To access the prerecorded video lectures, simply log in to your account and navigate to the course dashboard. From there, you'll find a list of available courses along with their respective video lectures. Click on the course you're interested in to view the lectures at your own pace.",
   },
   {
-    title: "What people want to know?",
+    title: "How do I take quizzes for my courses?",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat porro, temporibus aliquid dolor nam ullam, maxime quas nulla enim reprehenderit consequuntur dolorem nesciunt, amet itaque ad?",
+      "Taking quizzes is easy! After watching the video lectures, you can access the quizzes directly from the course dashboard. Simply click on the quiz associated with the lecture you've completed, and you'll be directed to the quiz interface where you can answer the questions and submit your responses for grading.",
   },
   {
-    title: "What people want to know?",
+    title: "How do I submit assignments for my courses?",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat porro, temporibus aliquid dolor nam ullam, maxime quas nulla enim reprehenderit consequuntur dolorem nesciunt, amet itaque ad?",
+      "Submitting assignments is a breeze! Once you've completed an assignment, navigate to the course dashboard and locate the assignment section for the corresponding course. Click on the assignment you're ready to submit, and you'll be prompted to upload your completed work. Make sure to follow any specific instructions provided by your instructor.",
   },
   {
-    title: "What people want to know?",
+    title: "How can I communicate with my instructor?",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quaerat porro, temporibus aliquid dolor nam ullam, maxime quas nulla enim reprehenderit consequuntur dolorem nesciunt, amet itaque ad?",
+      "Communication is key! You can easily communicate with your instructor and fellow students using the messaging feature built into our platform. Simply navigate to the messaging tab, where you can send and receive messages with your instructor or participate in group discussions with other students enrolled in the same course.",
   },
 ];
 
@@ -392,6 +406,7 @@ interface SidebarInterface {
   link: string;
   admin?: boolean;
   student?: boolean;
+  super_admin?: boolean;
 }
 export const SideBaritem: SidebarInterface[] = [
   {
@@ -405,6 +420,7 @@ export const SideBaritem: SidebarInterface[] = [
     icon: <RxDashboard />,
     link: "/dashboard/admin-dashboard",
     admin: true,
+    super_admin: true,
   },
   {
     name: "Profile",
@@ -412,6 +428,7 @@ export const SideBaritem: SidebarInterface[] = [
     link: "/dashboard/profile",
     student: true,
     admin: true,
+    super_admin: true,
   },
   {
     name: "Message",
@@ -419,6 +436,7 @@ export const SideBaritem: SidebarInterface[] = [
     link: "/dashboard/message",
     student: true,
     admin: true,
+    super_admin: true,
   },
   {
     name: "Enrolled Courses",
@@ -426,6 +444,7 @@ export const SideBaritem: SidebarInterface[] = [
     link: "/dashboard/enrolled-courses",
     student: true,
     admin: true,
+    super_admin: true,
   },
 
   {
@@ -434,6 +453,7 @@ export const SideBaritem: SidebarInterface[] = [
     link: "/dashboard/reviews",
     student: true,
     admin: true,
+    super_admin: true,
   },
   {
     name: "My Quiz Attempts",
@@ -441,6 +461,7 @@ export const SideBaritem: SidebarInterface[] = [
     link: "/dashboard/quiz",
     student: true,
     admin: true,
+    super_admin: true,
   },
   {
     name: "My Assignments",
@@ -448,6 +469,7 @@ export const SideBaritem: SidebarInterface[] = [
     link: "/dashboard/assignments",
     student: true,
     admin: true,
+    super_admin: true,
   },
 
   {
@@ -455,12 +477,14 @@ export const SideBaritem: SidebarInterface[] = [
     icon: <GiTeacher />,
     link: "/dashboard/popular-instructor",
     admin: true,
+    super_admin: true,
   },
   {
     name: "Notice-Board",
     icon: <FaClipboard />,
     link: "/dashboard/notice-board",
     admin: true,
+    super_admin: true,
   },
   {
     name: "Notifications",
@@ -468,24 +492,28 @@ export const SideBaritem: SidebarInterface[] = [
     link: "/dashboard/notifications",
     student: true,
     admin: true,
+    super_admin: true,
   },
   {
     name: "Manage-Role",
     icon: <MdManageAccounts />,
     link: "/dashboard/manageRole",
     admin: true,
+    super_admin: true,
   },
   {
     name: "All-Assignment",
     icon: <MdAssignment />,
     link: "/dashboard/allAssignment",
     admin: true,
+    super_admin: true,
   },
   {
     name: "Add Module",
     icon: <VscFileSubmodule />,
     link: "/dashboard/add-module",
     admin: true,
+    super_admin: true,
   },
   {
     name: "Settings",
@@ -493,6 +521,7 @@ export const SideBaritem: SidebarInterface[] = [
     link: "/dashboard/setting",
     admin: true,
     student: true,
+    super_admin: true,
   },
   {
     name: "Logout",

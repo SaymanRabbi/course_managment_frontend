@@ -39,9 +39,8 @@ import CourseDetails from "./Components/Dashboard/AdminDashboard/CourseDetails";
 import NoticeBoard from "./Components/Dashboard/AdminDashboard/NoticeBoard";
 
 function App() {
-  const { getUserByToken, getCourses, getAllUsers } = useUserStore(
-    (state: any) => state
-  );
+  const { getUserByToken, getCourses, getAllUsers, getNotification } =
+    useUserStore((state: any) => state);
   const [previousRoute, setPreviousRoute] = useState("");
   const route = useLocation().pathname;
   useEffect(() => {
@@ -53,7 +52,9 @@ function App() {
       setPreviousRoute(route); // Update the previous route after the function call
     }
   }, [route]);
-
+  useEffect(() => {
+    getNotification();
+  }, []);
   return (
     <>
       <Routes>
@@ -64,7 +65,11 @@ function App() {
         <Route path="/forgot_pass" element={<ForgotPass />} />
         <Route path="/forgotpasscode/:id" element={<ForgotPassCode />} />
         <Route path="course-details/:id" element={<CourseDetails />} />
-        <Route element={<RequireAuth allowedRoles={["admin", "student"]} />}>
+        <Route
+          element={
+            <RequireAuth allowedRoles={["admin", "student", "super-admin"]} />
+          }
+        >
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard" element={<DashboardContent />} />
             <Route path="/dashboard/profile" element={<Profile />} />
@@ -94,7 +99,9 @@ function App() {
           </Route>
         </Route>
         {/* Admin only */}
-        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+        <Route
+          element={<RequireAuth allowedRoles={["admin", "super-admin"]} />}
+        >
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard/add-module" element={<AddModule />} />
             <Route path="/dashboard/manageRole" element={<ManageRole />} />

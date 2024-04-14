@@ -14,7 +14,6 @@ const AssignmentDetails = () => {
     updateAssignmentMarks,
     success,
     isLoading,
-    messages,
   } = useUserStore((state) => state);
 
   useEffect(() => {

@@ -36,5 +36,5 @@ export const useAddModuleStore = create<AddModuleStore>((set) => ({
     },
   },
   addAssignment: (assignment: Assignment) =>
-    set((state) => ({ assignment: assignment })),
+    set(() => ({ assignment: assignment })),
 }));

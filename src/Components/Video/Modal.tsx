@@ -8,8 +8,9 @@ interface ModalProps {
   id: string;
 }
 const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
-  const { addAssignment, user, getAssignmentswithID, assignments } =
-    useUserStore((state) => state);
+  const { addAssignment, getAssignmentswithID, assignments } = useUserStore(
+    (state) => state
+  );
   useEffect(() => {
     const fetchAssignments = async () => {
       await getAssignmentswithID();
@@ -49,7 +50,7 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
 
           <div
             className=" absolute top-[1px] right-2 cursor-pointer"
-            onClick={(prev) => setOpen(false)}
+            onClick={() => setOpen(false)}
           >
             <span className=" text-error text-[25px] font-bold">X</span>
           </div>
@@ -94,7 +95,7 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
             {/* ----submit assignment */}
             <div
               className=" absolute top-[-10px] right-1 cursor-pointer"
-              onClick={(prev) => setOpen(false)}
+              onClick={() => setOpen(false)}
             >
               <span className=" text-error text-[30px] font-bold">X</span>
             </div>

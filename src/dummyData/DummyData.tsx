@@ -416,7 +416,7 @@ export const SideBaritem: SidebarInterface[] = [
     student: true,
   },
   {
-    name: "admin-dashboard",
+    name: "Admin-dashboard",
     icon: <RxDashboard />,
     link: "/dashboard/admin-dashboard",
     admin: true,

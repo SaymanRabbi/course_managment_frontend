@@ -92,7 +92,7 @@ const VideoPlayer = () => {
   }, [filteredModules]);
 
   // useEffect to load the video where the user left off after window refresh
-  const ModalIndex = (i: any, module: any, id: any) => {
+  const ModalIndex = (module: any, id: any) => {
     setAssignmentId(id);
     setOpen(true);
 
@@ -226,7 +226,7 @@ const VideoPlayer = () => {
                           />
                           <div
                             className=" text-textPrimary ml-2 w-[80%]"
-                            onClick={() => ModalIndex(i, module, data._id)}
+                            onClick={() => ModalIndex(module, data._id)}
                           >
                             {module.title}{" "}
                           </div>

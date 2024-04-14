@@ -1,4 +1,3 @@
-import { BiVideo } from "react-icons/bi";
 import DynamicHedding from "../DynamicHedding/DynamicHedding";
 import CourseSvg from "../../../public/images/svg/peep1.svg";
 import { useEffect, useState } from "react";
@@ -50,10 +49,10 @@ const Details = () => {
               `}
             >
               <div className=" hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer">
-                <BiVideo
-                  size={50}
-                  className="mx-auto bg-gradient-to-r text-[#384fde]"
-                />
+                <p className=" flex items-center justify-center mb-3 text-[40px] bg-gradient-to-r text-[#384fde] font-bold">
+                  {item.icon}
+                </p>
+
                 <p className="font-bold text-textPrimary text-center">
                   {item.name}
                 </p>

@@ -1,4 +1,3 @@
-import React from "react";
 import DashboardCard from "./DashboardCard";
 import { ReviewData } from "../../dummyData/DummyData";
 import { IoStar } from "react-icons/io5";

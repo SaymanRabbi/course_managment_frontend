@@ -88,7 +88,8 @@ const Sidebar = () => {
                   {Notification?.length}
                 </span>
               </li>
-            ) : item.admin && user?.role === "admin" ? (
+            ) : (item.admin && user?.role === "admin") ||
+              (item.super_admin && user?.role === "super-admin") ? (
               <li
                 className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%] relative list-none text-[16px] border-bgPrimary/70 flex  items-center gap-1 hover:text-rgbFrom/100 transition-all duration-300 ease-in-out pl-2 ${
                   location === item.link
@@ -124,7 +125,7 @@ const Sidebar = () => {
                   {item.name}
                 </Link>
               </li>
-            ) : item.admin && item.student ? (
+            ) : item.admin && item.student && item.super_admin ? (
               <li
                 className={`pb-[10px] pt-[10px] border-b-[1px] w-[100%] relative list-none text-[16px] border-bgPrimary/70 flex  items-center gap-1 hover:text-rgbFrom/100 transition-all duration-300 ease-in-out pl-2 ${
                   location === item.link

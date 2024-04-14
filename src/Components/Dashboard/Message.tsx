@@ -58,7 +58,7 @@ const Message = () => {
   }, [Message]);
   const chekOnline = (chat: any) => {
     const ChatMember = chat?.members?.find((id: any) => id !== user?._id);
-    console.log(ChatMember);
+
     const Online = onlineUsers?.find((id: any) => {
       return id?.userId === ChatMember;
     });

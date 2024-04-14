@@ -7,13 +7,13 @@ const Hero = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-28 w-[95%] mx-auto">
         {/* Text Area */}
         <div className="my-auto">
-          <p className="text-[#F2277E] tracking-[6px] ">EDUCATION SOLUTION</p>
+          <p className="text-[#F2277E] tracking-[6px] ">COURSE MANAGMENT</p>
           <h1 className="text-2xl lg:text-5xl font-bold text-textPrimary py-8">
-            Cloud-based LMS Trusted by 1000+
+            Welcome to the Course Management System
           </h1>
           <p className="text-base lg:text-xl text-textSecondary leading-tight">
-            Lorem Ipsum is simply dummy text of the printing typesetting
-            industry. Lorem Ipsum has been.
+            Revolutionizing Education :) Our Cloud-based Learning Management
+            System Trusted by Over 1000 Institutions.
           </p>
         </div>
         {/* Images Area */}

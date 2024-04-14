@@ -14,7 +14,6 @@ interface ChatBoxProps {
 const ChatBox: React.FC<ChatBoxProps> = ({
   chat,
   currentUser,
-  sendMessages,
   setSendMessages,
   recivedMessages,
 }) => {
@@ -22,7 +21,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   const [messages, setMessages] = useState<any[]>([]);
   const scrollRef = useRef<any>();
   const [newMessage, setNewMessage] = useState<any>("");
-  console.log(chat, recivedMessages, sendMessages);
+
   useEffect(() => {
     if (recivedMessages !== null && recivedMessages.chatId === chat?._id) {
       setMessages((prev) => [...prev, recivedMessages]);
@@ -95,8 +94,9 @@ const ChatBox: React.FC<ChatBoxProps> = ({
       </div>
       <hr className=" bg-gray-300 mb-2" />
       <div className=" min-h-[470px] overflow-y-auto px-2 max-h-[570px] h-[100%]">
-        {messages?.map((message: any) => (
+        {messages?.map((message: any, i: any) => (
           <div
+            key={i}
             className={` p-4 ${
               message.senderId !== currentUser
                 ? "bg-orange-400 text-white w-[45%] min-h-[50px] rounded-r-[10px] rounded-bl-[15px] mb-4 font-bold"

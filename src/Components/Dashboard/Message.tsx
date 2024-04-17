@@ -10,8 +10,10 @@ const Message = () => {
     (state) => state
   );
   const socket = useRef(
-    io("ws://localhost:8800", {
-      transports: ["websocket"],
+    io("https://course-managment-backend.onrender.com:8800", {
+      transports: ["websocket", "polling"],
+      reconnection: true,
+      reconnectionAttempts: 5,
     })
   );
   const [chats, setChats] = useState<any[]>([]);

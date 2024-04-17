@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { HiUsers } from "react-icons/hi2";
 import { useUserStore } from "../../../Store/UserStore";
 import DashboardCard from "../DashboardCard";
+import toast from "react-hot-toast";
 
 const ManageRole = () => {
-  const { getAllUsers, allusers, makeAdmin, user } = useUserStore(
+  const { getAllUsers, allusers, makeAdmin, user, success } = useUserStore(
     (state) => state
   );
   const [loading, setLoading] = useState(false);
@@ -20,8 +21,13 @@ const ManageRole = () => {
     allusers.filter((item: any) =>
       item._id === id ? (item.role = "student") : item
     );
-    await getAllUsers();
+    getAllUsers();
     setLoading(false);
+    if (success) {
+      toast.success("Update user role successfully");
+    } else {
+      toast.error("Failed to update user role");
+    }
   };
   return (
     <DashboardCard title="Manage Roles">

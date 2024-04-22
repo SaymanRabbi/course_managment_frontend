@@ -85,7 +85,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   ) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/update-quiz-score/${quizID}`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/update-quiz-score/${quizID}`;
       const resp = await fetch(url, {
         method: "PUT",
         headers: {
@@ -118,7 +118,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   createUser: async (userData) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/register`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/register`;
       const resp = await fetch(url, {
         method: "POST",
         headers: {
@@ -142,7 +142,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getUser: async (user: User) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/login`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/login`;
       const resp = await fetch(url, {
         method: "POST",
         headers: {
@@ -170,7 +170,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   verifyToken: async (token: string) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/verify-email/${token}`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/verify-email/${token}`;
       const resp = await fetch(url, {
         method: "PUT",
         headers: {
@@ -220,7 +220,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   passwordReset: async (email: string) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/forgot-password/${email}`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/forgot-password/${email}`;
       const resp = await fetch(url, {
         method: "PUT",
         headers: {
@@ -245,7 +245,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   confirmPasswordReset: async (formData: any) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/changes-password`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/changes-password`;
       const resp = await fetch(url, {
         method: "PUT",
         headers: {
@@ -269,7 +269,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getCourses: async () => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/course/getCourse`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/course/getCourse`;
       const resp = await fetch(url, {
         method: "GET",
         headers: {
@@ -294,7 +294,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getQuiz: async (id: any, quizID: any, token) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/course/getQuiz/${id}`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/course/getQuiz/${id}`;
       const resp = await fetch(url, {
         method: "POST",
         headers: {
@@ -322,7 +322,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   updateUserProfile: async (token, data) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/updateprofile`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/updateprofile`;
       const resp = await fetch(url, {
         method: "PUT",
         headers: {
@@ -352,7 +352,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
 
       const token = Cookies.get("token");
       if (!token) return set({ isLoading: false });
-      const url = `http://localhost:5000/api/v1/user/login/token`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/login/token`;
       const resp = await fetch(url, {
         method: "GET",
         headers: {
@@ -380,7 +380,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
       set({ isLoading: true, success: null, messages: "", serverError: null });
 
       const token = Cookies.get("token");
-      const url = `http://localhost:5000/api/v1/user/profile/progress`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/profile/progress`;
       const resp = await fetch(url, {
         method: "PUT",
         headers: {
@@ -404,7 +404,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   },
   addModule: async (ModuleData) => {
     try {
-      const url = `http://localhost:5000/api/v1/course/updateCourse/660064f53d5fc7b5c8a5267a`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/course/updateCourse/660064f53d5fc7b5c8a5267a`;
       const response = await fetch(url, {
         method: "PUT",
         headers: {
@@ -430,7 +430,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getAllUsers: async () => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/getallusers`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/getallusers`;
       const resp = await fetch(url, {
         method: "GET",
         headers: {
@@ -456,7 +456,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   makeAdmin: async (id, role) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/update/${id}`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/update/${id}`;
       const resp = await fetch(url, {
         method: "PUT",
         headers: {
@@ -482,7 +482,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   changeImage: async (imageUrl) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/updateImgurl`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/updateImgurl`;
       const resp = await fetch(url, {
         method: "PUT",
         headers: {
@@ -510,7 +510,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getNotification: async () => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/course/getNotification`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/course/getNotification`;
       const resp = await fetch(url, {
         method: "GET",
         headers: {
@@ -536,7 +536,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   addAssignment: async (assignment) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/course/assignment`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/course/assignment`;
       const resp = await fetch(url, {
         method: "POST",
         headers: {
@@ -563,7 +563,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getInstructor: async (id) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/instructorInfo/${id}`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/instructorInfo/${id}`;
       const resp = await fetch(url, {
         method: "GET",
         headers: {
@@ -588,7 +588,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   createNotification: async (text) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/course/newNotification`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/course/newNotification`;
       const resp = await fetch(url, {
         method: "POST",
         headers: {
@@ -615,7 +615,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getAssignmentswithID: async () => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/course/getAssignments`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/course/getAssignments`;
       const resp = await fetch(url, {
         method: "GET",
         headers: {
@@ -641,7 +641,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getAllAssignments: async () => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/course/AllAssignments`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/course/AllAssignments`;
       const resp = await fetch(url, {
         method: "GET",
         headers: {
@@ -667,7 +667,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   updateAssignmentMarks: async (assignmentId, datas) => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/course/updateAssignmentMark/${assignmentId}`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/course/updateAssignmentMark/${assignmentId}`;
       const resp = await fetch(url, {
         method: "PUT",
         headers: {
@@ -693,7 +693,7 @@ export const useUserStore = create<UserStoreState>((set) => ({
   getLeaderBoard: async () => {
     try {
       set({ isLoading: true, success: null, messages: "", serverError: null });
-      const url = `http://localhost:5000/api/v1/user/leaderboard`;
+      const url = `https://course-managment-backend.onrender.com/api/v1/user/leaderboard`;
       const resp = await fetch(url, {
         method: "GET",
         headers: {

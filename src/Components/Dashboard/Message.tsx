@@ -5,13 +5,17 @@ import { CreateCoversation, userChats } from "../../api/ChatRequest";
 import ChatBox from "./ChatBox";
 import Conversation from "./Conversation";
 import DashboardCard from "./DashboardCard";
+import { MdOutlineVideoCall } from "react-icons/md";
+import { Link } from "react-router-dom";
 const Message = () => {
   const { user, getAllUsers, allusers, isLoading } = useUserStore(
     (state) => state
   );
   const socket = useRef(
-    io("ws://localhost:8800", {
+    io("https://course-managment-backend.onrender.com:8800", {
       transports: ["websocket"],
+      reconnection: true,
+      reconnectionAttempts: 5,
     })
   );
   const [chats, setChats] = useState<any[]>([]);
@@ -79,7 +83,12 @@ const Message = () => {
     }
   };
   return (
-    <DashboardCard title="Chat">
+    <DashboardCard title="Chat" className="relative">
+      <div className=" absolute top-[7%] right-[5%]">
+        <Link to="/dashboard/room">
+          <MdOutlineVideoCall size={30} className=" text-white" />
+        </Link>
+      </div>
       <div className=" grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* conversation */}
         <div className=" col-span-5 lg:col-span-4 border-[.5px] border-bgPrimary rounded-t-[20px] rounded-bl-[20px] p-3 ">

@@ -37,6 +37,8 @@ import AllAssignment from "./Components/Dashboard/AdminDashboard/AllAssignment";
 import AssignmentDetails from "./Components/Dashboard/AdminDashboard/AssignmentDetails";
 import CourseDetails from "./Components/Dashboard/AdminDashboard/CourseDetails";
 import NoticeBoard from "./Components/Dashboard/AdminDashboard/NoticeBoard";
+import RoomId from "./Components/Dashboard/Room/RoomId";
+import Room from "./Components/Dashboard/Room/Room";
 
 function App() {
   const { getUserByToken, getCourses, getAllUsers, getNotification } =
@@ -72,6 +74,8 @@ function App() {
         >
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard" element={<DashboardContent />} />
+            <Route path="/dashboard/room" element={<RoomId />} />
+            <Route path="/dashboard/room/:id" element={<Room />} />
             <Route path="/dashboard/profile" element={<Profile />} />
 
             <Route path="/dashboard/message" element={<Message />} />

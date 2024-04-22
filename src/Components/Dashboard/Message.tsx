@@ -84,12 +84,12 @@ const Message = () => {
   };
   return (
     <DashboardCard title="Chat" className="relative">
-      <div className=" absolute top-[7%] right-[5%]">
+      <div className=" absolute md:top-[7%] top-[4%] right-[5%]">
         <Link to="/dashboard/room">
           <MdOutlineVideoCall size={30} className=" text-white" />
         </Link>
       </div>
-      <div className=" grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div className=" grid grid-cols-1 lg:grid-cols-12 md:gap-4 gap-2">
         {/* conversation */}
         <div className=" col-span-5 lg:col-span-4 border-[.5px] border-bgPrimary rounded-t-[20px] rounded-bl-[20px] p-3 ">
           <div className=" h-[400px] overflow-y-auto relative">

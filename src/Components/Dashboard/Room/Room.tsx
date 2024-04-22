@@ -11,13 +11,19 @@ const Room = () => {
     const kitToken = ZegoUIKitPrebuilt?.generateKitTokenForTest(
       appID,
       serverSecret,
-      id,
-      user?._id,
+      id || "",
+      user?._id || "",
       user?.name
     );
     const zc = ZegoUIKitPrebuilt.create(kitToken);
     zc.joinRoom({
       container: element,
+      showPreJoinView: true,
+      showRoomTimer: true,
+      showPinButton: true,
+      showInviteToCohostButton: true,
+      showRemoveCohostButton: true,
+
       sharedLinks: [
         {
           name: "Copy Link",

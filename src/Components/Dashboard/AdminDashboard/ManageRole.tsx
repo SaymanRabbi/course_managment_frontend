@@ -5,8 +5,11 @@ import DashboardCard from "../DashboardCard";
 import toast from "react-hot-toast";
 
 const ManageRole = () => {
+  const [search, setSearch] = useState("");
   const { getAllUsers, allusers, makeAdmin, user, success, RemoveUser } =
     useUserStore((state) => state);
+  const [filteredUsers, setFilteredUsers] = useState(allusers);
+
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getAllUser = async () => {
@@ -46,9 +49,32 @@ const ManageRole = () => {
     }
   };
   // remove user function
+  // search function
+  useEffect(() => {
+    if (search === "") {
+      setFilteredUsers(allusers);
+    } else {
+      setFilteredUsers(
+        allusers.filter((item: any) =>
+          item?.email.toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }
+  }, [search, allusers]);
+  // search function
 
   return (
-    <DashboardCard title="Manage Roles">
+    <DashboardCard title="Manage Roles" className=" relative">
+      <div className=" absolute top-[5%] right-[4%]">
+        {/* search func */}
+        <input
+          type="text"
+          placeholder="Search by email"
+          className=" w-[300px] h-[40px] border border-[#ccc] rounded-md px-4 py-1 outline-none "
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        {/* search func */}
+      </div>
       <div className=" grid grid-cols-12">
         <div className=" col-span-12">
           <div className="relative overflow-x-auto">
@@ -73,85 +99,99 @@ const ManageRole = () => {
                 </tr>
               </thead>
               <tbody>
-                {allusers.map(
-                  (item: any, index: any) =>
-                    item._id !== user?._id && (
-                      <tr className="text-textPrimary" key={index}>
-                        <td className="px-6 py-4">
-                          <p>{item?.email}</p>
-                        </td>
-                        <td className="px-6 py-4">
-                          <p>{item?.name}</p>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-2">
-                            <HiUsers />
-                            <p>{item?.role}</p>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className=" ">
-                            {item?.role === "admin" ? (
-                              <button
-                                className="flex items-center gap-2 px-5 py-2 rounded-md my-2 from-rgbFrom to-rgbTo bg-gradient-to-r cursor-pointer"
-                                onClick={() =>
-                                  makeAdminFunc(item._id, "student")
-                                }
-                                disabled={loading}
-                              >
-                                <span>Make Student</span>
-                              </button>
-                            ) : item?.role === "super-admin" ? (
-                              <button
-                                className="bg-gray-400 flex items-center gap-2 bg-gradient-to-r px-10 py-2 rounded-md my-2
+                {filteredUsers.length === 0 ? (
+                  <div className=" w-[100%] flex justify-center">
+                    <p
+                      className=" text-center text-error  mt-3 font-bold text-[20px]
+                  w-[100%]
+                "
+                    >
+                      Not Found Anything!
+                    </p>
+                  </div>
+                ) : (
+                  filteredUsers.map(
+                    (item: any, index: any) =>
+                      item._id !== user?._id && (
+                        <tr className="text-textPrimary" key={index}>
+                          <td className="px-6 py-4">
+                            <p>{item?.email}</p>
+                          </td>
+                          <td className="px-6 py-4">
+                            <p>{item?.name}</p>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-2">
+                              <HiUsers />
+                              <p>{item?.role}</p>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className=" ">
+                              {item?.role === "admin" ? (
+                                <button
+                                  className="flex items-center gap-2 px-5 py-2 rounded-md my-2 from-rgbFrom to-rgbTo bg-gradient-to-r cursor-pointer"
+                                  onClick={() =>
+                                    makeAdminFunc(item._id, "student")
+                                  }
+                                  disabled={loading}
+                                >
+                                  <span>Make Student</span>
+                                </button>
+                              ) : item?.role === "super-admin" ? (
+                                <button
+                                  className="bg-gray-400 flex items-center gap-2 bg-gradient-to-r px-10 py-2 rounded-md my-2
                                cursor-not-allowed
                               "
-                              >
-                                No Permission
-                              </button>
-                            ) : (
-                              <button
-                                className={`flex items-center gap-2 bg-gradient-to-r px-5 py-2 rounded-md my-2 ${
-                                  item?.role === "admin"
-                                    ? "bg-gray-400"
-                                    : "from-rgbFrom to-rgbTo"
-                                }`}
-                                onClick={() => makeAdminFunc(item._id, "admin")}
-                                disabled={loading || item?.role === "admin"}
-                              >
-                                <span>
-                                  {loading
-                                    ? "Loading..."
-                                    : item.role === "admin"
-                                    ? "No Permission"
-                                    : "Make Admin"}
-                                </span>
-                              </button>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <button
-                            className={` text-white px-5 py-2 rounded-md my-2
+                                >
+                                  No Permission
+                                </button>
+                              ) : (
+                                <button
+                                  className={`flex items-center gap-2 bg-gradient-to-r px-5 py-2 rounded-md my-2 ${
+                                    item?.role === "admin"
+                                      ? "bg-gray-400"
+                                      : "from-rgbFrom to-rgbTo"
+                                  }`}
+                                  onClick={() =>
+                                    makeAdminFunc(item._id, "admin")
+                                  }
+                                  disabled={loading || item?.role === "admin"}
+                                >
+                                  <span>
+                                    {loading
+                                      ? "Loading..."
+                                      : item.role === "admin"
+                                      ? "No Permission"
+                                      : "Make Admin"}
+                                  </span>
+                                </button>
+                              )}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <button
+                              className={` text-white px-5 py-2 rounded-md my-2
                            ${
                              user?.role === "super-admin"
                                ? "bg-error"
                                : "cursor-not-allowed bg-gray-400 "
                            }
                           `}
-                            disabled={loading}
-                          >
-                            {user?.role === "super-admin" ? (
-                              <span onClick={() => removeUser(item._id)}>
-                                Remove
-                              </span>
-                            ) : (
-                              <span>No Permission</span>
-                            )}
-                          </button>
-                        </td>
-                      </tr>
-                    )
+                              disabled={loading}
+                            >
+                              {user?.role === "super-admin" ? (
+                                <span onClick={() => removeUser(item._id)}>
+                                  Remove
+                                </span>
+                              ) : (
+                                <span>No Permission</span>
+                              )}
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                  )
                 )}
               </tbody>
             </table>

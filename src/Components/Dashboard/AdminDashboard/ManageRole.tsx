@@ -5,9 +5,8 @@ import DashboardCard from "../DashboardCard";
 import toast from "react-hot-toast";
 
 const ManageRole = () => {
-  const { getAllUsers, allusers, makeAdmin, user, success } = useUserStore(
-    (state) => state
-  );
+  const { getAllUsers, allusers, makeAdmin, user, success, RemoveUser } =
+    useUserStore((state) => state);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const getAllUser = async () => {
@@ -15,6 +14,7 @@ const ManageRole = () => {
     };
     getAllUser();
   }, []);
+  // make admin function
   const makeAdminFunc = async (id: any, role: string) => {
     setLoading(true);
     await makeAdmin(id, role);
@@ -29,6 +29,24 @@ const ManageRole = () => {
       toast.error("Failed to update user role");
     }
   };
+  // make admin function
+  // remove user function
+  const removeUser = async (id: any) => {
+    setLoading(true);
+    await RemoveUser(id);
+    allusers.filter((item: any) =>
+      item._id === id ? (item.role = "student") : item
+    );
+    getAllUsers();
+    setLoading(false);
+    if (success) {
+      toast.success("User removed successfully");
+    } else {
+      toast.error("Failed to remove user");
+    }
+  };
+  // remove user function
+
   return (
     <DashboardCard title="Manage Roles">
       <div className=" grid grid-cols-12">
@@ -48,6 +66,9 @@ const ManageRole = () => {
                   </th>
                   <th scope="col" className="px-6 py-3 rounded-e-lg">
                     Role Change
+                  </th>
+                  <th scope="col" className="px-6 py-3 rounded-e-lg">
+                    Remove User
                   </th>
                 </tr>
               </thead>
@@ -72,7 +93,7 @@ const ManageRole = () => {
                           <div className=" ">
                             {item?.role === "admin" ? (
                               <button
-                                className="flex items-center gap-2 px-10 py-2 rounded-md my-2 from-rgbFrom to-rgbTo bg-gradient-to-r cursor-pointer"
+                                className="flex items-center gap-2 px-5 py-2 rounded-md my-2 from-rgbFrom to-rgbTo bg-gradient-to-r cursor-pointer"
                                 onClick={() =>
                                   makeAdminFunc(item._id, "student")
                                 }
@@ -90,7 +111,7 @@ const ManageRole = () => {
                               </button>
                             ) : (
                               <button
-                                className={`flex items-center gap-2 bg-gradient-to-r px-10 py-2 rounded-md my-2 ${
+                                className={`flex items-center gap-2 bg-gradient-to-r px-5 py-2 rounded-md my-2 ${
                                   item?.role === "admin"
                                     ? "bg-gray-400"
                                     : "from-rgbFrom to-rgbTo"
@@ -108,6 +129,26 @@ const ManageRole = () => {
                               </button>
                             )}
                           </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <button
+                            className={` text-white px-5 py-2 rounded-md my-2
+                           ${
+                             user?.role === "super-admin"
+                               ? "bg-error"
+                               : "cursor-not-allowed bg-gray-400 "
+                           }
+                          `}
+                            disabled={loading}
+                          >
+                            {user?.role === "super-admin" ? (
+                              <span onClick={() => removeUser(item._id)}>
+                                Remove
+                              </span>
+                            ) : (
+                              <span>No Permission</span>
+                            )}
+                          </button>
                         </td>
                       </tr>
                     )

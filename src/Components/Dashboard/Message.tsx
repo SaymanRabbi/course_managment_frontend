@@ -12,10 +12,8 @@ const Message = () => {
     (state) => state
   );
   const socket = useRef(
-    io("https://course-managment-backend.onrender.com:8800", {
+    io("ws://localhost:8800", {
       transports: ["websocket"],
-      reconnection: true,
-      reconnectionAttempts: 5,
     })
   );
   const [chats, setChats] = useState<any[]>([]);
@@ -103,7 +101,7 @@ const Message = () => {
                   key={chat?._id}
                   onClick={() => {
                     setCurrentChat(chat);
-                    setIndex(index + 1);
+                    setIndex(i);
                   }}
                   className={`
                   mb-2 overflow-y-auto  ${

@@ -60,9 +60,9 @@ const Banner: React.FC<Props> = ({
     }
   };
   return (
-    <div className={`grid grid-cols-12 ${className}`}>
+    <div className={`grid grid-cols-12 ${className}  mx-auto`}>
       <div className=" col-span-12 max-w-[100%]">
-        <div className=" p-[40px] flex justify-between items-center flex-wrap rounded-[10px] bg-gradient-to-r from-rgbFrom to-rgbTo">
+        <div className=" md:p-[40px] p-[20px] flex justify-between items-center flex-wrap rounded-[10px] bg-gradient-to-r from-rgbFrom to-rgbTo w-[100%]">
           <div className=" flex items-center flex-wrap justify-center">
             {/* ------dashboard left img----- */}
             <div className=" w-[120px] h-[120px] mr-[20px] relative flex items-center justify-center">
@@ -111,16 +111,16 @@ const Banner: React.FC<Props> = ({
               <h4 className=" font-[900] text-textPrimary text-[20px] mb-3 text-center sm:text-start">
                 {name}
               </h4>
-              <ul className=" flex gap-4">
-                <li className=" flex items-center gap-x-2 text-textSecondary">
+              <ul className=" grid grid-cols-12 gap-4">
+                <li className=" flex items-center md:col-span-4 col-span-6 gap-x-2 text-textSecondary">
                   <IoMdBook className=" text-lg" />
                   <span>{ernolledCourses} Courses Enroled</span>
                 </li>
-                <li className=" flex items-center gap-x-2 text-textSecondary">
+                <li className=" flex items-center gap-x-2 text-textSecondary md:col-span-4 col-span-6 ">
                   <LuAward className=" text-lg" />
                   <span>{certificate} Quiz Attempet</span>
                 </li>
-                <li className=" flex items-center gap-x-2 text-textSecondary">
+                <li className=" flex items-center gap-x-2 text-textSecondary md:col-span-4 col-span-6">
                   <MdAssignment className=" text-lg" />
                   <span>{assignment} Assignment</span>
                 </li>

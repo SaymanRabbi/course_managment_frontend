@@ -8,7 +8,7 @@ interface Props {
 const DashboardCard: React.FC<Props> = ({ children, title, className }) => {
   return (
     <div
-      className={`shadow-lg bg-bgPrimary/10 mb-[30px] px-[40px] py-[50px] rounded-[10px] ${className}`}
+      className={`shadow-lg bg-bgPrimary/10 mb-[30px] md:px-[40px] px-[5px] py-[50px] rounded-[10px] ${className}`}
     >
       {/* -------dashboard tittel---- */}
       <DashboardTittle>

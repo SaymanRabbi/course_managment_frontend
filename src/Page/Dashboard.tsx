@@ -8,7 +8,7 @@ const Dashboard = () => {
   const { user, assignments } = useUserStore((state) => state);
 
   return (
-    <Container className=" pt-[130px] xl:!px-[60px] px-[30px]">
+    <Container className=" pt-[130px] xl:!px-[60px] md:px-[30px] px-[10px]">
       <Banner
         name={user?.name || "User"}
         ernolledCourses={user?.courses?.length || 1}
@@ -17,7 +17,7 @@ const Dashboard = () => {
         buttonTitle="Enroll New Course"
       />
       {/* main part include sidebar and content */}
-      <div className=" grid grid-cols-12 p-4 mt-3 gap-8">
+      <div className=" grid grid-cols-12 p-4 mt-3 md:gap-8 gap-4">
         <div className=" col-span-12 lg:col-span-3">
           <Sidebar />
         </div>

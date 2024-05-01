@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MdOutlineVideoLibrary } from "react-icons/md";
 import { PiStudentBold } from "react-icons/pi";
 import { useUserStore } from "../../../Store/UserStore";
 import DashboardCard from "../DashboardCard";
 import DashboardTittle from "../DashboardTittle";
+import NotFound from "../../NotFound/NotFound";
 
 interface Data {
   name: string;
@@ -11,9 +12,11 @@ interface Data {
   icon: JSX.Element;
 }
 const AdminDashboardContent = () => {
+  const [search, setSearch] = useState("");
   const { allusers, getLeaderBoard, leaderBoard } = useUserStore(
     (state) => state
   );
+  const [filteredUsers, setFilteredUsers] = useState(leaderBoard);
   const data: Data[] = [
     {
       name: "Publish Courses",
@@ -29,7 +32,20 @@ const AdminDashboardContent = () => {
   useEffect(() => {
     getLeaderBoard();
   }, []);
+  // search function
+  useEffect(() => {
+    if (search === "") {
+      setFilteredUsers(leaderBoard);
+    } else {
+      setFilteredUsers(
+        leaderBoard?.filter((item: any) =>
+          item?.name?.toLowerCase()?.includes(search?.toLowerCase())
+        )
+      );
+    }
+  }, [search, leaderBoard]);
 
+  // search function
   return (
     <div>
       <DashboardCard title="Overview">
@@ -68,13 +84,20 @@ const AdminDashboardContent = () => {
             <h4 className=" font-[700] text-textPrimary text-[20px]">
               Leaderboard
             </h4>
-            <span className=" text-textPrimary font-[600]">See More ....</span>
+            {/* search func */}
+            <input
+              type="text"
+              placeholder="Search by name"
+              className=" w-[300px] h-[40px] border border-[#ccc] rounded-md px-4 py-1  outline-none"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            {/* search func */}
           </div>
         </DashboardTittle>
 
-        <div className="relative overflow-x-auto">
+        <div className="relative overflow-x-auto max-h-[300px] min-h-[300px]">
           <table className="w-full text-sm text-left ">
-            <thead className=" font-bold text-textPrimary text-[16px]">
+            <thead className=" font-bold text-textPrimary text-[16px] sticky top-0 bg-[#101130]">
               <tr>
                 <th scope="col" className="px-6 py-3 rounded-s-lg">
                   Student Name
@@ -88,18 +111,22 @@ const AdminDashboardContent = () => {
               </tr>
             </thead>
             <tbody>
-              {leaderBoard?.map((item: any, index: any) => (
-                <tr className=" text-textPrimary" key={index}>
-                  <td className="px-6 py-4">{item?.name}</td>
-                  <td className="px-6 py-4">
-                    <img
-                      src={item?.image}
-                      className=" w-[55px] h-[55px] rounded-full object-cover"
-                    />
-                  </td>
-                  <td className="px-6 py-4">{item?.totalScore}</td>
-                </tr>
-              ))}
+              {filteredUsers?.length === 0 ? (
+                <NotFound title="Not Found Anything"></NotFound>
+              ) : (
+                filteredUsers?.map((item: any, index: any) => (
+                  <tr className=" text-textPrimary" key={index}>
+                    <td className="px-6 py-4">{item?.name}</td>
+                    <td className="px-6 py-4">
+                      <img
+                        src={item?.image}
+                        className=" w-[55px] h-[55px] rounded-full object-cover"
+                      />
+                    </td>
+                    <td className="px-6 py-4">{item?.totalScore}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

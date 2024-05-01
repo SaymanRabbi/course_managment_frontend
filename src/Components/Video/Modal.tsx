@@ -37,16 +37,26 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
       setOpen(false);
     }, 1000);
   };
-
+  console.log(assignments);
   return (
     <>
       {assignments?.find((assignment: any) => assignment?.moduleId === id) ? (
-        <div className="absolute w-[30%]  mx-auto top-[40%] left-0 right-0 bg-white rounded-md p-6 text-black overflow-hidden ">
-          <span>
-            <strong className=" text-success">
-              Already Submitted The Assignment Wait For Result
-            </strong>
-          </span>
+        <div className="absolute w-[20%]  mx-auto top-[40%] left-0 right-0 bg-white rounded-md p-6 text-black overflow-hidden ">
+          <div className=" h-[200px] w-[100%]">
+            <p className=" text-[25px] text-center text-[#4350E0]">
+              <strong>Your Assignment Marks</strong>
+            </p>
+            <div className=" w-[150px] mx-auto  text-center">
+              <p className=" text-[50px] font-bold text-success">
+                {assignments?.map(
+                  (assignment: any) =>
+                    assignment?.moduleId === id && assignment?.AssignmentMarks
+                )}
+              </p>
+              <p className=" w-[100%] h-[3px] bg-gradient-to-r from-rgbFrom to-rgbTo"></p>
+              <p className=" text-[50px] font-bold text-[#4350E0]">60</p>
+            </div>
+          </div>
 
           <div
             className=" absolute top-[1px] right-2 cursor-pointer"

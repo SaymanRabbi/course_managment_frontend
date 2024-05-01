@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUserStore } from "../../../Store/UserStore";
 import DashboardCard from "../DashboardCard";
+import NotFound from "../../NotFound/NotFound";
 
 const AllAssignment = () => {
   const [search, setSearch] = useState("");
@@ -62,15 +63,7 @@ const AllAssignment = () => {
               </thead>
               <tbody className=" w-[100%]">
                 {filteredAssignments?.length === 0 ? (
-                  <div className=" w-[100%] flex justify-center">
-                    <p
-                      className=" text-center text-error  mt-3 font-bold text-[20px]
-                    w-[100%]
-                  "
-                    >
-                      Not Found Anything!
-                    </p>
-                  </div>
+                  <NotFound title="Not Found Anything"></NotFound>
                 ) : (
                   filteredAssignments?.map((item: any, index: any) => (
                     <tr className=" text-textPrimary" key={index}>

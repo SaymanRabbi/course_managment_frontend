@@ -51,7 +51,7 @@ interface UserStoreState {
   allAssignments: any;
   getAllAssignments: () => void;
   updateAssignmentMarks: (assignmentId: any, marks: any) => void;
-  leaderBoard: [];
+  leaderBoard: any;
   getLeaderBoard: () => void;
   RemoveUser: (id: any) => void;
 }

@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { CiVideoOn } from "react-icons/ci";
 import { MdAssignment, MdOutlineQuestionAnswer } from "react-icons/md";
@@ -19,14 +19,15 @@ const VideoPlayer = () => {
 
   const [assignment, setAssignment] = useState<any>({});
   const [search, setSearch] = useState("");
-  const [filterModule, setFilterModule] = useState([] as any);
+
   const [index, setIndex] = useState(
     Cookies.get("ind") ? JSON.parse(Cookies.get("ind") || "{}").videoindex : 0
   );
   const { courses, getCourses, updateProfileProgress } = useUserStore(
     (state) => state
   );
-
+  const [filterModule, setFilterModule] = useState(courses);
+  console.log(filterModule);
   const [video, setVideo] = useState(
     courses[0]?.modules[moduleIndex].lessons[index].url
   );
@@ -71,26 +72,20 @@ const VideoPlayer = () => {
   }, [video, setVideo, search]);
   // func to prev and next video
 
-  const filteredModules = useMemo(() => {
-    if (search) {
-      return (
-        courses[0]?.modules
-          ?.map((data: any) => ({
-            ...data,
-            modules: data?.modules?.filter((module: any) =>
-              module?.title?.toLowerCase()?.includes(search.toLowerCase())
-            ),
-          }))
-          .filter((data: any) => data?.modules?.length > 0) || []
-      );
+  useEffect(() => {
+    if (search === "") {
+      setFilterModule(courses);
     } else {
-      return courses;
+      setFilterModule(
+        courses.flatMap((course: any) =>
+          course.modules.filter((module: any) =>
+            module.title.toLowerCase().includes(search.toLowerCase())
+          )
+        )
+      );
+      console.log(courses);
     }
   }, [search, courses]);
-  useEffect(() => {
-    setFilterModule(filteredModules);
-  }, [filteredModules]);
-
   // useEffect to load the video where the user left off after window refresh
   const ModalIndex = (module: any, id: any) => {
     setAssignmentId(id);

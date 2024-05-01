@@ -3,6 +3,7 @@ import { HiUsers } from "react-icons/hi2";
 import { useUserStore } from "../../../Store/UserStore";
 import DashboardCard from "../DashboardCard";
 import toast from "react-hot-toast";
+import NotFound from "../../NotFound/NotFound";
 
 const ManageRole = () => {
   const [search, setSearch] = useState("");
@@ -100,15 +101,7 @@ const ManageRole = () => {
               </thead>
               <tbody>
                 {filteredUsers.length === 0 ? (
-                  <div className=" w-[100%] flex justify-center">
-                    <p
-                      className=" text-center text-error  mt-3 font-bold text-[20px]
-                  w-[100%]
-                "
-                    >
-                      Not Found Anything!
-                    </p>
-                  </div>
+                  <NotFound title="Not Found Anything"></NotFound>
                 ) : (
                   filteredUsers.map(
                     (item: any, index: any) =>

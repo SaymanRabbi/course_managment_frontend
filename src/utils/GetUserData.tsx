@@ -6,7 +6,7 @@ export default function GetUserData() {
 
   const token = Cookies.get("token");
   const {} = useQuery("user", async () => {
-    const url = `http://localhost:5000/api/v1/user/login/token`;
+    const url = `https://course-managment-backend.onrender.com/api/v1/user/login/token`;
     const resp = await fetch(url, {
       method: "GET",
       headers: {

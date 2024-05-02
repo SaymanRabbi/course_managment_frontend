@@ -26,7 +26,7 @@ const VideoPlayer = () => {
   const { courses, getCourses, updateProfileProgress } = useUserStore(
     (state) => state
   );
-  const [filterModule, setFilterModule] = useState(courses);
+  const [filterModule, setFilterModule] = useState(courses[0].modules);
   console.log(filterModule);
   const [video, setVideo] = useState(
     courses[0]?.modules[moduleIndex].lessons[index].url
@@ -74,7 +74,7 @@ const VideoPlayer = () => {
 
   useEffect(() => {
     if (search === "") {
-      setFilterModule(courses);
+      setFilterModule(courses[0].modules);
     } else {
       setFilterModule(
         courses.flatMap((course: any) =>
@@ -145,8 +145,8 @@ const VideoPlayer = () => {
             </div>
             {/* -----search--- */}
             {/* ----module list---- */}
-            {filterModule?.map((data: any) =>
-              data?.modules?.map((data: any, ind: any) => (
+            {courses?.map(() =>
+              filterModule.map((data: any, ind: any) => (
                 <div
                   className=" bg-bgPrimary p-3 rounded mt-4 w-[100%] overflow-hidden"
                   key={ind}

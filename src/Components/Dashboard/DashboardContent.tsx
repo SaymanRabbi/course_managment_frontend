@@ -6,6 +6,8 @@ import { useUserStore } from "../../Store/UserStore";
 import DashboardCard from "./DashboardCard";
 import DashboardTittle from "./DashboardTittle";
 import NotFound from "../NotFound/NotFound";
+import QuizChart from "./Chart/QuizChart";
+import AssignmentChart from "./Chart/AssignmentChart";
 interface Data {
   name: string;
   value: number;
@@ -13,9 +15,13 @@ interface Data {
 }
 const DashboardContent = () => {
   const [search, setSearch] = useState("");
-  const { user, assignments, leaderBoard, getLeaderBoard } = useUserStore(
-    (state) => state
-  );
+  const {
+    user,
+    assignments,
+    leaderBoard,
+    getLeaderBoard,
+    getAssignmentswithID,
+  } = useUserStore((state) => state);
   const [filteredUsers, setFilteredUsers] = useState(leaderBoard);
   const data: Data[] = [
     {
@@ -36,6 +42,7 @@ const DashboardContent = () => {
   ];
   useEffect(() => {
     getLeaderBoard();
+    getAssignmentswithID();
   }, []);
   // search function
   useEffect(() => {
@@ -81,6 +88,16 @@ const DashboardContent = () => {
               </div>
             </div>
           ))}
+        </div>
+        <div className=" grid  grid-cols-12 gap-x-8 mt-8">
+          <AssignmentChart
+            title="Assignment Mark"
+            ClassName="lg:col-span-6 col-span-12"
+          ></AssignmentChart>
+          <QuizChart
+            title="Quiz Mark"
+            ClassName="lg:col-span-6 col-span-12"
+          ></QuizChart>
         </div>
       </DashboardCard>
       <div className="shadow-lg bg-bgPrimary/10 mb-[30px] px-[40px] py-[50px] rounded-[10px]">

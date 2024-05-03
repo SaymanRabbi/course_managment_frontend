@@ -27,7 +27,7 @@ const VideoPlayer = () => {
     (state) => state
   );
   const [filterModule, setFilterModule] = useState(courses[0].modules);
-  console.log(filterModule);
+
   const [video, setVideo] = useState(
     courses[0]?.modules[moduleIndex].lessons[index].url
   );
@@ -83,7 +83,6 @@ const VideoPlayer = () => {
           )
         )
       );
-      console.log(courses);
     }
   }, [search, courses]);
   // useEffect to load the video where the user left off after window refresh
@@ -140,7 +139,7 @@ const VideoPlayer = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className=" w-[100%] rounded py-3 px-8 bg-transparent outline-none border-none text-textPrimary"
-                placeholder="Search Module"
+                placeholder="Search Module By title"
               />
             </div>
             {/* -----search--- */}

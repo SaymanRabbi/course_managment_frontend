@@ -4,6 +4,7 @@ import Container from "../Container/Container";
 import DynamicHedding from "../DynamicHedding/DynamicHedding";
 interface Route {
   title: string;
+  link?: string;
 }
 
 const Footer = () => {
@@ -38,15 +39,19 @@ const Footer = () => {
   const routeCourse: Route[] = [
     {
       title: "Web Development",
+      link: "/web-development",
     },
     {
       title: "Digital Marketing",
+      link: "/digital-marketing",
     },
     {
       title: "ILTES Course",
+      link: "/iltes-course",
     },
     {
-      title: "Soft Skills",
+      title: "Resume Writing",
+      link: "https://papaya-elf-c6e1b4.netlify.app/",
     },
   ];
   return (
@@ -119,12 +124,18 @@ const Footer = () => {
               </div>
             </div>
             <div>
-              <DynamicHedding>Course</DynamicHedding>
+              <DynamicHedding>Usefull Fetures</DynamicHedding>
               <div>
                 {routeCourse.map((item, index) => {
                   return (
                     <p className="mb-2 cursor-pointer" key={index}>
-                      {item.title}
+                      {item.title === "Resume Writing" ? (
+                        <a href={item?.link} target="_blank">
+                          {item.title}
+                        </a>
+                      ) : (
+                        <span>{item.title}</span>
+                      )}
                     </p>
                   );
                 })}

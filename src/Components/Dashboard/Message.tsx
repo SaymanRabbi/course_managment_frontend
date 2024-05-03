@@ -7,12 +7,13 @@ import Conversation from "./Conversation";
 import DashboardCard from "./DashboardCard";
 import { MdOutlineVideoCall } from "react-icons/md";
 import { Link } from "react-router-dom";
+
 const Message = () => {
   const { user, getAllUsers, allusers, isLoading } = useUserStore(
     (state) => state
   );
   const socket = useRef(
-    io("ws://localhost:8800", {
+    io("ws://localhost:5000/:8800", {
       transports: ["websocket"],
     })
   );

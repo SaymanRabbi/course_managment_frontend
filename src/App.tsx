@@ -41,8 +41,13 @@ import RoomId from "./Components/Dashboard/Room/RoomId";
 import Room from "./Components/Dashboard/Room/Room";
 
 function App() {
-  const { getUserByToken, getCourses, getAllUsers, getNotification } =
-    useUserStore((state: any) => state);
+  const {
+    getUserByToken,
+    getCourses,
+    getAllUsers,
+    getNotification,
+    getAssignmentswithID,
+  } = useUserStore((state: any) => state);
   const [previousRoute, setPreviousRoute] = useState("");
   const route = useLocation().pathname;
   useEffect(() => {
@@ -56,6 +61,7 @@ function App() {
   }, [route]);
   useEffect(() => {
     getNotification();
+    getAssignmentswithID();
   }, []);
   return (
     <>

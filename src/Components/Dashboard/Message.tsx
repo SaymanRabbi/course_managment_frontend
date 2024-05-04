@@ -12,8 +12,9 @@ const Message = () => {
   const { user, getAllUsers, allusers, isLoading } = useUserStore(
     (state) => state
   );
+
   const socket = useRef(
-    io("ws://localhost:5000/:8800", {
+    io("ws://localhost:8800", {
       transports: ["websocket"],
     })
   );

@@ -21,16 +21,24 @@ const Navbar = () => {
       name: "Home",
       link: "/",
     },
+
     {
       name: "Dashboard",
       link:
-        user?.role === "admin" ? "/dashboard/admin-dashboard" : "/dashboard",
+        user?.role === "admin" || user?.role === "super-admin"
+          ? "/dashboard/admin-dashboard"
+          : "/dashboard",
+    },
+    {
+      name: "Resume-Builder",
+      link: "https://papaya-elf-c6e1b4.netlify.app/",
     },
     {
       name: "login",
       link: "/login",
     },
   ];
+
   const Logout = async () => {
     logout();
     Cookies.remove("user");
@@ -69,6 +77,10 @@ const Navbar = () => {
                     >
                       Logout
                     </p>
+                  ) : item?.name === "Resume-Builder" ? (
+                    <a href={item?.link} target="_blank">
+                      {item?.name}
+                    </a>
                   ) : (
                     <Link
                       to={item.link}
@@ -134,6 +146,10 @@ const Navbar = () => {
                           >
                             Logout
                           </p>
+                        ) : item?.name === "Resume-Builder" ? (
+                          <a href={item?.link} target="_blank">
+                            {item?.name}
+                          </a>
                         ) : (
                           <Link
                             to={item.link}

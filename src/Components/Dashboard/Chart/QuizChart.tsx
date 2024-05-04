@@ -38,7 +38,7 @@ const QuizChart: React.FC<chartInterface> = ({ title, ClassName }) => {
 
     setavgScore(averageScorePercentage);
   }, [user, courses]);
-  console.log(user);
+
   return (
     <div
       className={`min-h-[300px] max-h-[300px] h-[100%]  bg-[#0B0C20]/70 rounded-[10px] shadow-md text-white px-4 py-6 w-[100%]
@@ -66,7 +66,7 @@ const QuizChart: React.FC<chartInterface> = ({ title, ClassName }) => {
         <div className=" py-2 px-4">
           <div>
             <h2>Complete Quiz</h2>
-            <span>{user?.quizs?.length}</span>
+            <span>{user?.quizs?.length || 0}</span>
           </div>
           <div className=" my-3">
             <h2>Incomplete Quiz</h2>
@@ -74,7 +74,7 @@ const QuizChart: React.FC<chartInterface> = ({ title, ClassName }) => {
           </div>
           <div>
             <h2>Total Quiz</h2>
-            <span>{totalquiz}</span>
+            <span>{totalquiz || 0}</span>
           </div>
         </div>
         {/* ------- */}

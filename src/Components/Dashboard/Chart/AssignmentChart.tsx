@@ -64,15 +64,15 @@ ${ClassName}
         <div className=" py-2 px-4">
           <div>
             <h2>Complete Assignment</h2>
-            <span>{user?.assignment?.length}</span>
+            <span>{user?.assignment?.length || 0}</span>
           </div>
           <div className=" my-3">
             <h2>Incomplete Assignment</h2>
             <span>{totalAssignments - (user?.assignment?.length || 0)}</span>
           </div>
           <div>
-            <h2>Total Quiz</h2>
-            <span>{totalAssignments}</span>
+            <h2>Total Assignment</h2>
+            <span>{totalAssignments || 0}</span>
           </div>
         </div>
         {/* ------- */}

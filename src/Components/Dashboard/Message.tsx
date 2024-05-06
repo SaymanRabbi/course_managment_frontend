@@ -85,7 +85,7 @@ const Message = () => {
   return (
     <DashboardCard title="Chat" className="relative">
       <div className=" absolute md:top-[7%] top-[4%] right-[5%]">
-        <Link to="/dashboard/room">
+        <Link to="/course_managment/room">
           <MdOutlineVideoCall size={30} className=" text-white" />
         </Link>
       </div>

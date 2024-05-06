@@ -6,6 +6,7 @@ import {
   FaRegBookmark,
   FaRegMessage,
 } from "react-icons/fa6";
+import { SiGooglemeet } from "react-icons/si";
 import { FiLogOut } from "react-icons/fi";
 import { GiTeacher } from "react-icons/gi";
 import { GrScorecard } from "react-icons/gr";
@@ -446,7 +447,14 @@ export const SideBaritem: SidebarInterface[] = [
     admin: true,
     super_admin: true,
   },
-
+  {
+    name: "Create Metting",
+    icon: <SiGooglemeet />,
+    link: "/course_managment/room",
+    student: true,
+    admin: true,
+    super_admin: true,
+  },
   {
     name: "Reviews",
     icon: <FaRegStar />,

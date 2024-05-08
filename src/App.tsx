@@ -73,6 +73,8 @@ function App() {
         <Route path="/forgot_pass" element={<ForgotPass />} />
         <Route path="/forgotpasscode/:id" element={<ForgotPassCode />} />
         <Route path="course-details/:id" element={<CourseDetails />} />
+        <Route path="/course_managment/room" element={<RoomId />} />
+        <Route path="/course_managment/room/:id" element={<Room />} />
         <Route
           element={
             <RequireAuth allowedRoles={["admin", "student", "super-admin"]} />
@@ -80,8 +82,7 @@ function App() {
         >
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard" element={<DashboardContent />} />
-            <Route path="/dashboard/room" element={<RoomId />} />
-            <Route path="/dashboard/room/:id" element={<Room />} />
+
             <Route path="/dashboard/profile" element={<Profile />} />
 
             <Route path="/dashboard/message" element={<Message />} />

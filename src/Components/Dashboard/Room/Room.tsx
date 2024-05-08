@@ -1,10 +1,9 @@
 import { useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-import { useUserStore } from "../../../Store/UserStore";
 
 const Room = () => {
   const { id } = useParams();
-  const { user } = useUserStore((state) => state);
+
   const myMetting = (element: any) => {
     const appID = 1899778546;
     const serverSecret = "4807dbd0651776970617bde0f351e4c6";
@@ -12,8 +11,8 @@ const Room = () => {
       appID,
       serverSecret,
       id || "",
-      user?._id || "",
-      user?.name
+      Date.now().toString() + 3600 * 1000,
+      "Course_Management"
     );
     const zc = ZegoUIKitPrebuilt.create(kitToken);
     zc.joinRoom({
@@ -27,7 +26,7 @@ const Room = () => {
       sharedLinks: [
         {
           name: "Copy Link",
-          url: `https://starlit-zuccutto-9d1e7d.netlify.app/dashboard/room/${id}`,
+          url: `http://localhost:5173/dashboard/room/${id}`,
         },
       ],
       scenario: {
@@ -37,8 +36,11 @@ const Room = () => {
     });
   };
   return (
-    <div>
-      <div ref={myMetting} />
+    <div className=" mt-[120px]  w-[100%]">
+      <div
+        ref={myMetting}
+        className="max-h-[500px] mx-auto px-[20px] max-w-[100%]!"
+      />
     </div>
   );
 };

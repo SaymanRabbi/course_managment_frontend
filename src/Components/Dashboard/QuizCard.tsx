@@ -11,9 +11,8 @@ interface Props {
 const HeroIq: React.FC<Props> = () => {
   const { id } = useParams<{ id: string }>();
   // get state---
-  const { getQuiz, courseId, quiz, token, updateQuiz, user } = useUserStore(
-    (state) => state
-  );
+  const { getQuiz, courseId, quiz, token, updateQuiz, user, isLoading } =
+    useUserStore((state) => state);
 
   // get state---
   const getQuizs = async () => {
@@ -256,7 +255,7 @@ const HeroIq: React.FC<Props> = () => {
                       : "text-textPrimary bg-gradient-to-r from-rgbFrom to-rgbTo !px-[4px] lg:!px-[10px]"
                   }`}
                   onClick={Finish}
-                  disabled={click[nextIndex] === undefined}
+                  disabled={click[nextIndex] === undefined || isLoading}
                 >
                   Finish
                 </Button>

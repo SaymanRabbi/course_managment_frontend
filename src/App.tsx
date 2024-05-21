@@ -17,7 +17,6 @@ import Login from "./Page/Login";
 import AdminDashboard from "./Components/Dashboard/AdminDashboard/AdminDashboard";
 import ManageRole from "./Components/Dashboard/AdminDashboard/ManageRole";
 import Notifications from "./Components/Dashboard/AdminDashboard/Notifications";
-import PopularInstructor from "./Components/Dashboard/AdminDashboard/PopularInstructor";
 
 import Quiz from "./Components/Dashboard/Quiz";
 import Setting from "./Components/Dashboard/Setting";
@@ -39,6 +38,7 @@ import CourseDetails from "./Components/Dashboard/AdminDashboard/CourseDetails";
 import NoticeBoard from "./Components/Dashboard/AdminDashboard/NoticeBoard";
 import RoomId from "./Components/Dashboard/Room/RoomId";
 import Room from "./Components/Dashboard/Room/Room";
+import PuzzleGame from "./Components/Dashboard/PuzzleGame/PuzzleGame";
 
 function App() {
   const {
@@ -56,6 +56,7 @@ function App() {
       getUserByToken();
       getCourses();
       getAllUsers();
+      getAssignmentswithID();
       setPreviousRoute(route); // Update the previous route after the function call
     }
   }, [route]);
@@ -117,10 +118,7 @@ function App() {
             <Route path="/dashboard/add-module" element={<AddModule />} />
             <Route path="/dashboard/manageRole" element={<ManageRole />} />
             <Route path="/dashboard/notice-board" element={<NoticeBoard />} />
-            <Route
-              path="/dashboard/popular-instructor"
-              element={<PopularInstructor />}
-            />
+            <Route path="/dashboard/puzzle-game" element={<PuzzleGame />} />
 
             <Route
               path="/dashboard/admin-dashboard"

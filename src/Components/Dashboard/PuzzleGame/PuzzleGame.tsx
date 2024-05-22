@@ -35,21 +35,20 @@ const PuzzleGame = () => {
   };
   const handleKeyDown = (e: any) => {
     const i16 = boards.find((n) => n.value === 16)?.position || 0;
-    if (e.keyCode === 37 && !(i16 % 4 === 3))
-      moveTile(boards.find((n) => n.position === i16 + 1)?.position || 0);
-    if (e.keyCode === 38 && !(i16 > 11))
-      moveTile(boards.find((n) => n.position === i16 + 4)?.position || 0);
-    if (e.keyCode === 39 && !(i16 % 4 === 0))
-      moveTile(boards.find((n) => n.position === i16 - 1)?.position || 0);
-    if (e.keyCode === 40 && !(i16 < 4))
-      moveTile(boards.find((n) => n.position === i16 - 4)?.position || 0);
+    if (animating) return;
+    if (e.key === "ArrowUp" && i16 + 4 < 16) moveTile(i16 + 4);
+    if (e.key === "ArrowDown" && i16 - 4 >= 0) moveTile(i16 - 4);
+    if (e.key === "ArrowLeft" && i16 + 1 < 16 && i16 % 4 !== 3)
+      moveTile(i16 + 1);
+    if (e.key === "ArrowRight" && i16 - 1 >= 0 && i16 % 4 !== 0)
+      moveTile(i16 - 1);
   };
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [boards]);
+  }, [boards, animating]);
   const handleNewGame = () => {
     setBoards(Shuffle());
   };
@@ -61,7 +60,7 @@ const PuzzleGame = () => {
       <div className="flex justify-center items-center">
         {/* ------board */}
         <div className="relative p-5">
-          <div className="  grid board rounded-[5px] relative overflow-hidden border-[10px] border-solid border-[#8158EB] ">
+          <div className="  grid board rounded-[10px] relative overflow-hidden border-[5px] border-solid border-[#8158EB] grid-cols-custom grid-rows-custom lg:grid-cols-customs lg:grid-rows-customs">
             <Overly />
             {boards.map((item, index) => (
               <Tile

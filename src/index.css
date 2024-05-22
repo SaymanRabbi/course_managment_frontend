@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .grid-cols-custom {
+    grid-template-columns: repeat(4, 100px);
+  }
+  .grid-rows-custom {
+    grid-template-rows: repeat(4, 100px);
+  }
+  .grid-cols-customs {
+    grid-template-columns: repeat(4, 200px);
+  }
+  .grid-rows-customs {
+    grid-template-rows: repeat(4, 200px);
+  }
+}

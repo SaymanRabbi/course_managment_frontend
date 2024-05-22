@@ -26,10 +26,11 @@ const VideoPlayer = () => {
   const { courses, getCourses, updateProfileProgress } = useUserStore(
     (state) => state
   );
-  const [filterModule, setFilterModule] = useState(courses[0].modules);
+  console.log(courses);
+  const [filterModule, setFilterModule] = useState(courses[0]?.modules);
 
   const [video, setVideo] = useState(
-    courses[0]?.modules[moduleIndex].lessons[index].url
+    courses[0]?.modules[moduleIndex]?.lessons[index].url
   );
   const [assignmentId, setAssignmentId] = useState("");
   useEffect(() => {
@@ -74,7 +75,7 @@ const VideoPlayer = () => {
 
   useEffect(() => {
     if (search === "") {
-      setFilterModule(courses[0].modules);
+      setFilterModule(courses[0]?.modules);
     } else {
       setFilterModule(
         courses.flatMap((course: any) =>

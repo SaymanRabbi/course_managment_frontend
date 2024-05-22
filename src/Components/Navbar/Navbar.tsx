@@ -106,7 +106,7 @@ const Navbar = () => {
               <div className=" w-[50px] h-[50px] rounded-full bg-gradient-to-r to-rgbFrom  from-rgbTo flex items-center justify-center text-textPrimary p-[1px] object-cover">
                 <img
                   src={user?.ProfileImage}
-                  className=" w-full h-full rounded-full"
+                  className=" w-full h-full rounded-full object-cover"
                   alt=""
                 />
               </div>
@@ -169,7 +169,11 @@ const Navbar = () => {
                   })}
                   {user ? (
                     <div className=" w-[50px] h-[50px] rounded-full bg-gradient-to-r to-rgbFrom  from-rgbTo flex items-center justify-center text-textPrimary">
-                      user
+                      <img
+                        src={user?.ProfileImage}
+                        className=" w-full h-full rounded-full object-cover"
+                        alt=""
+                      />
                     </div>
                   ) : (
                     ""

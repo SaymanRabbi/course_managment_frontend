@@ -14,7 +14,7 @@ const QuizChart: React.FC<chartInterface> = ({ title, ClassName }) => {
     courses?.map((item: any) =>
       item?.modules?.map((item: any) =>
         item?.lessons?.map((item: any) => {
-          if (item?.type === "quiz") {
+          if (item?.type === "quiz" && item?.title) {
             Totalquiz++;
           }
         })

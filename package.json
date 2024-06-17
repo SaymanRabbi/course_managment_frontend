@@ -35,6 +35,8 @@
     "react-input-emoji": "^5.7.1",
     "react-loading-skeleton": "^3.4.0",
     "react-player": "^2.14.1",
+    "react-rating": "^2.0.5",
+    "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^6.21.1",
     "socket.io-client": "^4.5.1",
     "timeago.js": "^4.0.2",

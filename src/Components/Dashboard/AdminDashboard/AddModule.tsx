@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { FormData } from "../../../Types";
 import toast from "react-hot-toast";
 import { useUserStore } from "../../../Store/UserStore";
@@ -106,8 +106,8 @@ const AddModule = () => {
     dataform.append("file", e.target.videoUrl.files[0]);
     try {
       setLoading(true);
-      const api = "https://api.cloudinary.com/v1_1/dnr5u3jpb/video/upload";
-      const uploadPreset = "byni9vwa";
+      const api = "https://api.cloudinary.com/v1_1/dy9yjhmex/video/upload";
+      const uploadPreset = "tvdtkyp5";
       const res = await axios.post(api, dataform, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -121,12 +121,11 @@ const AddModule = () => {
         ...prev,
         { title: videoTitle, url: secure_url, type: "video", isWatched: false },
       ]);
-
-      setLoading(false);
+      e.target.reset();
     } catch (error) {}
-    e.target.reset();
+    setLoading(false);
   };
-
+  useEffect(() => {}, [video, loading]);
   // ------AddVideo Function------- //
   // module titel
   const moduleTitle = (e: any) => {

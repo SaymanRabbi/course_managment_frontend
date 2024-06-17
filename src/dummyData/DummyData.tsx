@@ -8,10 +8,10 @@ import {
 } from "react-icons/fa6";
 import { SiGooglemeet } from "react-icons/si";
 import { FiLogOut } from "react-icons/fi";
-import { GiTeacher } from "react-icons/gi";
+
 import { GrScorecard } from "react-icons/gr";
 import { IoIosNotifications } from "react-icons/io";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoGameController, IoSettingsOutline } from "react-icons/io5";
 import { LuUser } from "react-icons/lu";
 import { MdAssignment, MdManageAccounts, MdQuiz } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
@@ -432,14 +432,6 @@ export const SideBaritem: SidebarInterface[] = [
     super_admin: true,
   },
   {
-    name: "Message",
-    icon: <FaRegMessage />,
-    link: "/dashboard/message",
-    student: true,
-    admin: true,
-    super_admin: true,
-  },
-  {
     name: "Enrolled Courses",
     icon: <FaRegBookmark />,
     link: "/dashboard/enrolled-courses",
@@ -447,6 +439,15 @@ export const SideBaritem: SidebarInterface[] = [
     admin: true,
     super_admin: true,
   },
+  {
+    name: "Message",
+    icon: <FaRegMessage />,
+    link: "/dashboard/message",
+    student: true,
+    admin: true,
+    super_admin: true,
+  },
+
   {
     name: "Create Metting",
     icon: <SiGooglemeet />,
@@ -456,12 +457,12 @@ export const SideBaritem: SidebarInterface[] = [
     super_admin: true,
   },
   {
-    name: "Reviews",
-    icon: <FaRegStar />,
-    link: "/dashboard/reviews",
-    student: true,
+    name: "Puzzle Game",
+    icon: <IoGameController />,
+    link: "/dashboard/puzzle-game",
     admin: true,
     super_admin: true,
+    student: true,
   },
   {
     name: "My Quiz Attempts",
@@ -475,29 +476,6 @@ export const SideBaritem: SidebarInterface[] = [
     name: "My Assignments",
     icon: <MdAssignment />,
     link: "/dashboard/assignments",
-    student: true,
-    admin: true,
-    super_admin: true,
-  },
-
-  {
-    name: "Popular-Instructor",
-    icon: <GiTeacher />,
-    link: "/dashboard/popular-instructor",
-    admin: true,
-    super_admin: true,
-  },
-  {
-    name: "Notice-Board",
-    icon: <FaClipboard />,
-    link: "/dashboard/notice-board",
-    admin: true,
-    super_admin: true,
-  },
-  {
-    name: "Notifications",
-    icon: <IoIosNotifications />,
-    link: "/dashboard/notifications",
     student: true,
     admin: true,
     super_admin: true,
@@ -520,6 +498,29 @@ export const SideBaritem: SidebarInterface[] = [
     name: "Add Module",
     icon: <VscFileSubmodule />,
     link: "/dashboard/add-module",
+    admin: true,
+    super_admin: true,
+  },
+  {
+    name: "Notice-Board",
+    icon: <FaClipboard />,
+    link: "/dashboard/notice-board",
+    admin: true,
+    super_admin: true,
+  },
+  {
+    name: "Notifications",
+    icon: <IoIosNotifications />,
+    link: "/dashboard/notifications",
+    student: true,
+    admin: true,
+    super_admin: true,
+  },
+  {
+    name: "Reviews",
+    icon: <FaRegStar />,
+    link: "/dashboard/reviews",
+    student: true,
     admin: true,
     super_admin: true,
   },

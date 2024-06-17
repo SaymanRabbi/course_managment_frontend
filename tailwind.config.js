@@ -13,6 +13,8 @@ export default {
         textSecondary: "#eee0ff",
         rgbFrom: "#384fde",
         rgbTo: "#985cf0",
+        tile: "#342956",
+        correct: "#6e50b4",
       },
     },
   },

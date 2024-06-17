@@ -1,0 +1,6 @@
+.number.disabled {
+  pointer-events: none;
+}
+.tile {
+  transition: left 0.5s, top 0.5s;
+}

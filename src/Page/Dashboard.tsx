@@ -3,10 +3,13 @@ import Container from "../Components/Container/Container";
 import Banner from "../Components/DashboardBanner/Banner";
 import Sidebar from "../Components/DashboardSideBar/Sidebar";
 import { useUserStore } from "../Store/UserStore";
+import { useEffect } from "react";
 
 const Dashboard = () => {
-  const { user, assignments } = useUserStore((state) => state);
-
+  const { user, assignments, getNotification } = useUserStore((state) => state);
+  useEffect(() => {
+    getNotification();
+  }, []);
   return (
     <Container className=" pt-[130px] xl:!px-[60px] md:px-[30px] px-[10px]">
       <Banner

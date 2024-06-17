@@ -5,29 +5,29 @@ import DashboardCard from "./DashboardCard";
 import { FaStar } from "react-icons/fa";
 import Button from "../Button/Button";
 import toast from "react-hot-toast";
+import { useUserStore } from "../../Store/UserStore";
 
 const Reviews = () => {
+  const { addReview } = useUserStore((state) => state);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const handleRatingClick = (index: any) => {
     setRating(index + 1);
   };
-  const handleSubmitReview = (e: any) => {
+  const handleSubmitReview = async (e: any) => {
     e.preventDefault();
+
     if (rating === 0) {
       return toast.error("Please Select Rating");
     }
     if (review === "") {
       return toast.error("Please Write Review");
     }
-    const data = {
-      rating,
-      review,
-    };
-    console.log(data);
+
     e.target.reset();
     setRating(0);
     toast.success("Review Submitted Successfully");
+    addReview(rating - 1, review);
   };
   return (
     <DashboardCard title="Reviews">

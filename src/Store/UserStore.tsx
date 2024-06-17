@@ -13,6 +13,7 @@ interface UserStoreState {
   logout: () => void;
   success: null;
   messages: string;
+  addReview: (rating: any, comment: any) => void;
   verifyToken: (token: string) => Promise<void>;
   clearMessages: () => void;
   passwordReset: (email: string) => Promise<void>;
@@ -726,6 +727,31 @@ export const useUserStore = create<UserStoreState>((set) => ({
           "Content-Type": "application/json",
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
+      });
+      const data = await resp.json();
+      if (data) {
+        set({
+          isLoading: false,
+          success: data?.status,
+          messages: data.message,
+          serverError: null,
+        });
+      }
+    } catch (error: any) {
+      set({ serverError: error?.message, isLoading: false });
+    }
+  },
+  addReview: async (rating, comment) => {
+    try {
+      set({ isLoading: true, success: null, messages: "", serverError: null });
+      const url = `  http://localhost:5000/api/v1/course/addReview/660064f53d5fc7b5c8a5267a`;
+      const resp = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+        body: JSON.stringify({ rating, comment }),
       });
       const data = await resp.json();
       if (data) {

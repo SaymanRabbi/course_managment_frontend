@@ -462,6 +462,7 @@ export const SideBaritem: SidebarInterface[] = [
     link: "/dashboard/puzzle-game",
     admin: true,
     super_admin: true,
+    student: true,
   },
   {
     name: "My Quiz Attempts",

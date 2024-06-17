@@ -83,7 +83,7 @@ function App() {
         >
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="/dashboard" element={<DashboardContent />} />
-
+            <Route path="/dashboard/puzzle-game" element={<PuzzleGame />} />
             <Route path="/dashboard/profile" element={<Profile />} />
 
             <Route path="/dashboard/message" element={<Message />} />
@@ -118,7 +118,6 @@ function App() {
             <Route path="/dashboard/add-module" element={<AddModule />} />
             <Route path="/dashboard/manageRole" element={<ManageRole />} />
             <Route path="/dashboard/notice-board" element={<NoticeBoard />} />
-            <Route path="/dashboard/puzzle-game" element={<PuzzleGame />} />
 
             <Route
               path="/dashboard/admin-dashboard"

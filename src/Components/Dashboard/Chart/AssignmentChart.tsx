@@ -8,13 +8,14 @@ interface chartInterface {
 const AssignmentChart: React.FC<chartInterface> = ({ title, ClassName }) => {
   const { user, courses } = useUserStore((state) => state);
   const [totalAssignments, setTotalAssignments] = useState(0);
+  console.log(courses);
   const [avgScore, setavgScore] = useState(0);
   useEffect(() => {
     let Totalquiz = 0;
     courses?.map((item: any) =>
       item?.modules?.map((item: any) =>
         item?.lessons?.map((item: any) => {
-          if (item?.type === "assignment") {
+          if (item?.type === "assignment" && item?.title) {
             Totalquiz++;
           }
         })

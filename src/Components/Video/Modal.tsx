@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useUserStore } from "../../Store/UserStore";
 import Button from "../Button/Button";
@@ -8,6 +8,7 @@ interface ModalProps {
   id: string;
 }
 const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
+  const [text, setText] = useState(null);
   const { addAssignment, getAssignmentswithID, assignments } = useUserStore(
     (state) => state
   );
@@ -85,6 +86,7 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
             <div>
               <span>
                 <strong className=" text-[13px] font-[400]">
+                  <span className=" font-bold text-[15px]">Description:</span>{" "}
                   {modals?.assignmentDetails?.instructions}
                 </strong>
               </span>
@@ -96,12 +98,14 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
                 name="answer"
                 rows={10}
                 placeholder="Write Your Answer Here..."
+                onChange={(e: any) => setText(e?.target?.value)}
               />
             </div>
             <div>
               <Button
                 className="w-[30%]  bg-gradient-to-r from-rgbFrom to-rgbTo"
                 type="submit"
+                disabled={text === null || text === ""}
               >
                 Submit Assignment
               </Button>

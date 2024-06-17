@@ -1,6 +1,6 @@
 import axios from "axios";
 const Api = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://course-managment-backend.onrender.com",
 });
 export const userChats = async (userId: any) =>
   Api.get(`/api/v1/chat/${userId}`);

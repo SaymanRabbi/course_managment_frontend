@@ -1,19 +1,45 @@
 import { useEffect } from "react";
 import { GiBuyCard } from "react-icons/gi";
 import { GrUserManager } from "react-icons/gr";
-import { IoStar } from "react-icons/io5";
+
 import { useUserStore } from "../../../Store/UserStore";
 import DynamicHedding from "../../DynamicHedding/DynamicHedding";
 import ButtonPages from "./ButtonPages";
-
+import { IoStar, IoStarHalf, IoStarOutline } from "react-icons/io5";
+interface Review {
+  rating: number;
+}
 const CourseDetails = () => {
-  const { courses, insTructor, getInstructor } = useUserStore(
+  const { courses, insTructor, getInstructor, allusers } = useUserStore(
     (state: any) => state
   );
   useEffect(() => {
     getInstructor(courses[0]?.teacherID);
   }, [courses[0]?.teacherID]);
+  const getStarRating = (reviews: Review[]) => {
+    if (!reviews || reviews.length === 0) return { stars: [], rating: 0 };
 
+    // Calculate average rating
+    const total = reviews.reduce((acc: any, item: any) => acc + item.rating, 0);
+    const averageRating = Number((total / reviews.length).toFixed(1));
+
+    // Round to the nearest half
+    const roundedRating = Math.round(averageRating * 2) / 2;
+
+    // Generate stars
+    const fullStars = Math.floor(roundedRating);
+    const halfStar = roundedRating % 1 !== 0;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+    const stars = [
+      ...Array(fullStars).fill(<IoStar />),
+      ...(halfStar ? [<IoStarHalf />] : []),
+      ...Array(emptyStars).fill(<IoStarOutline />),
+    ];
+
+    return { stars, rating: roundedRating };
+  };
+  const { stars } = getStarRating(courses[0]?.reviews);
   return (
     <div className=" mt-[130px] md:w-[70%] mx-auto px-[20px]">
       <img
@@ -30,21 +56,23 @@ const CourseDetails = () => {
         <div className="text-textPrimary md:flex items-center gap-8">
           <div className="flex items-center gap-2">
             <GiBuyCard className="" />
-            <p>700 students</p>
+            <p>{allusers?.length || 0} Students</p>
           </div>
           <div className="flex items-center gap-2">
             <GrUserManager />
-            <p>{insTructor?.name}</p>
+            <p>Author - {insTructor?.name}</p>
           </div>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2 text-rgbTo">
-              <IoStar />
-              <IoStar />
-              <IoStar />
-              <IoStar />
-              <IoStar />
+              <div className="flex items-center gap-1">
+                {stars.map((star: any, index: any) => (
+                  <span key={index} className=" text-[20px]">
+                    {star}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div>(46)</div>
+            <div>({courses[0]?.reviews?.length})</div>
           </div>
         </div>
       </div>

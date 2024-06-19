@@ -1,7 +1,6 @@
 import { Line } from "rc-progress";
 import { IoStar } from "react-icons/io5";
 import { useUserStore } from "../../../../Store/UserStore";
-
 const DetailsReviews = () => {
   const { courses } = useUserStore((state) => state);
   const ratingCounts = [0, 0, 0, 0, 0]; // Array to store counts for ratings 1 to 5

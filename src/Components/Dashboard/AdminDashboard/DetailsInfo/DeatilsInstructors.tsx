@@ -22,6 +22,20 @@ const DeatilsInstructors: React.FC<DeatilsInstructorsProps> = ({
             <p className="text-sm mt-1">{insTructor?.ExpartIn}</p>
             <p className="mt-4">{insTructor?.Biography}</p>
           </div>
+          <div>
+            <span>
+              Hi This Is Sayman Rabbi MERN Stack Developer In Bangladesh Contact
+              <br />
+              me:{" "}
+              <a
+                href="https://www.linkedin.com/in/sayman-rabbi-5b8aa11ab/"
+                target="_blank"
+                className=" text-link"
+              >
+                https://www.linkedin.com/in/sayman-rabbi-5b8aa11ab/
+              </a>
+            </span>
+          </div>
           <div className="flex items-center gap-4 mt-4">
             <div className="border border-textPrimary p-2 rounded-lg">
               <FaFacebookF size={15} />

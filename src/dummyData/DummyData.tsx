@@ -498,7 +498,6 @@ export const SideBaritem: SidebarInterface[] = [
     name: "Add Module",
     icon: <VscFileSubmodule />,
     link: "/dashboard/add-module",
-    admin: true,
     super_admin: true,
   },
   {

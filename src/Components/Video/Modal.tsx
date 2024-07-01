@@ -9,9 +9,8 @@ interface ModalProps {
 }
 const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
   const [text, setText] = useState(null);
-  const { addAssignment, getAssignmentswithID, assignments } = useUserStore(
-    (state) => state
-  );
+  const { addAssignment, getAssignmentswithID, assignments, isLoading } =
+    useUserStore((state) => state);
   useEffect(() => {
     const fetchAssignments = async () => {
       await getAssignmentswithID();
@@ -37,6 +36,14 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
       toast.success("Assignment Submitted Successfully");
       setOpen(false);
     }, 1000);
+  };
+  // formate date---
+  const formatDate = (isoString: any) => {
+    const date = new Date(isoString);
+    return new Intl.DateTimeFormat("en-GB", {
+      day: "numeric",
+      month: "long",
+    }).format(date);
   };
   return (
     <>
@@ -79,15 +86,22 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
             {/* deadline */}
             <div>
               <span>
-                <strong>Deadline: {modals?.assignmentDetails?.deadline}</strong>
+                <strong>
+                  <span className=" text-[20px]">Deadline:</span>{" "}
+                  <span className=" text-error text-[18px]">
+                    {formatDate(modals?.assignmentDetails?.deadline)}
+                  </span>
+                </strong>
               </span>
             </div>
             {/* instruction */}
             <div>
               <span>
                 <strong className=" text-[13px] font-[400]">
-                  <span className=" font-bold text-[15px]">Description:</span>{" "}
-                  {modals?.assignmentDetails?.instructions}
+                  <span className=" font-bold text-[20px]">Description:</span>{" "}
+                  <span className=" text-[18px] tracking-wide text-[#925BEF]">
+                    {modals?.assignmentDetails?.instructions}
+                  </span>
                 </strong>
               </span>
             </div>
@@ -103,9 +117,13 @@ const Modal: React.FC<ModalProps> = ({ modals, setOpen, id }) => {
             </div>
             <div>
               <Button
-                className="w-[30%]  bg-gradient-to-r from-rgbFrom to-rgbTo"
+                className={`w-[30%]  ${
+                  text === null || text === "" || isLoading
+                    ? "bg-gray-400"
+                    : "bg-gradient-to-r from-rgbFrom to-rgbTo"
+                } text-white mt-4`}
                 type="submit"
-                disabled={text === null || text === ""}
+                disabled={text === null || text === "" || isLoading}
               >
                 Submit Assignment
               </Button>

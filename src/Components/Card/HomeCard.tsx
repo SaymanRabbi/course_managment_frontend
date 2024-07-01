@@ -75,7 +75,7 @@ const HomeCard = () => {
                     <p>
                       If you do not use a Bangladeshi mobile number at the time
                       of enrollment, the course fee will be{" "}
-                      {item.price * 100 + 100} Tk
+                      {item.price * 100 + 300} Tk
                     </p>
                   </div>
                   {/* show some text is that available or not */}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import InputEmoji from "react-input-emoji";
 import { format } from "timeago.js";
 import { getMessages, getUser, sendMessageserver } from "../../api/ChatRequest";
+import { useUserStore } from "../../Store/UserStore";
 interface ChatBoxProps {
   chat: any;
   currentUser: any;
@@ -21,7 +22,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
   const [messages, setMessages] = useState<any[]>([]);
   const scrollRef = useRef<any>();
   const [newMessage, setNewMessage] = useState<any>("");
-
+  const { isLoading } = useUserStore((state) => state);
   useEffect(() => {
     if (recivedMessages !== null && recivedMessages.chatId === chat?._id) {
       setMessages((prev) => [...prev, recivedMessages]);
@@ -34,9 +35,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
       try {
         const { data } = await getUser(userId);
         setUserData(data?.data);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
     if (chat !== null) getUserData();
   }, [chat, currentUser]);
@@ -67,9 +66,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
       setMessages((prev) => [...prev, data]);
       setNewMessage("");
       e.target.value = "";
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
     const reciverId = chat?.members?.find((id: any) => id !== currentUser);
     setSendMessages({ reciverId, ...messages });
   };
@@ -93,7 +90,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({
         </div>
       </div>
       <hr className=" bg-gray-300 mb-2" />
-      <div className=" min-h-[470px] overflow-y-auto px-2 max-h-[570px] h-[100%]">
+      <div className=" min-h-[520px] overflow-y-auto px-2 max-h-[570px] h-[100%]">
         {messages?.map((message: any, i: any) => (
           <div
             key={i}
@@ -131,8 +128,13 @@ const ChatBox: React.FC<ChatBoxProps> = ({
           placeholder="Type a message"
         />
         <button
-          className="bg-gradient-to-r from-rgbFrom to-rgbTo text-white px-4 py-2 rounded-md bg-gray-900 "
+          className={` text-white px-4 py-2 rounded-md bg-gray-500  ${
+            isLoading || newMessage === ""
+              ? "cursor-not-allowed "
+              : "cursor-pointer bg-gradient-to-r from-rgbFrom to-rgbTo"
+          }`}
           onClick={(e) => sendMessage(e)}
+          disabled={isLoading || newMessage === ""}
         >
           Send
         </button>

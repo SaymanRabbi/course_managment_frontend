@@ -61,7 +61,7 @@ const CourseAvailabilityTimer: React.FC<CourseAvailabilityTimerProps> = ({
           {formatTime(remainingTime)}
         </h2>
       ) : (
-        <h2>Course is no longer available.</h2>
+        <h2>Its Free For All User ✌✌</h2>
       )}
     </div>
   );

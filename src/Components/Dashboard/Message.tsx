@@ -14,7 +14,7 @@ const Message = () => {
   );
 
   const socket = useRef(
-    io("wss://course-managment-backend.onrender.com", {
+    io("wss://course-managment-backend.onrender.com:5000", {
       transports: ["websocket"],
     })
   );

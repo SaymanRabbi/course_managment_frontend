@@ -5,8 +5,8 @@ const Room = () => {
   const { id } = useParams();
 
   const myMetting = (element: any) => {
-    const appID = 1760210021;
-    const serverSecret = "fdfd198229c12fd162e98084a9e5cfb8";
+    const appID = 57233930;
+    const serverSecret = "9ab549aaf77e2733e4db5b296694a4c3";
     const kitToken = ZegoUIKitPrebuilt?.generateKitTokenForTest(
       appID,
       serverSecret,
@@ -26,7 +26,7 @@ const Room = () => {
       sharedLinks: [
         {
           name: "Copy Link",
-          url: `http://localhost:5173/dashboard/room/${id}`,
+          url: `https://starlit-zuccutto-9d1e7d.netlify.app/dashboard/room/${id}`,
         },
       ],
       scenario: {
